@@ -23,6 +23,30 @@
   width: 100%;
   box-sizing: border-box;
 
+  &.workHeader {
+    color: black;
+    
+    .navContainer {
+      .menuName p {
+        color: black;
+      }
+      .MenuEndicator {
+        background-color: black;
+      }
+    }
+    
+    .nav {
+      .el {
+        p {
+          color: black;
+        }
+        .endicator {
+          background-color: black;
+        }
+      }
+    }
+  }
+
   .navContainer {
     .menuName p{
       font-size: 18px;

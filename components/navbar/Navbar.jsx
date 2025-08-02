@@ -3,16 +3,20 @@ import Links from "./link";
 import { motion } from "framer-motion";
 import { menuSlider } from "./anima";
 import Curve from "./curve/Curve";
+import { usePathname } from "next/navigation";
 
 const Navbar = ({ toggleMenu }) => {
+  const pathname = usePathname();
+  const isWorkPage = pathname === "/work";
+  
   const navItems = [
-    {
+    ...(isWorkPage ? [{
       title: "Home",
       href: "/",
-    },
+    }] : []),
     {
-      title: "Works",
-      href: "/works",
+      title: "Work",
+      href: "/work",
     },
     {
       title: "Contact",

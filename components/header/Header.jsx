@@ -7,10 +7,18 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Megnatic from "../../common/magnetic";
 import Buttonx from "../../common/roundedbutton";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isMenu, setMenu] = useState(false);
   const targertBurger = useRef(null);
+  const pathname = usePathname();
+  
+  // Check if we're on the work page
+  const isWorkPage = pathname === "/work";
+
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(targertBurger.current, {
@@ -36,19 +44,18 @@ const Header = () => {
     });
   }, []);
 
-  const [isMenu, setMenu] = useState(false);
-
   const toggleMenu = () => {
     setMenu((prev) => !prev);
   };
+  
   return (
     <>
-      <div className={style.header}>
+      <div className={`${style.header} ${isWorkPage ? style.workHeader : ''}`}>
         <Megnatic>
           <div className={style.logo}>
             <p className={style.copyright}>©</p>
             <div className={style.name}>
-              <p className={style.codeby}>Co by</p>
+              <p className={style.codeby}>Code by</p>
                               <p className={style.gaurav}>Gaurav</p>
                 <p className={style.jain}>Jain</p>
             </div>
@@ -68,23 +75,31 @@ const Header = () => {
           </AnimatePresence>
           
           <div className={`${style.nav} ${isMenu ? style.shownav : ""}`}>
+            {isWorkPage && (
+              <Megnatic>
+                <Link href="/" className={style.el}>
+                  <p>Home</p>
+                  <div className={style.endicator}></div>
+                </Link>
+              </Megnatic>
+            )}
             <Megnatic>
-              <div className={style.el}>
+              <Link href="/work" className={style.el}>
                 <p>Work</p>
                 <div className={style.endicator}></div>
-              </div>
+              </Link>
             </Megnatic>
             <Megnatic>
-              <div className={style.el}>
+              <Link href="/about" className={style.el}>
                 <p>About</p>
                 <div className={style.endicator}></div>
-              </div>
+              </Link>
             </Megnatic>
             <Megnatic>
-              <div className={style.el}>
+              <Link href="/contact" className={style.el}>
                 <p>Contact</p>
                 <div className={style.endicator}></div>
-              </div>
+              </Link>
             </Megnatic>
           </div>
         </div>

@@ -111,6 +111,7 @@ const index = () => {
       }}
     >
       <div className={styles.body}>
+        <h1 className={styles.projectsTitle}>Projects</h1>
         {projects.map((project, index) => {
           return (
             <Project
