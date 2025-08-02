@@ -8,9 +8,11 @@ import { usePathname } from "next/navigation";
 const Navbar = ({ toggleMenu }) => {
   const pathname = usePathname();
   const isWorkPage = pathname === "/work";
+  const isAboutPage = pathname === "/about";
+  const isDarkPage = isWorkPage || isAboutPage;
   
   const navItems = [
-    ...(isWorkPage ? [{
+    ...(isDarkPage ? [{
       title: "Home",
       href: "/",
     }] : []),

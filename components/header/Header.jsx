@@ -16,8 +16,10 @@ const Header = () => {
   const targertBurger = useRef(null);
   const pathname = usePathname();
   
-  // Check if we're on the work page
+  // Check if we're on the work or about page
   const isWorkPage = pathname === "/work";
+  const isAboutPage = pathname === "/about";
+  const isDarkPage = isWorkPage || isAboutPage;
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -50,7 +52,7 @@ const Header = () => {
   
   return (
     <>
-      <div className={`${style.header} ${isWorkPage ? style.workHeader : ''}`}>
+      <div className={`${style.header} ${isDarkPage ? style.workHeader : ''}`}>
         <Megnatic>
           <div className={style.logo}>
             <p className={style.copyright}>©</p>
@@ -75,7 +77,7 @@ const Header = () => {
           </AnimatePresence>
           
           <div className={`${style.nav} ${isMenu ? style.shownav : ""}`}>
-            {isWorkPage && (
+            {(isWorkPage || isAboutPage) && (
               <Megnatic>
                 <Link href="/" className={style.el}>
                   <p>Home</p>
