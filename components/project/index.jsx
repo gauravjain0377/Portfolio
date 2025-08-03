@@ -10,23 +10,23 @@ import Button from "../../common/roundedbutton";
 const index = () => {
   const projects = [
     {
-      title: "C2 Montreal",
+      title: "StockSathi",
       src: "c2montreal.png",
       color: "#000000",
     },
     {
-      title: "Office Studio",
+      title: "HackZen",
       src: "officestudio.png",
       color: "#8C8C8C",
     },
     {
-      title: "Locomotive",
+      title: "Simon Game",
       src: "locomotive.png",
       color: "#EFE8D3",
     },
     {
-      title: "Silencio",
-      src: "silencio.png",
+      title: "Virtual Herbal Garden",
+      src: "VHG.png",
       color: "#706D63",
     },
   ];
@@ -124,10 +124,7 @@ const index = () => {
         })}
       </div>
 
-      <Button>
-        <p className=''>More Work</p>
-      </Button>
-
+     
       <>
         <motion.div
           ref={modalContainer}

@@ -3,13 +3,14 @@ import Styles from "./styledesc.module.scss";
 import { opacity, sildeUp } from "./anime";
 import { useRef } from "react";
 import Button from "../../common/roundedbutton";
+import Link from "next/link";
 
 const Decs = () => {
   const container = useRef(null);
   const isInView = useInView(container);
 
   const param =
-    "Helping brands to stand out in the digital era. Together we will set the new status quo. No nonsense, always on cutting adge.";
+    "A creative technologist and software engineer. I build sleek, performant, and user-first digital products that stand out. Blending design thinking with full-stack development, I aim to redefine what software can feel like.";
   return (
     <div ref={container} className={Styles.dec}>
       <div className={Styles.body}>
@@ -34,14 +35,16 @@ const Decs = () => {
           initial="initial"
           animate={isInView ? "open" : "closed"}
         >
-          The combination of my passion for desgine, code & interaction position
+          The combination of my passion for desgin, code & interaction position
           me in a unique place.
         </motion.p>
 
         <div data-scroll data-scroll-speed={0.1}>
-          <Button className={Styles.button}>
-            <p style={{color:"white"}}>About Me</p>
-          </Button>
+          <Link href="/about">
+            <Button className={Styles.button}>
+              <p style={{color:"white"}}>About Me</p>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
