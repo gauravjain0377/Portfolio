@@ -6,34 +6,56 @@
   justify-content: center;
   position: fixed;
   z-index: 99;
-  background-color: #141516;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
+  
   svg {
     position: absolute;
     top: 0;
     width: 100%;
     height: calc(100% + 300px);
     path {
-      fill: #141516;
+      fill: var(--bg-primary);
+      transition: fill 0.3s ease;
     }
   }
+  
   p {
     display: flex;
-    color: white;
+    color: var(--text-primary);
     font-size: 42px;
+    font-weight: 700;
     align-items: center;
     position: absolute;
     z-index: 1;
+    transition: color 0.3s ease;
 
     span {
       display: flex;
       align-items: center;
       justify-content: center;
       display: block;
-      width: 10px;
-      height: 10px;
-      background-color: white;
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent-color);
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 15px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 0 10px var(--accent-color);
     }
   }
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: background-color 0.3s ease;
 }

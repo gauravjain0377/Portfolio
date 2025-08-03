@@ -1,0 +1,137 @@
+.themeToggle {
+  position: relative;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  backdrop-filter: none;
+  cursor: pointer;
+  display: inline;
+  align-items: baseline;
+  justify-content: baseline;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  font-size: 6px;
+  line-height: 1;
+  color: var(--text-primary);
+  vertical-align: baseline;
+
+  &:hover {
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  // Dark mode styles
+  .dark-mode & {
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  // Light mode styles
+  .light-mode & {
+    background: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+.toggleContainer {
+  position: relative;
+  width: auto;
+  height: auto;
+  display: inline;
+  align-items: baseline;
+  justify-content: baseline;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+  font-size: 6px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.sunIcon, .moonIcon {
+  position: relative;
+  display: inline;
+  align-items: baseline;
+  justify-content: baseline;
+  width: 3px;
+  height: 3px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+
+  svg {
+    width: 50%;
+    height: 50%;
+    stroke: currentColor;
+    stroke-width: 0.5;
+    fill: none;
+    display: inline;
+    vertical-align: baseline;
+  }
+}
+
+.background {
+  display: none;
+}
+
+// Animation keyframes
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .themeToggle {
+    padding: 0;
+  }
+
+  .toggleContainer {
+    font-size: 4px;
+  }
+
+  .sunIcon, .moonIcon {
+    width: 2px;
+    height: 2px;
+  }
+} 

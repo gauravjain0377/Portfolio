@@ -7,6 +7,7 @@ export const usePageTransition = () => {
   const [pageName, setPageName] = useState("");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
+  const [previousPath, setPreviousPath] = useState("");
   const [hasNavigated, setHasNavigated] = useState(false);
 
   // Map pathnames to display names
@@ -29,8 +30,8 @@ export const usePageTransition = () => {
     // Check if this is a fresh page load (no referrer)
     const isFreshLoad = !document.referrer;
     
-    // Only show transition if we've navigated AND it's not a fresh load
-    if (pathname && hasNavigated && !isFreshLoad) {
+    // Only show transition if we've navigated from another page (not on fresh load)
+    if (pathname && hasNavigated && !isFreshLoad && previousPath !== pathname) {
       // Set transitioning to true immediately to hide page content
       setIsTransitioning(true);
       setShowTransition(true);
@@ -48,12 +49,10 @@ export const usePageTransition = () => {
       return () => clearTimeout(timer);
     } else if (pathname) {
       // On initial load or fresh load, just set the pathname but don't show transition
+      setPreviousPath(pathname);
       setHasNavigated(true);
     }
-  }, [pathname, hasNavigated]);
-
-  // Remove the second useEffect that was causing issues
-  // The first useEffect handles all page transitions including home
+  }, [pathname, hasNavigated, previousPath]);
 
   return { showTransition, pageName, isTransitioning };
 }; 

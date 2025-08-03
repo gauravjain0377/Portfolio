@@ -10,7 +10,8 @@ const Navbar = ({ toggleMenu }) => {
   const isWorkPage = pathname === "/work";
   const isAboutPage = pathname === "/about";
   const isContactPage = pathname === "/contact";
-  const isDarkPage = isWorkPage || isAboutPage || isContactPage;
+  const isHomePage = pathname === "/";
+  const isDarkPage = isWorkPage || isAboutPage || isContactPage || isHomePage;
   
   const navItems = [
     ...(isDarkPage ? [{

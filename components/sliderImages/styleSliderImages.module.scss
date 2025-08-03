@@ -14,8 +14,9 @@
   position: relative;
   margin-top: 200px;
   margin-bottom: 300px;
-  background-color: white;
+  background-color: var(--bg-primary);
   overflow: hidden;
+  transition: background-color 0.3s ease;
 
   .slider {
     display: flex;
@@ -38,6 +39,8 @@
         height: 100%;
         border-radius: 8px;
         overflow: hidden;
+        background-color: var(--card-bg);
+        transition: background-color 0.3s ease;
 
         img {
           object-fit: contain;
@@ -58,9 +61,10 @@
       width: 120%;
       left: 0;
       border-radius: 0 0 50% 50%;
-      background-color: white;
+      background-color: var(--bg-primary);
       position: absolute;
-      box-shadow: 0px 60px 50px rgba(0, 0, 0, 0.748);
+      box-shadow: 0px 60px 50px var(--shadow-heavy);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
   }
 }

@@ -1,0 +1,79 @@
+'use client'
+import { useTheme } from '@/hooks/useTheme';
+import { motion } from 'framer-motion';
+import styles from './ThemeToggle.module.scss';
+
+const ThemeToggle = () => {
+  const { theme, toggleTheme, mounted } = useTheme();
+
+  if (!mounted) {
+    return null; // Prevent hydration mismatch
+  }
+
+  return (
+    <motion.button
+      className={styles.themeToggle}
+      onClick={toggleTheme}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        className={styles.toggleContainer}
+        initial={false}
+        animate={{
+          rotate: theme === 'dark' ? 0 : 180,
+          scale: theme === 'dark' ? 1 : 0.8,
+        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        {theme === 'dark' ? (
+          <motion.div
+            className={styles.sunIcon}
+            initial={{ opacity: 0, rotate: -90 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            exit={{ opacity: 0, rotate: 90 }}
+            transition={{ duration: 0.3 }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
+              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2"/>
+              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" strokeWidth="2"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" strokeWidth="2"/>
+              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" strokeWidth="2"/>
+              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" strokeWidth="2"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" strokeWidth="2"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" strokeWidth="2"/>
+            </svg>
+          </motion.div>
+        ) : (
+          <motion.div
+            className={styles.moonIcon}
+            initial={{ opacity: 0, rotate: 90 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            exit={{ opacity: 0, rotate: -90 }}
+            transition={{ duration: 0.3 }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        )}
+      </motion.div>
+      
+      <motion.div
+        className={styles.background}
+        initial={false}
+        animate={{
+          backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+        }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.button>
+  );
+};
+
+export default ThemeToggle; 

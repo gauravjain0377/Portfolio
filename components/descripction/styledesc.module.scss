@@ -13,7 +13,7 @@
       }
       &:nth-of-type(2) {
         width: 80%;
-        color: rgb(149, 144, 144);
+        color: var(--text-secondary);
         font-size: 18px;
         font-weight: 400;
       }
@@ -58,6 +58,8 @@
   padding-right: 200px;
   display: flex;
   justify-content: center;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 
   .body {
     display: flex;
@@ -75,6 +77,8 @@
         // flex-direction: row;
         font-size: 30px;
         line-height: 1.3;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
 
         span {
           margin-right: 3px;
@@ -87,13 +91,14 @@
       }
       &:nth-of-type(2) {
         width: 80%;
-        color: rgb(149, 144, 144);
+        color: var(--text-secondary);
         font-size: 18px;
         font-weight: 400;
+        transition: color 0.3s ease;
       }
     }
     .button {
-      background-color: #1c1d20;
+      background-color: var(--accent-color);
       color: white;
       width: 180px;
       height: 180px;
@@ -105,6 +110,13 @@
       justify-content: center;
       position: absolute;
       cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: var(--accent-secondary);
+        transform: scale(1.05);
+        box-shadow: 0 8px 32px var(--glow-color);
+      }
       p {
         position: relative;
         margin: 0px;

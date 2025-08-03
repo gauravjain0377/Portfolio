@@ -9,6 +9,7 @@ import Megnatic from "../../common/magnetic";
 import Buttonx from "../../common/roundedbutton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
@@ -16,11 +17,12 @@ const Header = () => {
   const targertBurger = useRef(null);
   const pathname = usePathname();
   
-  // Check if we're on the work, about, or contact page
+  // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
   const isAboutPage = pathname === "/about";
   const isContactPage = pathname === "/contact";
-  const isDarkPage = isWorkPage || isAboutPage || isContactPage;
+  const isHomePage = pathname === "/";
+  const isDarkPage = isWorkPage || isAboutPage || isContactPage || isHomePage;
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -103,6 +105,13 @@ const Header = () => {
                 <p>Contact</p>
                 <div className={style.endicator}></div>
               </Link>
+            </Megnatic>
+            <Megnatic>
+              <div className={style.el}>
+                <p>
+                  <ThemeToggle />
+                </p>
+              </div>
             </Megnatic>
           </div>
         </div>

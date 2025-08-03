@@ -17,9 +17,10 @@
   right: 0;
   top: 0;
   height: 100vh;
-  background-color: rgb(41, 41, 41);
-  color: white;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
   z-index: 2;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   .body {
     padding: 100px;
@@ -39,8 +40,9 @@
         width: 300px;
         display: flex;
         justify-content: start;
-        border-bottom: 1px solid grey;
+        border-bottom: 1px solid var(--border-color);
         margin-bottom: 20px;
+        transition: border-color 0.3s ease;
         
         .closeButton {
           display: block;
@@ -52,16 +54,21 @@
           cursor: pointer;
           border: none;
           font-size: 2.5rem;
+          background: transparent;
+          color: var(--text-primary);
+          transition: color 0.3s ease;
         }
       }
       p {
         font-size: 20px;
-        color: grey;
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
       }
       a {
         text-decoration: none;
-        color: white;
+        color: var(--text-primary);
         font-weight: 300;
+        transition: color 0.3s ease;
       }
     }
 
@@ -71,6 +78,8 @@
       gap: 40px;
       font-size: 12px;
       margin-top: 130px;
+      color: var(--text-secondary);
+      transition: color 0.3s ease;
     }
   }
 }

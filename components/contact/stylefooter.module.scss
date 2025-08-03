@@ -73,26 +73,29 @@
 }
 
 .contact {
-  color: white;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #141516;
+  background-color: var(--bg-primary);
   position: relative;
+  transition: all 0.3s ease;
 
   .body {
     padding-top: 200px;
     width: 100%;
     max-width: 1800px;
-    background-color: #141516;
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
 
     .title {
-      border-bottom: 1px solid rgb(134, 134, 134);
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 50px;
       margin-left: 200px;
       margin-right: 200px;
       position: relative;
+      transition: border-color 0.3s ease;
       span {
         display: flex;
         align-items: center;
@@ -148,6 +151,8 @@
         font-size: 5vw;
         margin: 0px;
         font-weight: 300;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
       }
       .buttonContainer {
         position: absolute;
@@ -157,7 +162,7 @@
       .button {
         width: 180px;
         height: 180px;
-        background-color: #455ce9;
+        background-color: var(--accent-color);
         color: white;
         border-radius: 50%;
         position: absolute;
@@ -165,6 +170,13 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: var(--accent-secondary);
+          transform: scale(1.05);
+          box-shadow: 0 8px 32px var(--glow-color);
+        }
 
         p {
           margin: 0px;
@@ -178,6 +190,8 @@
         position: absolute;
         top: 30%;
         left: 100%;
+        fill: var(--text-primary);
+        transition: fill 0.3s ease;
       }
     }
     .nav {
@@ -208,17 +222,19 @@
           cursor: pointer;
         }
         p {
+          color: var(--text-primary);
+          transition: color 0.3s ease;
           &::after {
             content: "";
             width: 0%;
             height: 1px;
-            background-color: white;
+            background-color: var(--text-primary);
             display: block;
             margin-top: 2px;
             position: relative;
             left: 50%;
             transform: translateX(-50%);
-            transition: width 0.2s linear;
+            transition: width 0.2s linear, background-color 0.3s ease;
           }
           &:hover {
             &::after {
@@ -232,10 +248,11 @@
           gap: 15px;
         }
         h3 {
-          color: grey;
+          color: var(--text-secondary);
           cursor: default;
           font-weight: 300;
           font-size: 1em;
+          transition: color 0.3s ease;
         }
       }
     }
