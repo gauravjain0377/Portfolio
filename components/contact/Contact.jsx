@@ -4,9 +4,11 @@ import Rounded from '../../common/roundedbutton';
 import { useRef } from 'react';
 import { useScroll, motion, useTransform, useSpring } from 'framer-motion';
 import Magnetic from '../../common/magnetic';
+import { useRouter } from 'next/navigation';
 
 export default function Contact() {
     const container = useRef(null);
+    const router = useRouter();
     const { scrollYProgress } = useScroll({
         target: container,
         offset: ["start end", "end end"]
@@ -14,6 +16,10 @@ export default function Contact() {
     const x = useTransform(scrollYProgress, [0, 1], [0, 100])
     const y = useTransform(scrollYProgress, [0, 1], [-300, 0])
     const rotate = useTransform(scrollYProgress, [0, 1], [120, 90])
+
+    const handleGetInTouch = () => {
+        router.push('/contact');
+    };
     return (
         <motion.div style={{y}} ref={container} className={styles.contact}>
             <div className={styles.body}>
@@ -30,7 +36,7 @@ export default function Contact() {
                     </span>
                     <h2>together</h2>
                     <motion.div style={{x}} className={styles.buttonContainer}>
-                        <Rounded  backgroundColor={"#334BD3"} className={styles.button}>
+                        <Rounded  backgroundColor={"#334BD3"} className={styles.button} onClick={handleGetInTouch}>
                             <p>Get in touch</p>
                         </Rounded>
                     </motion.div>
