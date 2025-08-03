@@ -25,8 +25,13 @@
     align-items: center;
     padding: 50px 100px 50px 100px;
     border-top: 1px solid rgb(201, 201, 201);
-    cursor: pointer;
     transition: all 0.2s;
+
+    .hoverArea {
+        flex: 1;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
 
     h2{
         font-size: 80px;
@@ -39,6 +44,39 @@
     p{
         transition: all 0.4s ease;
         font-weight: 300;
+    }
+
+    .projectLinks {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .githubLink {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #333;
+        text-decoration: none;
+        font-weight: 300;
+        transition: all 0.3s ease;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: #f5f5f5;
+        
+        &:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        span {
+            font-size: 14px;
+        }
     }
 
     &:last-of-type{

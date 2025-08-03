@@ -40,7 +40,7 @@ export default function Contact() {
                 </div>
                 <div className={styles.nav}>
                         <Rounded>
-                            <p>gjain0229.com</p>
+                            <p>gjain0229@gmail.com</p>
                         </Rounded>
                         <Rounded>
                             <p>+91 8949956653</p>
