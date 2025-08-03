@@ -13,36 +13,26 @@ const index = () => {
       title: "StockSathi",
       src: "Stox.png",
       color: "#000000",
-      githubUrl: "https://github.com/gauravjain0377/Stox.git",
-      liveUrl: "https://stox.vercel.app",
     },
     {
       title: "HackZen",
       src: "HackZen.png",
       color: "#8C8C8C",
-      githubUrl: "https://github.com/Nitinjainn/STPI-Project.git",
-      liveUrl: "https://hackzen.vercel.app/",
     },
     {
       title: "Simon Game",
       src: "SG.png",
       color: "#EFE8D3",
-      githubUrl: "https://github.com/gauravjain0377/Simon-Game.git",
-      liveUrl: "https://simonplay.vercel.app/",
     },
     {
       title: "Virtual Herbal Garden",
       src: "VHG.png",
       color: "#706D63",
-      githubUrl: "https://github.com/Shaurya01836/AyurHerb.git",
-      liveUrl: "https://herb-sphere.vercel.app/",
     },
     {
       title: "BookStore",
       src: "BS.png",
       color: "#706D63",
-      githubUrl: "https://github.com/gauravjain0377/BookStore.git",
-      liveUrl: "https://books-company.vercel.app/",
     },
   ];
 
@@ -133,7 +123,6 @@ const index = () => {
               index={index}
               title={project.title}
               manageModal={manageModal}
-              githubUrl={project.githubUrl}
               key={index}
             />
           );
@@ -188,14 +177,7 @@ const index = () => {
           initial="initial"
           animate={active ? "enter" : "closed"}
         >
-          <Link 
-            href={active && projects[index] ? projects[index].liveUrl : "#"} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            View
-          </Link>
+          <a href="">View</a>
         </motion.div>
       </>
     </main>
