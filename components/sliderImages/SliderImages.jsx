@@ -7,38 +7,38 @@ const SliderImages = () => {
   const slider1 = [
     {
       color: "#e3e5e7",
-      src: "c2.jpg",
+      src: "BS.png",
     },
     {
       color: "#d6d7dc",
-      src: "decimal.jpg",
+      src: "Stox.png",
     },
     {
       color: "#e3e3e3",
-      src: "funny.jpg",
+      src: "HackZen.png",
     },
     {
       color: "#21242b",
-      src: "google.jpg",
+      src: "SG.png",
     },
   ];
 
   const slider2 = [
     {
       color: "#d4e3ec",
-      src: "maven.jpg",
+      src: "StoxPricing.png",
     },
     {
       color: "#e5e0e1",
-      src: "panda.jpg",
+      src: "VHG.png",
     },
     {
       color: "#d7d4cf",
-      src: "powell.jpg",
+      src: "Stoxdashboard.png",
     },
     {
       color: "#e1dad6",
-      src: "wix.jpg",
+      src: "HackZenhackathon.png",
     },
   ];
   const container = useRef(null);
@@ -68,6 +68,9 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  quality={90}
+                  priority={index < 2}
                 />
               </div>
             </div>
@@ -87,6 +90,9 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  quality={90}
+                  priority={index < 2}
                 />
               </div>
             </div>

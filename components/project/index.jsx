@@ -11,22 +11,27 @@ const index = () => {
   const projects = [
     {
       title: "StockSathi",
-      src: "c2montreal.png",
+      src: "Stox.png",
       color: "#000000",
     },
     {
       title: "HackZen",
-      src: "officestudio.png",
+      src: "HackZen.png",
       color: "#8C8C8C",
     },
     {
       title: "Simon Game",
-      src: "locomotive.png",
+      src: "SG.png",
       color: "#EFE8D3",
     },
     {
       title: "Virtual Herbal Garden",
       src: "VHG.png",
+      color: "#706D63",
+    },
+    {
+      title: "BookStore",
+      src: "BS.png",
       color: "#706D63",
     },
   ];
