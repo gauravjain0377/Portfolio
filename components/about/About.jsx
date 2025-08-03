@@ -252,13 +252,13 @@ const About = () => {
         className={styles.achievementsSection}
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 2.4 }}
+        transition={{ duration: 0.8, delay: 1.8 }}
       >
         <motion.div 
           className={styles.achievementsHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.6 }}
+          transition={{ duration: 0.8, delay: 2.0 }}
         >
           <h2>Achievements</h2>
           <p>Milestones and accomplishments in my journey</p>
@@ -269,7 +269,7 @@ const About = () => {
             className={styles.achievementCard}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 2.8 }}
+            transition={{ duration: 0.6, delay: 2.2 }}
             whileHover={{ scale: 1.02, y: -5 }}
           >
             <div className={styles.achievementIcon}>
@@ -288,14 +288,14 @@ const About = () => {
             className={styles.achievementCard}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 3.0 }}
+            transition={{ duration: 0.6, delay: 2.4 }}
             whileHover={{ scale: 1.02, y: -5 }}
           >
             <div className={styles.achievementIcon}>
               <span>🥈</span>
             </div>
             <div className={styles.achievementContent}>
-              <h3>TEK Connect 2024 – 2nd Place (Software Model)</h3>
+              <h3>TEK Connect 2024 – 2nd Place</h3>
               <p>Secured 2nd place at TEK-Connect 2024, hosted by Poornima College of Engineering, Jaipur. Presented an innovative software model titled "Virtual Herbal Garden" — organized in collaboration with Vigyan Bharati Rajasthan, CSIR-CEERI Pilani, REPC, and Rajasthan Technical University.</p>
               <div className={styles.achievementBadge}>
                 <span>2nd Place</span>
@@ -307,7 +307,7 @@ const About = () => {
             className={styles.achievementCard}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 3.2 }}
+            transition={{ duration: 0.6, delay: 2.6 }}
             whileHover={{ scale: 1.02, y: -5 }}
           >
             <div className={styles.achievementIcon}>
