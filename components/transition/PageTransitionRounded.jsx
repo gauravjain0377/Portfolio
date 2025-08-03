@@ -11,18 +11,55 @@ const PageTransition = ({ pageName }) => {
   const initialPath = `M0 0 L0 ${height} Q0 ${height / 2} 0 0`;
   const targetPath = `M0 0 L0 ${height} Q${width} ${height / 2} 0 0`;
 
+  // Enhanced animations for Home page
+  const isHomePage = pageName === "Home";
+  
   const pathAnimation = {
     initial: {
       d: initialPath,
     },
     enter: {
       d: targetPath,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+      transition: { 
+        duration: isHomePage ? 0.8 : 0.5, 
+        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1] 
+      },
     },
     exit: {
       d: initialPath,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+      transition: { 
+        duration: isHomePage ? 0.8 : 0.5, 
+        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1] 
+      },
     },
+  };
+
+  // Enhanced content animation for Home page
+  const contentAnimation = {
+    initial: { 
+      opacity: 0, 
+      scale: isHomePage ? 0.8 : 1,
+      y: isHomePage ? 20 : 0
+    },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: isHomePage ? 0.6 : 0.3,
+        delay: isHomePage ? 0.2 : 0.1,
+        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
+      }
+    },
+    exit: { 
+      opacity: 0,
+      scale: isHomePage ? 0.9 : 1,
+      y: isHomePage ? -20 : 0,
+      transition: {
+        duration: isHomePage ? 0.4 : 0.2,
+        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
+      }
+    }
   };
 
   return (
@@ -32,8 +69,8 @@ const PageTransition = ({ pageName }) => {
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ 
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1] // Same smooth curve as navigation
+        duration: isHomePage ? 0.8 : 0.5,
+        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
       }}
     >
       <svg className={styles.svgCurve} viewBox={`0 0 ${width} ${height}`}>
@@ -44,10 +81,43 @@ const PageTransition = ({ pageName }) => {
           exit="exit"
         />
       </svg>
-      <div className={styles.content}>
-        <div className={styles.bullet}></div>
-        <h1 className={styles.pageTitle}>{pageName}</h1>
-      </div>
+      <motion.div 
+        className={styles.content}
+        variants={contentAnimation}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <motion.div 
+          className={styles.bullet}
+          animate={isHomePage ? {
+            scale: [1, 1.2, 1],
+            rotate: [0, 5, -5, 0]
+          } : {}}
+          transition={isHomePage ? {
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          } : {}}
+        ></motion.div>
+        <motion.h1 
+          className={styles.pageTitle}
+          animate={isHomePage ? {
+            textShadow: [
+              "0 0 0px rgba(255,255,255,0)",
+              "0 0 20px rgba(255,255,255,0.8)",
+              "0 0 0px rgba(255,255,255,0)"
+            ]
+          } : {}}
+          transition={isHomePage ? {
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          } : {}}
+        >
+          {pageName}
+        </motion.h1>
+      </motion.div>
     </motion.div>
   );
 };

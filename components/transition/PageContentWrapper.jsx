@@ -3,12 +3,23 @@ import { usePageTransition } from "../../hooks/usePageTransition";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PageContentWrapper = ({ children }) => {
-  const { isTransitioning, showTransition } = usePageTransition();
+  const { isTransitioning, showTransition, shouldBlockContent } = usePageTransition();
 
-  // Only hide content during the initial transition phase, not during the exit phase
-  if (isTransitioning) {
+  console.log('📄 PageContentWrapper render - state:', { isTransitioning, showTransition, shouldBlockContent });
+
+  // Hide content during both transitioning and showing transition to prevent flash
+  if (isTransitioning || showTransition || shouldBlockContent) {
+    console.log('🚫 Hiding page content during transition');
+    console.log('   - isTransitioning:', isTransitioning);
+    console.log('   - showTransition:', showTransition);
+    console.log('   - shouldBlockContent:', shouldBlockContent);
     return null;
   }
+
+  console.log('✅ Showing page content');
+  console.log('   - isTransitioning:', isTransitioning);
+  console.log('   - showTransition:', showTransition);
+  console.log('   - shouldBlockContent:', shouldBlockContent);
 
   return (
     <motion.div
