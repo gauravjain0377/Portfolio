@@ -13,6 +13,8 @@ const Contact = () => {
     services: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -21,10 +23,41 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          name: "",
+          email: "",
+          organization: "",
+          services: "",
+          message: ""
+        });
+      } else {
+        setSubmitStatus('error');
+        console.error('Submission error:', data.error);
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Network error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,14 +156,38 @@ const Contact = () => {
                  />
                </div>
 
-               <motion.button
-                 type="submit"
-                 className={styles.submitButton}
-                 whileHover={{ scale: 1.05 }}
-                 whileTap={{ scale: 0.95 }}
-               >
-                 Send it!
-               </motion.button>
+                               <motion.button
+                  type="submit"
+                  className={styles.submitButton}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send it!'}
+                </motion.button>
+
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    className={styles.successMessage}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <motion.div
+                    className={styles.errorMessage}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    ❌ Failed to send message. Please try again.
+                  </motion.div>
+                )}
              </form>
            </motion.div>
          </motion.div>
