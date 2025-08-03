@@ -17,6 +17,21 @@ const Project = ({ title, manageModal, index, githubUrl }) => {
           console.log('DEBUG: Hover blocked - cursor in right area');
         }
       }}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX;
+        
+        // If cursor moves back to left area, open hover
+        if (x < rect.left + rect.width * 0.6) {
+          console.log('DEBUG: MouseMove - opening hover in left area');
+          manageModal(true, index, e.clientX, e.clientY);
+        }
+        // If cursor moves to right area, close hover
+        else if (x > rect.left + rect.width * 0.6) {
+          console.log('DEBUG: MouseMove - closing hover in right area');
+          manageModal(false, index, e.clientX, e.clientY);
+        }
+      }}
       onMouseLeave={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX;
@@ -24,13 +39,8 @@ const Project = ({ title, manageModal, index, githubUrl }) => {
         
         console.log('DEBUG: MouseLeave - x:', x, 'left:', rect.left, 'right:', rect.right, 'width:', rect.width);
         
-        // Close if cursor moves to the right side (after the project names)
-        if (x > rect.left + rect.width * 0.6) {
-          console.log('DEBUG: Closing hover - cursor in right area');
-          manageModal(false, index, e.clientX, e.clientY);
-        }
-        // Also close if cursor leaves the project bounds completely
-        else if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+        // Close if cursor leaves the project bounds completely
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
           console.log('DEBUG: Closing hover - cursor left bounds');
           manageModal(false, index, e.clientX, e.clientY);
         }

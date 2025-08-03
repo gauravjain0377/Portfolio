@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import PageTransitionWrapper from "@/components/transition/PageTransitionWrapper";
+import PageContentWrapper from "@/components/transition/PageContentWrapper";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,8 +15,11 @@ export default function RootLayout({ children }) {
       <body
         className={``}
       >
+        <PageTransitionWrapper />
         <Header/>
-        {children}
+        <PageContentWrapper>
+          {children}
+        </PageContentWrapper>
       </body>
     </html>
   );

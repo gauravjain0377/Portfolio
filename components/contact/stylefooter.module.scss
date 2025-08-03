@@ -102,9 +102,42 @@
           position: relative;
           border-radius: 50%;
           overflow: hidden;
+          border: 3px solid transparent;
+          background: linear-gradient(45deg, #6b7280, #9ca3af, #d1d5db, #e5e7eb) border-box;
+          background-clip: padding-box;
+          box-shadow: 0 8px 32px rgba(107, 114, 128, 0.3);
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(107, 114, 128, 0.4);
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #6b7280, #9ca3af, #d1d5db, #e5e7eb);
+            border-radius: 50%;
+            z-index: -1;
+            animation: borderRotate 3s linear infinite;
+          }
 
           img {
             object-fit: cover;
+            border-radius: 50%;
+          }
+        }
+
+        @keyframes borderRotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
           }
         }
         h2 {
@@ -167,6 +200,11 @@
         h3 {
           margin: 0px;
           padding: 2.5px;
+          cursor: pointer;
+        }
+        a {
+          text-decoration: none;
+          color: inherit;
           cursor: pointer;
         }
         p {

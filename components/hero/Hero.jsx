@@ -13,11 +13,16 @@ const Hero = () => {
   let direction = 1;
 
   useEffect(() => {
+    // Only run animations if elements exist
+    if (!firstText.current || !seconfText.current || !slider.current) {
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
-    requestAnimationFrame(animtion);
+    let animationId = requestAnimationFrame(animtion);
 
     // scrolling adjusment for the slider
-    gsap.to(slider.current, {
+    const scrollTrigger = gsap.to(slider.current, {
       scrollTrigger: {
         trigger: document.documentElement,
         start: 0,
@@ -29,9 +34,25 @@ const Hero = () => {
       },
       x: "-300px",
     });
+
+    // Cleanup function
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      if (scrollTrigger && scrollTrigger.scrollTrigger) {
+        scrollTrigger.scrollTrigger.kill();
+      }
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const animtion = () => {
+    // Check if elements exist before animating
+    if (!firstText.current || !seconfText.current) {
+      return;
+    }
+
     if (xPercent <= -100) {
       xPercent = 0;
     }
@@ -41,12 +62,12 @@ const Hero = () => {
     gsap.set(firstText.current, { xPercent: xPercent });
     gsap.set(seconfText.current, { xPercent: xPercent });
     xPercent += 0.1 * direction;
-    requestAnimationFrame(animtion);
+    return requestAnimationFrame(animtion);
   };
 
   return (
     <main className={Style.mainHero}>
-      <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority />
+      <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority sizes="100vw" />
       <div className={Style.slideContainer}>
         <div ref={slider} className={Style.slider}>
                   <p ref={firstText}>Gaurav Jain -</p>

@@ -23,7 +23,7 @@ export default function Contact() {
                             <Image 
                             fill={true}
                             alt={"image"}
-                            src={`/images/background.jpg`}
+                            src={`/images/Gaurav_Jain.png`}
                             />
                         </div>
                         <h2>Let's work</h2>
@@ -40,7 +40,7 @@ export default function Contact() {
                 </div>
                 <div className={styles.nav}>
                         <Rounded>
-                            <p>gjain0229.com</p>
+                            <p>gjain0229@gmail.com</p>
                         </Rounded>
                         <Rounded>
                             <p>+91 8949956653</p>
@@ -50,28 +50,32 @@ export default function Contact() {
                     <div>
                         <span>
                             <h3>Version</h3>
-                            <p>2022 © Edition</p>
-                        </span>
-                        <span>
-                            <h3>Version</h3>
-                            <p>11:49 PM GMT+2</p>
+                            <p>2025 © Edition</p>
                         </span>
                     </div>
                     <div>
                         <span>
                             <h3>socials</h3>
                             <Magnetic>
-                                <p>Awwwards</p>
+                                <a href="https://www.linkedin.com/in/this-is-gaurav-jain/" target="_blank" rel="noopener noreferrer">
+                                    <p>LinkedIn</p>
+                                </a>
                             </Magnetic>
                         </span>
                         <Magnetic>
-                            <p>Instagram</p>
+                            <a href="https://github.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
+                                <p>Github</p>
+                            </a>
                         </Magnetic>
                         <Magnetic>
-                            <p>Dribbble</p>
+                            <a href="https://x.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
+                                <p>X</p>
+                            </a>
                         </Magnetic>
                         <Magnetic>
-                            <p>Linkedin</p>
+                            <a href="https://www.instagram.com/gauravjain0377/" target="_blank" rel="noopener noreferrer">
+                                <p>Instagram</p>
+                            </a>
                         </Magnetic>
                     </div>
                 </div>
