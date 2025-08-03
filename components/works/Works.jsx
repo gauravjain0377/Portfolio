@@ -6,55 +6,76 @@ import { motion, AnimatePresence } from "framer-motion";
 const Works = () => {
   const [expandedItem, setExpandedItem] = useState(null);
 
-  const workExperience = [
-    {
-      id: 1,
-      company: "STPI",
-      logo: "STPI",
-      logoBg: "#00FF88",
-      position: "Software Engineer",
-      duration: "July 2025 – August 2025",
-      description: "Working on developing and maintaining software solutions. Collaborating with cross-functional teams to deliver high-quality products.",
-      technologies: ["React", "Node.js", "TypeScript", "AWS"],
-      achievements: [
-        "Led development of key features improving user experience",
-        "Reduced application load time by 40%",
-        "Mentored junior developers and conducted code reviews"
-      ]
-    },
-    {
-      id: 2,
-      company: "Bussibees Internship",
-      logo: "Bussibees",
-      logoBg: "#FFFFFF",
-      logoColor: "#000000",
-      position: "Full Stack Developer",
-      duration: "Jan 2023 – Oct 2024 • 1 years 10 months",
-      description: "Developed scalable web applications and microservices. Worked on both frontend and backend technologies.",
-      technologies: ["JavaScript", "Python", "Docker", "MongoDB"],
-      achievements: [
-        "Built and deployed 5+ microservices",
-        "Improved system performance by 60%",
-        "Implemented CI/CD pipelines reducing deployment time"
-      ]
-    },
-    {
-      id: 3,
-      company: "Edunet Foundation",
-      logo: "Edunet Foundation",
-      logoBg: "#8B5CF6",
-      position: "Frontend Developer Intern",
-      duration: "Jul 2022 – Dec 2022 • 6 months",
-      description: "Developed responsive user interfaces and interactive components. Collaborated with design team to implement pixel-perfect designs.",
-      technologies: ["React", "CSS3", "JavaScript", "Figma"],
-      achievements: [
-        "Built 10+ reusable UI components",
-        "Improved page load speed by 30%",
-        "Received recognition for best intern performance"
-      ]
-    },
-    
-  ];
+const workExperience = [
+  {
+    id: 1,
+    company: "Software Technology Parks of India",
+    logo: "STPI",
+    logoBg: "#00FF88",
+    position: "Software Developer Intern",
+    duration: "July 2025 – August 2025",
+    description:
+      "Worked on HackZen, a full-stack hackathon management platform that simplifies organizing and managing virtual/in-person hackathons. Focused on backend architecture, API development, and secure user roles.",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Passport.js",
+      "Socket.io",
+      "React.js",
+      "Render",
+      "Vercel",
+      "Git",
+      "Github"
+    ],
+    achievements: [
+      "Developed REST APIs for authentication, project submission, team creation, and judge scoring.",
+      "Implemented role-based access control (Admin, Organizer, Judge, Participant).",
+      "Used Mongoose for efficient MongoDB operations and data consistency.",
+      "Integrated backend APIs seamlessly with the React frontend.",
+      "Implemented real-time messaging and status updates using Socket.io.",
+      "Deployed backend services on Render and frontend on Vercel.",
+       "Followed Agile methodology and used Git/GitHub for version control."
+    ]
+  },
+  {
+    id: 2,
+    company: "Edunet Foundation (AICTE Collaboration)",
+    logo: "Edunet Foundation",
+    logoBg: "#8B5CF6",
+    position: "Frontend Developer Intern",
+    duration: "June 24 – July 31, 2024",
+    description:
+      "Completed the Front-End Development (FED) program under the AICTE–Edunet Foundation initiative. Built hands-on projects and received mentorship in HTML, CSS, JS, and React.",
+    technologies: ["HTML", "CSS", "JavaScript", "Node.js", "React.js", "Git", "Github"],
+    achievements: [
+      "Built multiple frontend projects and interactive UIs.",
+      "Practiced component-based architecture using React.",
+      "Received mentorship and evaluation from industry experts.",
+      "Demonstrated understanding of responsive design and web accessibility."
+    ]
+  },
+  {
+    id: 3,
+    company: "Bussibees Ed-tech Pvt. Ltd.",
+    logo: "Bussibees",
+    logoBg: "#FFFFFF",
+    logoColor: "#000000",
+    position: "Frontend Developer Intern",
+    duration: "July 11 – July 26, 2024",
+    description:
+      "Worked on improving the frontend of the official Bussibees website during the Summer Internship Program. Focused on UI enhancement, responsiveness, and performance optimization.",
+    technologies: ["HTML", "CSS", "JavaScript", "Git", "Github"],
+    achievements: [
+      "Enhanced website responsiveness across devices.",
+      "Collaborated with designers to improve UI consistency.",
+      "Optimized page structure and load time.",
+      "Implemented modular, clean, and reusable code."
+    ]
+  }
+];
+
+
 
   const toggleExpanded = (id) => {
     setExpandedItem(expandedItem === id ? null : id);
@@ -78,17 +99,33 @@ const Works = () => {
             <div className={styles.cardContent}>
               <div className={styles.cardHeader}>
                 <div className={styles.companyInfo}>
-                  <div 
-                    className={styles.logo}
-                    style={{ 
-                      backgroundColor: work.logoBg,
-                      color: work.logoColor || "#FFFFFF"
-                    }}
-                  >
-                    {work.logo}
-                  </div>
+                                     <div 
+                     className={styles.logo}
+                     style={{ 
+                       backgroundColor: work.logoBg,
+                       color: work.logoColor || "#FFFFFF",
+                       display: 'flex',
+                       alignItems: 'center',
+                       justifyContent: 'center',
+                       fontSize: '14px',
+                       fontWeight: 'bold',
+                       textTransform: 'uppercase'
+                     }}
+                   >
+                     {work.logo === "STPI" && "STPI"}
+                     {work.logo === "Edunet Foundation" && "EF"}
+                     {work.logo === "Bussibees" && "BB"}
+                     {!["STPI", "Edunet Foundation", "Bussibees"].includes(work.logo) && work.logo}
+                   </div>
                   <div className={styles.companyDetails}>
-                    <h3 className={styles.companyName}>{work.company}</h3>
+                    <h3 className={styles.companyName}>
+                      {work.company}
+                      {work.company === "Software Technology Parks of India" && (
+                        <span style={{ fontSize: '0.8em', fontWeight: 'normal', display: 'block', marginTop: '2px' }}>
+                          (Ministry of Electronics and Information Technology, Government of India)
+                        </span>
+                      )}
+                    </h3>
                     <p className={styles.position}>{work.position}</p>
                     <p className={styles.duration}>{work.duration}</p>
                   </div>

@@ -1,88 +1,158 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./About.module.scss";
 import Image from "next/image";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 const About = () => {
+  const [activeSkill, setActiveSkill] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   const skillsData = {
     "Programming Languages": {
       description: "Core programming languages I work with",
       icon: "💻",
       skills: [
-        { name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-        { name: "CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-        { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" }
+        { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", proficiency: 100 },
+        { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", proficiency: 100 },
+        { name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", proficiency: 100 },
+        { name: "CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", proficiency: 100 },
+        { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", proficiency: 100 },
+        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", proficiency: 100 },
+        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", proficiency: 100 }
       ]
     },
     "Frameworks & Tools": {
       description: "Frameworks and development tools",
       icon: "⚙️",
       skills: [
-        { name: "ReactJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-        { name: "NodeJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-        { name: "ExpressJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
-        { name: "NextJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-        { name: "MUI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" },
-        { name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
-        { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
-        { name: "Jest", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" }
+        { name: "ReactJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", proficiency: 100 },
+        { name: "NodeJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", proficiency: 100 },
+        { name: "ExpressJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", proficiency: 100 },
+        { name: "NextJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", proficiency: 100 },
+        { name: "MUI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg", proficiency: 100 },
+        { name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", proficiency: 100 },
+        { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", proficiency: 100 },
+        { name: "Jest", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg", proficiency: 100 }
       ]
     },
     "Cloud & Databases": {
       description: "Cloud platforms and database technologies",
       icon: "☁️",
       skills: [
-        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-        { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
-        { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", proficiency: 100 },
+        { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", proficiency: 100 },
+        { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg", proficiency: 100 },
       ]
     },
     "Coursework & Others": {
       description: "Academic and additional technologies",
       icon: "📚",
       skills: [
-        { name: "DSA", logo: "https://img.icons8.com/color/96/000000/data-structures.png" },
-        { name: "OS", logo: "https://img.icons8.com/color/96/000000/operating-system.png" },
-        { name: "Networking", logo: "https://img.icons8.com/color/96/000000/network.png" },
-        { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-        { name: "OOPS", logo: "https://img.icons8.com/color/96/000000/object-oriented-programming.png" },
-        { name: "JSON", logo: "https://img.icons8.com/color/96/000000/json.png" }
+        { name: "DSA", logo: "/images/DSA.png", proficiency: 100 },
+        { name: "OS", logo: "https://img.icons8.com/color/96/000000/operating-system.png", proficiency: 100 },
+        { name: "Networking", logo: "https://img.icons8.com/color/96/000000/network.png", proficiency: 100 },
+        { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", proficiency: 100 },
+        { name: "OOPS", logo: "/images/oops.png", proficiency: 100 },
+        { name: "JSON", logo: "https://img.icons8.com/color/96/000000/json.png", proficiency: 100 }
       ]
     }
   };
 
+
+
   return (
-    <div className={styles.aboutContainer}>
-      <div className={styles.content}>
-        <div className={styles.leftSection}>
+    <motion.div 
+      className={styles.aboutContainer}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      {/* Hero Section */}
+      <motion.div 
+        className={styles.content}
+        style={{ y }}
+      >
+        <motion.div 
+          className={styles.leftSection}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <div className={styles.heading}>
-            <h1>Helping brands thrive in the digital world</h1>
-            <div className={styles.globeButton}>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Fueling the web with logic, design, and purpose.
+            </motion.h1>
+            <motion.div 
+              className={styles.globeButton}
+              whileHover={{ scale: 1.1, rotate: 360 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" fill="none"/>
                 <path d="M2 12h20" stroke="white" strokeWidth="2"/>
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="white" strokeWidth="2" fill="none"/>
                 <circle cx="12" cy="12" r="3" stroke="white" strokeWidth="2" fill="none"/>
               </svg>
-            </div>
+            </motion.div>
           </div>
           
-          <div className={styles.divider}></div>
+          <motion.div 
+            className={styles.divider}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          ></motion.div>
           
-          <div className={styles.description}>
+          <motion.div 
+            className={styles.description}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
             <p>
-              I help companies from all over the world with tailor-made solutions. 
-              With each project, I push my work to new horizons, always putting 
-              quality first.
+              I'm <strong>Gaurav Jain</strong>, a final-year B.Tech student in Information Technology with a strong focus on full-stack web development.
             </p>
-            <p className={styles.exploring}>Always exploring...</p>
-          </div>
-        </div>
+            <p>
+              I've contributed to real-world platforms during my internships — including <strong>STPI (MeitY, Govt. of India)</strong> and <strong>Edunet Foundation (AICTE)</strong> — where I worked on scalable backend systems, REST APIs, real-time communication, and modern frontends using React and Next.js.
+            </p>
+            <p>
+              I'm constantly learning and exploring new technologies, with interests in building developer tools, collaborative platforms, and clean UI experiences.
+            </p>
+            <motion.p 
+              className={styles.exploring}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Always exploring...
+            </motion.p>
+          </motion.div>
+        </motion.div>
         
-        <div className={styles.rightSection}>
-          <div className={styles.imageContainer}>
+        <motion.div 
+          className={styles.rightSection}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <motion.div 
+            className={styles.imageContainer}
+            whileHover={{ scale: 1.05, rotateY: 5 }}
+            transition={{ duration: 0.3 }}
+          >
             <Image
               src="/images/Gaurav_Jain.png"
               alt="Gaurav Jain - Professional headshot"
@@ -90,24 +160,47 @@ const About = () => {
               height={500}
               className={styles.profileImage}
             />
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      
 
       {/* Technical Skills Section */}
-      <div className={styles.skillsSection}>
-        <div className={styles.skillsHeader}>
+      <motion.div 
+        className={styles.skillsSection}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.6 }}
+      >
+        <motion.div 
+          className={styles.skillsHeader}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.8 }}
+        >
           <h2>Technical Skills</h2>
           <p>Technologies and tools I use to bring ideas to life</p>
-        </div>
+        </motion.div>
 
         <div className={styles.skillsContainer}>
           {Object.entries(skillsData).map(([category, data], index) => (
-            <div key={category} className={styles.skillCategory}>
+            <motion.div 
+              key={category} 
+              className={styles.skillCategory}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 2 + index * 0.2 }}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className={styles.categoryHeader}>
-                <div className={styles.categoryIcon}>
+                <motion.div 
+                  className={styles.categoryIcon}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <span>{data.icon}</span>
-                </div>
+                </motion.div>
                 <div className={styles.categoryInfo}>
                   <h3>{category}</h3>
                   <p>{data.description}</p>
@@ -115,7 +208,17 @@ const About = () => {
               </div>
               <div className={styles.skillsRow}>
                 {data.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className={styles.skillItem}>
+                  <motion.div 
+                    key={skillIndex} 
+                    className={`${styles.skillItem} ${activeSkill === skill.name ? styles.active : ''}`}
+                    whileHover={{ scale: 1.08, y: -8 }}
+                    whileTap={{ scale: 0.95 }}
+                    onHoverStart={() => setActiveSkill(skill.name)}
+                    onHoverEnd={() => setActiveSkill(null)}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 2.2 + skillIndex * 0.05 }}
+                  >
                     <div className={styles.skillLogo}>
                       <img 
                         src={skill.logo} 
@@ -125,29 +228,102 @@ const About = () => {
                       />
                     </div>
                     <span>{skill.name}</span>
-                  </div>
+                    <div className={styles.proficiencyBar}>
+                      <div 
+                        className={styles.proficiencyFill}
+                        style={{ 
+                          '--proficiency-width': `${skill.proficiency}%`,
+                          width: `${skill.proficiency}%` 
+                        }}
+                      ></div>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className={styles.skillsStats}>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>27+</span>
-            <span className={styles.statLabel}>TECHNOLOGIES</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>4</span>
-            <span className={styles.statLabel}>SPECIALIZATIONS</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>2+</span>
-            <span className={styles.statLabel}>YEARS EXPERIENCE</span>
-          </div>
+
+      </motion.div>
+
+      {/* Achievements Section */}
+      <motion.div 
+        className={styles.achievementsSection}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 2.4 }}
+      >
+        <motion.div 
+          className={styles.achievementsHeader}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.6 }}
+        >
+          <h2>Achievements</h2>
+          <p>Milestones and accomplishments in my journey</p>
+        </motion.div>
+
+        <div className={styles.achievementsContainer}>
+          <motion.div 
+            className={styles.achievementCard}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 2.8 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <div className={styles.achievementIcon}>
+              <span>🥇</span>
+            </div>
+            <div className={styles.achievementContent}>
+              <h3>EDU Chain Hackathon – Winner</h3>
+              <p>Declared Winner in the EDU Chain Hackathon (Semester 3 – Earn Category). Awarded $4,000 for developing a blockchain-based educational rewards platform demonstrating transparency and innovation.</p>
+              <div className={styles.achievementBadge}>
+                <span>Winner</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className={styles.achievementCard}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 3.0 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <div className={styles.achievementIcon}>
+              <span>🥈</span>
+            </div>
+            <div className={styles.achievementContent}>
+              <h3>TEK Connect 2024 – 2nd Place (Software Model)</h3>
+              <p>Secured 2nd place at TEK-Connect 2024, hosted by Poornima College of Engineering, Jaipur. Presented an innovative software model titled "Virtual Herbal Garden" — organized in collaboration with Vigyan Bharati Rajasthan, CSIR-CEERI Pilani, REPC, and Rajasthan Technical University.</p>
+              <div className={styles.achievementBadge}>
+                <span>2nd Place</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className={styles.achievementCard}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 3.2 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <div className={styles.achievementIcon}>
+              <span>🥇</span>
+            </div>
+            <div className={styles.achievementContent}>
+              <h3>Hack & Build – 12-Hour Hackathon Winner</h3>
+              <p>Won the Hack & Build 12-Hour Hackathon at the Aadhar 13 Tech-Fest, Poornima College of Engineering (Feb 2025). Built a complete full-stack solution under time constraints, earning accolades for creativity and execution.</p>
+              <div className={styles.achievementBadge}>
+                <span>Winner</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
