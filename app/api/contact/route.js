@@ -3,12 +3,12 @@ import nodemailer from 'nodemailer';
 
 export async function POST(request) {
   try {
-    const { name, email, organization, services, message } = await request.json();
+    const { name, email, phone, organization, services, message } = await request.json();
 
     // Validate required fields
-    if (!name || !email || !organization || !services || !message) {
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Name, email, and message are required' },
         { status: 400 }
       );
     }
@@ -62,28 +62,36 @@ export async function POST(request) {
                   👤 Contact Information
                 </h2>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                  <div>
-                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Name</strong>
-                    <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${name}</p>
-                  </div>
-                  <div>
-                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Email</strong>
-                    <p style="color: #455ce9; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
-                      <a href="mailto:${email}" style="color: #455ce9; text-decoration: none;">${email}</a>
-                    </p>
-                  </div>
-                </div>
-                
-                <div style="margin-bottom: 20px;">
-                  <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Organization</strong>
-                  <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${organization}</p>
-                </div>
-                
-                <div>
-                  <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Services Required</strong>
-                  <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${services}</p>
-                </div>
+                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                   <div>
+                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Name</strong>
+                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${name}</p>
+                   </div>
+                   <div>
+                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Email</strong>
+                     <p style="color: #455ce9; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
+                       <a href="mailto:${email}" style="color: #455ce9; text-decoration: none;">${email}</a>
+                     </p>
+                   </div>
+                 </div>
+                 
+                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                   <div>
+                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Phone</strong>
+                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
+                       ${phone ? `<a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a>` : 'Not provided'}
+                     </p>
+                   </div>
+                   <div>
+                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Organization</strong>
+                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${organization || 'Not provided'}</p>
+                   </div>
+                 </div>
+                 
+                 <div>
+                   <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Services Required</strong>
+                   <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${services || 'Not specified'}</p>
+                 </div>
               </div>
 
               <!-- Message Section -->

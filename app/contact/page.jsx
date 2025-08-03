@@ -9,6 +9,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     organization: "",
     services: "",
     message: ""
@@ -44,6 +45,7 @@ const Contact = () => {
         setFormData({
           name: "",
           email: "",
+          phone: "",
           organization: "",
           services: "",
           message: ""
@@ -104,57 +106,67 @@ const Contact = () => {
                  />
                </div>
 
-               <div className={styles.formGroup}>
-                 <label className={styles.formLabel}>02 What's your email?</label>
-                 <input
-                   type="email"
-                   name="email"
-                   value={formData.email}
-                   onChange={handleInputChange}
-                   className={styles.formInput}
-                   placeholder="john@doe.com *"
-                   required
-                 />
-               </div>
+                               <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>02 What's your email?</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="john@doe.com *"
+                    required
+                  />
+                </div>
 
-               <div className={styles.formGroup}>
-                 <label className={styles.formLabel}>03 What's the name of your organization?</label>
-                 <input
-                   type="text"
-                   name="organization"
-                   value={formData.organization}
-                   onChange={handleInputChange}
-                   className={styles.formInput}
-                   placeholder="John & Doe ®"
-                   required
-                 />
-               </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>03 What's your phone number?</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
 
-               <div className={styles.formGroup}>
-                 <label className={styles.formLabel}>04 What services are you looking for?</label>
-                 <input
-                   type="text"
-                   name="services"
-                   value={formData.services}
-                   onChange={handleInputChange}
-                   className={styles.formInput}
-                   placeholder="Web Development, UI/UX Design..."
-                   required
-                 />
-               </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>04 What's the name of your organization?</label>
+                  <input
+                    type="text"
+                    name="organization"
+                    value={formData.organization}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="John & Doe ®"
+                  />
+                </div>
 
-               <div className={styles.formGroup}>
-                 <label className={styles.formLabel}>05 Your message</label>
-                 <textarea
-                   name="message"
-                   value={formData.message}
-                   onChange={handleInputChange}
-                   className={styles.formTextarea}
-                   placeholder="Hello Gaurav, can you help me with ... *"
-                   rows={4}
-                   required
-                 />
-               </div>
+                               <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>05 What services are you looking for?</label>
+                  <input
+                    type="text"
+                    name="services"
+                    value={formData.services}
+                    onChange={handleInputChange}
+                    className={styles.formInput}
+                    placeholder="Web Development, UI/UX Design..."
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>06 Your message</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={styles.formTextarea}
+                    placeholder="Hello Gaurav, can you help me with ... *"
+                    rows={4}
+                    required
+                  />
+                </div>
 
                                <motion.button
                   type="submit"
