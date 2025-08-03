@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 export const usePageTransition = () => {
@@ -7,8 +7,8 @@ export const usePageTransition = () => {
   const [pageName, setPageName] = useState("");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
-  const [previousPath, setPreviousPath] = useState("");
-  const [hasNavigated, setHasNavigated] = useState(false);
+  const previousPathRef = useRef("");
+  const isInitialLoadRef = useRef(true);
 
   // Map pathnames to display names
   const getPageName = (path) => {
@@ -27,32 +27,54 @@ export const usePageTransition = () => {
   };
 
   useEffect(() => {
-    // Check if this is a fresh page load (no referrer)
-    const isFreshLoad = !document.referrer;
-    
-    // Only show transition if we've navigated from another page (not on fresh load)
-    if (pathname && hasNavigated && !isFreshLoad && previousPath !== pathname) {
-      // Set transitioning to true immediately to hide page content
+    console.log('🔄 PageTransition useEffect triggered');
+    console.log('Current Pathname:', pathname);
+    console.log('Previous Path Ref:', previousPathRef.current);
+    console.log('Is Initial Load Ref:', isInitialLoadRef.current);
+
+    // Handle the very first load of the application
+    if (isInitialLoadRef.current) {
+      console.log('📝 Initial load detected. Setting previousPathRef and isInitialLoadRef to false.');
+      previousPathRef.current = pathname;
+      isInitialLoadRef.current = false;
+      return;
+    }
+
+    // Only show transition if navigating to a different path
+    if (pathname && previousPathRef.current !== pathname) {
+      console.log('✅ Navigation detected! Showing transition for:', getPageName(pathname));
+      console.log('Transition details:', {
+        from: previousPathRef.current,
+        to: pathname,
+        pageName: getPageName(pathname)
+      });
+
       setIsTransitioning(true);
       setShowTransition(true);
       setPageName(getPageName(pathname));
-      
-      // Hide transition after 0.8 seconds and allow page content to show
-      const timer = setTimeout(() => {
-        setShowTransition(false);
-        // Wait for exit animation to complete before showing page content
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 800); // Wait for full exit animation
-      }, 800);
 
-      return () => clearTimeout(timer);
-    } else if (pathname) {
-      // On initial load or fresh load, just set the pathname but don't show transition
-      setPreviousPath(pathname);
-      setHasNavigated(true);
+      const timer = setTimeout(() => {
+        console.log('⏱️ Transition timer finished. Hiding transition and resetting isTransitioning.');
+        setShowTransition(false);
+        setIsTransitioning(false);
+      }, 800); // Transition duration
+
+      // Update previous path after the transition has been initiated
+      previousPathRef.current = pathname; 
+
+      return () => {
+        console.log('🧹 Cleaning up transition timer.');
+        clearTimeout(timer);
+      };
+    } else {
+      console.log('❌ No navigation detected or same path. Not showing transition.');
+      console.log('Details:', {
+        pathname,
+        previousPath: previousPathRef.current,
+        isSamePath: pathname === previousPathRef.current
+      });
     }
-  }, [pathname, hasNavigated, previousPath]);
+  }, [pathname]);
 
   return { showTransition, pageName, isTransitioning };
 }; 

@@ -49,14 +49,14 @@ const Navbar = ({ toggleMenu }) => {
           </div>
 
           {navItems.map((item, index) => {
-            return <Links key={index} data={{ ...item, index }} />;
+            return <Links key={index} data={{ ...item, index }} onLinkClick={toggleMenu} />;
           })}
         </div>
         <div className={styles.footer}>
-          <a href="/">Awward</a>
-          <a href="/">Instagram</a>
-          <a href="/">Dribble</a>
-          <a href="/">Twitter</a>
+          <a href="https://www.linkedin.com/in/this-is-gaurav-jain/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/gauravjain0377" target="_blank" rel="noopener noreferrer">Github</a>
+          <a href="https://x.com/gauravjain0377" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://www.instagram.com/gauravjain0377/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       </div>
       <Curve />

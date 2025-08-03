@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 const PageContentWrapper = ({ children }) => {
   const { isTransitioning, showTransition } = usePageTransition();
 
-  // If transitioning or showing transition, don't render anything
-  if (isTransitioning || showTransition) {
+  // Only hide content during the initial transition phase, not during the exit phase
+  if (isTransitioning) {
     return null;
   }
 

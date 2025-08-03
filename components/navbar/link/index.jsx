@@ -3,7 +3,13 @@ import stylesLINK from "./stylelink.module.scss";
 import { menuSlider, sldier } from "../anima";
 import { motion } from "framer-motion";
 
-const index = ({ data }) => {
+const index = ({ data, onLinkClick }) => {
+  const handleClick = () => {
+    if (onLinkClick) {
+      onLinkClick();
+    }
+  };
+
   return (
     <motion.div
       custom={data.index}
@@ -13,7 +19,7 @@ const index = ({ data }) => {
       initial="initial"
       className={stylesLINK.link}
     >
-      <Link href={data.href}>{data.title}</Link>
+      <Link href={data.href} onClick={handleClick}>{data.title}</Link>
     </motion.div>
   );
 };
