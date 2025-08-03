@@ -13,26 +13,37 @@ const index = () => {
       title: "StockSathi",
       src: "Stox.png",
       color: "#000000",
+      githubUrl: "https://github.com/gauravjain0377/Stox.git",
+      liveUrl: "https://stox.vercel.app",
+
     },
     {
       title: "HackZen",
       src: "HackZen.png",
       color: "#8C8C8C",
+      githubUrl: "https://github.com/Nitinjainn/STPI-Project.git",
+      liveUrl: "https://hackzen.vercel.app/",
     },
     {
       title: "Simon Game",
       src: "SG.png",
       color: "#EFE8D3",
+      githubUrl: "https://github.com/gauravjain0377/Simon-Game.git",
+      liveUrl: "https://simonplay.vercel.app/",
     },
     {
       title: "Virtual Herbal Garden",
       src: "VHG.png",
       color: "#706D63",
+      githubUrl: "https://github.com/Shaurya01836/AyurHerb.git",
+      liveUrl: "https://herb-sphere.vercel.app/",
     },
     {
       title: "BookStore",
       src: "BS.png",
       color: "#706D63",
+      githubUrl: "https://github.com/gauravjain0377/BookStore.git",
+      liveUrl: "https://books-company.vercel.app/",
     },
   ];
 
@@ -114,6 +125,12 @@ const index = () => {
       onMouseMove={(e) => {
         moveItems(e.clientX, e.clientY);
       }}
+      onMouseLeave={(e) => {
+        // Close modal when leaving the entire projects section
+        if (active) {
+          setModal({ active: false, index: 0 });
+        }
+      }}
     >
       <div className={styles.body}>
         <h1 className={styles.projectsTitle}>Projects</h1>
@@ -123,6 +140,7 @@ const index = () => {
               index={index}
               title={project.title}
               manageModal={manageModal}
+              githubUrl={project.githubUrl}
               key={index}
             />
           );
@@ -177,7 +195,24 @@ const index = () => {
           initial="initial"
           animate={active ? "enter" : "closed"}
         >
-          <a href="">View</a>
+          <a 
+            href={active && projects[index] ? projects[index].liveUrl : "#"} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              textDecoration: 'none', 
+              color: 'inherit',
+              pointerEvents: 'auto',
+              cursor: 'pointer',
+              padding: '15px',
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              textAlign: 'center'
+            }}
+          >
+            View
+          </a>
         </motion.div>
       </>
     </main>
