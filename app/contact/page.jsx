@@ -129,7 +129,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   className={styles.formInput}
-                  placeholder="John Doe *"
+                  placeholder="Gaurav Jain *"
                   required
                 />
               </div>
@@ -142,7 +142,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   className={styles.formInput}
-                  placeholder="john@doe.com *"
+                  placeholder="gaurav@jain.com *"
                   required
                 />
               </div>
@@ -167,7 +167,7 @@ const Contact = () => {
                   value={formData.organization}
                   onChange={handleInputChange}
                   className={styles.formInput}
-                  placeholder="John & Doe ®"
+                  placeholder="Gaurav & Jain ®"
                 />
               </div>
 
@@ -277,12 +277,12 @@ const Contact = () => {
                 <div className={styles.detailsContent}>
                   <div className={styles.detailItem}>
                     <a href="mailto:gauravjain@gmail.com" className={styles.detailValue}>
-                      gauravjain@gmail.com
+                      gjain0229@gmail.com
                     </a>
                   </div>
                   <div className={styles.detailItem}>
                     <a href="tel:+91XXXXXXXXXX" className={styles.detailValue}>
-                      +91 XXXXXXXXXX
+                      +91 8949956653
                     </a>
                   </div>
                 </div>
@@ -295,7 +295,7 @@ const Contact = () => {
                     <span className={styles.detailValue}>Gaurav Jain</span>
                   </div>
                   <div className={styles.detailItem}>
-                    <span className={styles.detailValue}>Full Stack Developer</span>
+                    <span className={styles.detailValue}>Software Engineer</span>
                   </div>
                   <div className={styles.detailItem}>
                     <span className={styles.detailValue}>Location: Jaipur, India</span>

@@ -14,21 +14,21 @@ const Navbar = ({ toggleMenu }) => {
   const isDarkPage = isWorkPage || isAboutPage || isContactPage || isHomePage;
   
   const navItems = [
-    ...(isDarkPage ? [{
+    {
       title: "Home",
       href: "/",
-    }] : []),
+    },
     {
       title: "Work",
       href: "/work",
     },
     {
-      title: "Contact",
-      href: "/contact",
-    },
-    {
       title: "About",
       href: "/about",
+    },
+    {
+      title: "Contact",
+      href: "/contact",
     },
   ];
   return (

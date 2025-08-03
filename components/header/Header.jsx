@@ -18,10 +18,7 @@ const Header = () => {
   const pathname = usePathname();
   const scrollTriggerRef = useRef(null);
   
-  console.log('🎬 Header component rendered');
-  console.log('📍 Pathname:', pathname);
-  console.log('🎯 Burger ref:', targertBurger.current);
-  console.log('📊 Component state:', { isActive, isMenu });
+
   
   // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
@@ -31,109 +28,109 @@ const Header = () => {
   const isDarkPage = isWorkPage || isAboutPage || isContactPage || isHomePage;
 
   useLayoutEffect(() => {
-    console.log('🔍 Header useLayoutEffect triggered');
-    console.log('📍 Current pathname:', pathname);
-    console.log('🎯 Burger ref exists:', !!targertBurger.current);
-    
     if (!targertBurger.current) {
-      console.error('❌ Burger ref is null!');
       return;
     }
 
     // Only create ScrollTrigger if it doesn't exist or pathname changed
     if (scrollTriggerRef.current && scrollTriggerRef.current.pathname === pathname) {
-      console.log('🔄 ScrollTrigger already exists for this pathname, skipping');
       return;
     }
+
+    // Small delay to ensure page transition is complete before setting up ScrollTrigger
+    const setupDelay = pathname === "/" ? 1000 : 500; // Much longer delay to ensure transition is complete
 
     try {
       gsap.registerPlugin(ScrollTrigger);
       
       // Kill existing ScrollTrigger if it exists
       if (scrollTriggerRef.current?.trigger) {
-        console.log('🗑️ Killing existing ScrollTrigger');
         scrollTriggerRef.current.trigger.kill();
       }
       
       // Reset the burger button to initial state
       gsap.set(targertBurger.current, { scale: 0 });
-      console.log('🔄 Reset burger scale to 0');
       
-      const scrollTrigger = gsap.to(targertBurger.current, {
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: "top -100px", // Show menu when scrolled 100px down
-          end: "bottom top",
-          onEnter: () => {
-            console.log('⬇️ ScrollTrigger onEnter - Showing menu');
-            gsap.to(targertBurger.current, {
-              scale: 1,
-              duration: 0.25,
-              ease: "power1.out",
-            });
-          },
-          onLeaveBack: () => {
-            console.log('⬆️ ScrollTrigger onLeaveBack - Hiding menu');
-            gsap.to(targertBurger.current, {
-              scale: 0, // Hide menu when back at top
-              duration: 0.25,
-              ease: "power1.out",
-            });
-          },
-          onRefresh: () => {
-            console.log('🔄 ScrollTrigger refreshed');
-          }
-        },
-      });
-
-      // Store reference to prevent recreation
-      scrollTriggerRef.current = {
-        trigger: scrollTrigger.scrollTrigger,
-        pathname: pathname
+      // Create a robust scroll-based approach
+      let isMenuVisible = false;
+      
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+        
+        if (scrollY > 100 && !isMenuVisible) {
+          isMenuVisible = true;
+          gsap.to(targertBurger.current, {
+            scale: 1,
+            duration: 0.25,
+            ease: "power1.out",
+          });
+        } else if (scrollY <= 100 && isMenuVisible) {
+          isMenuVisible = false;
+          gsap.to(targertBurger.current, {
+            scale: 0,
+            duration: 0.25,
+            ease: "power1.out",
+          });
+        }
       };
 
-      console.log('✅ ScrollTrigger created successfully');
-      console.log('📊 Current scroll position:', window.scrollY);
+      setTimeout(() => {
+        // Add scroll listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Check initial scroll position
+        setTimeout(() => {
+          handleScroll();
+        }, 100);
+
+        // Create ScrollTrigger for compatibility
+        const scrollTrigger = gsap.to(targertBurger.current, {
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top -100px",
+            end: "bottom top",
+            onEnter: () => {
+              gsap.to(targertBurger.current, {
+                scale: 1,
+                duration: 0.25,
+                ease: "power1.out",
+              });
+            },
+            onLeaveBack: () => {
+              gsap.to(targertBurger.current, {
+                scale: 0,
+                duration: 0.25,
+                ease: "power1.out",
+              });
+            }
+          },
+        });
+
+        // Store reference to prevent recreation
+        scrollTriggerRef.current = {
+          trigger: scrollTrigger.scrollTrigger,
+          pathname: pathname
+        };
+      }, setupDelay);
 
       // Cleanup function
       return () => {
-        console.log('🧹 Cleaning up ScrollTrigger');
         if (scrollTriggerRef.current?.trigger) {
           scrollTriggerRef.current.trigger.kill();
           scrollTriggerRef.current = null;
         }
+        // Remove manual scroll listener
+        window.removeEventListener('scroll', handleScroll);
       };
     } catch (error) {
       console.error('❌ Error in ScrollTrigger setup:', error);
     }
   }, [pathname]); // Reinitialize when pathname changes
 
-  // Monitor scroll events for debugging (reduced frequency)
-  useEffect(() => {
-    let scrollTimeout;
-    const handleScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        console.log('📜 Scroll position:', window.scrollY);
-      }, 100); // Only log every 100ms to reduce noise
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    console.log('👂 Added scroll listener');
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout);
-      console.log('👂 Removed scroll listener');
-    };
-  }, []);
+  
 
   const toggleMenu = () => {
-    console.log('🔄 toggleMenu called');
-    setMenu((prev) => {
-      console.log('📊 Menu state changing from', prev, 'to', !prev);
-      return !prev;
-    });
+    setMenu((prev) => !prev);
   };
   
   return (
@@ -214,7 +211,7 @@ const Header = () => {
           </Buttonx>
         </div>
 
-        <AnimatePresence mode="exit">{isActive && <Navbar />}</AnimatePresence>
+        <AnimatePresence mode="exit">{isActive && <Navbar toggleMenu={() => setIsActive(false)} />}</AnimatePresence>
       </div>
     </>
   );

@@ -5,25 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 const PageContentWrapper = ({ children }) => {
   const { isTransitioning, showTransition, shouldBlockContent } = usePageTransition();
 
-  console.log('📄 PageContentWrapper render - state:', { isTransitioning, showTransition, shouldBlockContent });
-
   // Hide content during both transitioning and showing transition to prevent flash
   if (isTransitioning || showTransition || shouldBlockContent) {
-    console.log('🚫 Hiding page content during transition');
-    console.log('   - isTransitioning:', isTransitioning);
-    console.log('   - showTransition:', showTransition);
-    console.log('   - shouldBlockContent:', shouldBlockContent);
     return null;
   }
-
-  console.log('✅ Showing page content');
-  console.log('   - isTransitioning:', isTransitioning);
-  console.log('   - showTransition:', showTransition);
-  console.log('   - shouldBlockContent:', shouldBlockContent);
 
   return (
     <motion.div
       key="page-content"
+      data-page-content="true"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
