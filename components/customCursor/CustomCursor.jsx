@@ -8,6 +8,18 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const cursor = cursorRef.current;
+    
+    // Check if device supports touch
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Hide cursor on touch devices
+    if (isTouchDevice) {
+      if (cursor) {
+        cursor.style.display = 'none';
+      }
+      return; // Don't set up mouse events on touch devices
+    }
+    
     let mouseX = 0;
     let mouseY = 0;
     let cursorX = 0;
@@ -71,7 +83,7 @@ const CustomCursor = () => {
       }
     };
 
-    // Add event listeners
+    // Add event listeners only for non-touch devices
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseleave', handleMouseLeave);

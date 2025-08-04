@@ -1,30 +1,25 @@
 .themeToggle {
   position: relative;
-  top: 0;
-  right: 0;
-  width: auto;
-  height: auto;
-  padding: 0;
-  border-radius: 0;
-  border: none;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
   background: transparent;
   backdrop-filter: none;
   cursor: pointer;
-  display: inline;
-  align-items: baseline;
-  justify-content: baseline;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
   transition: all 0.3s ease;
   box-shadow: none;
-  font-size: 6px;
-  line-height: 1;
   color: var(--text-primary);
-  vertical-align: baseline;
 
   &:hover {
-    background: transparent;
-    box-shadow: none;
-    transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
   }
 
   &:active {
@@ -37,8 +32,8 @@
     box-shadow: none;
 
     &:hover {
-      background: transparent;
-      box-shadow: none;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -48,52 +43,48 @@
     box-shadow: none;
 
     &:hover {
-      background: transparent;
-      box-shadow: none;
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }
 
   @media (max-width: 768px) {
-    padding: 0;
+    width: 45px;
+    height: 45px;
+    padding: 6px;
   }
 }
 
 .toggleContainer {
   position: relative;
-  width: auto;
-  height: auto;
-  display: inline;
-  align-items: baseline;
-  justify-content: baseline;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-primary);
   transition: color 0.3s ease;
-  font-size: 6px;
-  line-height: 1;
   margin: 0;
   padding: 0;
-  vertical-align: baseline;
 }
 
 .sunIcon, .moonIcon {
   position: relative;
-  display: inline;
-  align-items: baseline;
-  justify-content: baseline;
-  width: 3px;
-  height: 3px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  vertical-align: baseline;
 
   svg {
-    width: 50%;
-    height: 50%;
+    width: 20px;
+    height: 20px;
     stroke: currentColor;
-    stroke-width: 0.5;
+    stroke-width: 2;
     fill: none;
-    display: inline;
-    vertical-align: baseline;
+    display: block;
   }
 }
 
@@ -121,17 +112,62 @@
 }
 
 // Responsive adjustments
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .themeToggle {
-    padding: 0;
-  }
-
-  .toggleContainer {
-    font-size: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
   }
 
   .sunIcon, .moonIcon {
-    width: 2px;
-    height: 2px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .themeToggle {
+    width: 35px;
+    height: 35px;
+    padding: 4px;
+  }
+
+  .sunIcon, .moonIcon {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .themeToggle {
+    width: 32px;
+    height: 32px;
+    padding: 3px;
+  }
+
+  .sunIcon, .moonIcon {
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .themeToggle {
+    width: 28px;
+    height: 28px;
+    padding: 2px;
+  }
+
+  .sunIcon, .moonIcon {
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 } 

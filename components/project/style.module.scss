@@ -1,30 +1,146 @@
-@media (max-width: 750px) {
+@media (max-width: 1020px) {
   .projects {
-    flex: 1;
-    padding-left: 100px !important;
-    padding-right: 100px !important;
-    margin-top: 200px !important;
+    padding-left: 150px !important;
+    padding-right: 150px !important;
+    margin-top: 200px !important; /* Increase margin to move projects down */
   }
-
-  .modal img {
-    height: 60% !important;
-    width: 60% !important;
+  
+  .body {
+    .projectsTitle {
+      font-size: 42px !important;
+      margin-bottom: 50px !important;
+    }
+  }
+  
+  .modalContainer {
+    height: 320px !important;
+    width: 380px !important;
   }
 }
-@media (max-width: 390px) {
+
+@media (max-width: 768px) {
+  .projects {
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    margin-top: 180px !important; /* Increase margin to move projects down */
+  }
+  
+  .body {
+    .projectsTitle {
+      font-size: 36px !important;
+      margin-bottom: 40px !important;
+    }
+  }
+  
+  .modalContainer {
+    height: 300px !important;
+    width: 350px !important;
+  }
+  
+  .modal img {
+    height: 70% !important;
+    width: 70% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects {
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+    margin-top: 160px !important; /* Increase margin to move projects down */
+  }
+  
+  .body {
+    .projectsTitle {
+      font-size: 32px !important;
+      margin-bottom: 35px !important;
+    }
+  }
+  
+  .modalContainer {
+    height: 280px !important;
+    width: 320px !important;
+  }
+  
+  .modal img {
+    height: 75% !important;
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 480px) {
   .projects {
     padding-left: 40px !important;
     padding-right: 40px !important;
-    margin-top: 170px !important;
+    margin-top: 140px !important; /* Increase margin to move projects down */
   }
+  
+  .body {
+    .projectsTitle {
+      font-size: 28px !important;
+      margin-bottom: 30px !important;
+    }
+  }
+  
   .modalContainer {
-    height: 250px !important;
+    height: 260px !important;
     width: 300px !important;
   }
-  // .modal img {
-  //   height: 60% !important;
-  //   width: 60% !important;
-  // }
+  
+  .modal img {
+    height: 80% !important;
+    width: 80% !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .projects {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    margin-top: 200px !important; /* Increase margin to move projects down */
+  }
+  
+  .body {
+    .projectsTitle {
+      font-size: 24px !important;
+      margin-bottom: 25px !important;
+    }
+  }
+  
+  .modalContainer {
+    height: 240px !important;
+    width: 280px !important;
+  }
+  
+  .modal img {
+    height: 85% !important;
+    width: 85% !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .projects {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    margin-top: 50px !important;
+  }
+  
+  .body {
+    .projectsTitle {
+      font-size: 22px !important;
+      margin-bottom: 20px !important;
+    }
+  }
+  
+  .modalContainer {
+    height: 220px !important;
+    width: 260px !important;
+  }
+  
+  .modal img {
+    height: 90% !important;
+    width: 90% !important;
+  }
 }
 
 .projects {

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { menuSlider } from "./anima";
 import Curve from "./curve/Curve";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const Navbar = ({ toggleMenu }) => {
   const pathname = usePathname();
@@ -43,9 +44,12 @@ const Navbar = ({ toggleMenu }) => {
         <div className={styles.nav}>
           <div className={styles.header}>
             <p>Navigation Menu</p>
-            <button onClick={toggleMenu} className={styles.closeButton}>
-              ×
-            </button>
+            <div className={styles.headerControls}>
+              <ThemeToggle />
+              <button onClick={toggleMenu} className={styles.closeButton}>
+                ×
+              </button>
+            </div>
           </div>
 
           {navItems.map((item, index) => {

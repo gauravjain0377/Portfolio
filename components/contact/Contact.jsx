@@ -32,9 +32,8 @@ export default function Contact() {
                             src={`/images/Gaurav_Jain.png`}
                             />
                         </div>
-                        <h2>Let's work</h2>
+                        <h2>Let's work together</h2>
                     </span>
-                    <h2>together</h2>
                     <motion.div style={{x}} className={styles.buttonContainer}>
                         <Rounded  backgroundColor={"#334BD3"} className={styles.button} onClick={handleGetInTouch}>
                             <p>Get in touch</p>

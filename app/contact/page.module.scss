@@ -36,12 +36,25 @@
   grid-template-columns: 1fr 1fr;
   gap: 120px; /* Increased gap between form and right side */
   align-items: flex-start; /* Changed from center to flex-start */
-  padding-left: 100px; /* Move content more to the right */
+  padding: 0 40px; /* Responsive padding instead of fixed left padding */
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     gap: 80px;
-    padding-left: 0; /* Reset padding on mobile */
+    padding: 0 30px; /* Reduced padding on tablets */
+  }
+
+  @media (max-width: 768px) {
+    gap: 60px;
+    padding: 0 20px; /* Reduced padding on mobile */
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 15px; /* Minimal padding on small mobile */
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 10px; /* Very minimal padding on extra small mobile */
   }
 }
 
@@ -317,10 +330,22 @@
   gap: 60px; /* Increased gap between footer sections */
   padding: 0 40px; /* Add horizontal padding */
 
+  @media (max-width: 1024px) {
+    padding: 0 30px; /* Match main content padding */
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 40px; /* Increased gap on mobile too */
-    padding: 0 20px; /* Less padding on mobile */
+    padding: 0 20px; /* Match main content padding */
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 15px; /* Match main content padding */
+  }
+
+  @media (max-width: 360px) {
+    padding: 0 10px; /* Match main content padding */
   }
 }
 
