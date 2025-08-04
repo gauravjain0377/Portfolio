@@ -44,10 +44,16 @@
 /* Base Styles */
 body {
   margin: 0px;
-  cursor: none; /* Hide default cursor for custom cursor */
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hide default cursor only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none; /* Hide default cursor for custom cursor */
+  }
 }
 
 /* Custom Global Cursor */
@@ -68,21 +74,23 @@ body {
   background: var(--accent-secondary);
 }
 
-/* Hide default cursor on all interactive elements to show only custom cursor */
-a, button, input, textarea, select, [role="button"], .interactive, 
-[data-cursor="pointer"], [data-cursor="button"], [data-cursor="text"] {
-  cursor: none !important;
-}
+/* Hide default cursor on all interactive elements to show only custom cursor - only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  a, button, input, textarea, select, [role="button"], .interactive, 
+  [data-cursor="pointer"], [data-cursor="button"], [data-cursor="text"] {
+    cursor: none !important;
+  }
 
-/* Ensure no default cursor shows anywhere */
-* {
-  cursor: none !important;
-}
+  /* Ensure no default cursor shows anywhere */
+  * {
+    cursor: none !important;
+  }
 
-/* Exception for text selection areas if needed */
-input[type="text"], input[type="email"], input[type="password"], 
-textarea, [contenteditable="true"] {
-  cursor: none !important;
+  /* Exception for text selection areas if needed */
+  input[type="text"], input[type="email"], input[type="password"], 
+  textarea, [contenteditable="true"] {
+    cursor: none !important;
+  }
 }
 
 /* Theme-specific body classes */

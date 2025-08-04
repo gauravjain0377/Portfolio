@@ -42,8 +42,8 @@
       0 0 80px rgba(45, 58, 140, 0.4);
   }
   
-  // Hide on mobile devices
-  @media (max-width: 768px) {
+  // Hide on touch devices and mobile
+  @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     display: none;
   }
 }
@@ -99,5 +99,10 @@
       transform: scale(1.5);
       opacity: 0.1;
     }
+  }
+  
+  // Hide on touch devices and mobile
+  @media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    display: none;
   }
 } 
