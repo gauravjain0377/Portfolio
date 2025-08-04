@@ -78,12 +78,16 @@
 }
 
 @media (max-width: 390px) {
-  .slider{
-    display: none !important;
-  }
   .slidingImages {
     margin-top: 40px !important;
     margin-bottom: 80px !important;
+    
+    .slider {
+      .project {
+        height: 10vw;
+        padding: 4px;
+      }
+    }
     
     .circleContainer {
       margin-top: 25px;
@@ -99,6 +103,13 @@
   .slidingImages {
     margin-top: 30px !important;
     margin-bottom: 60px !important;
+    
+    .slider {
+      .project {
+        height: 8vw;
+        padding: 3px;
+      }
+    }
     
     .circleContainer {
       margin-top: 20px;

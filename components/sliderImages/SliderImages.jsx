@@ -68,9 +68,14 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
-                  sizes="(max-width: 768px) 100vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 480px) 50vw, 25vw"
                   quality={90}
                   priority={index < 2}
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${pro.src}`);
+                    e.target.style.display = 'none';
+                  }}
                 />
               </div>
             </div>
@@ -90,9 +95,14 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
-                  sizes="(max-width: 768px) 100vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 480px) 50vw, 25vw"
                   quality={90}
                   priority={index < 2}
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${pro.src}`);
+                    e.target.style.display = 'none';
+                  }}
                 />
               </div>
             </div>
