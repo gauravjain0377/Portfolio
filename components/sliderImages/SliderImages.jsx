@@ -76,6 +76,9 @@ const SliderImages = () => {
                     console.error(`Failed to load image: ${pro.src}`);
                     e.target.style.display = 'none';
                   }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded image: ${pro.src}`);
+                  }}
                 />
               </div>
             </div>
@@ -102,6 +105,9 @@ const SliderImages = () => {
                   onError={(e) => {
                     console.error(`Failed to load image: ${pro.src}`);
                     e.target.style.display = 'none';
+                  }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded image: ${pro.src}`);
                   }}
                 />
               </div>
