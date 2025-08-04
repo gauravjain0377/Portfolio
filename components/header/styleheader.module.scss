@@ -23,6 +23,16 @@
       }
     }
   }
+  
+  .headerButtonContainer {
+    .button {
+      height: 70px;
+      width: 70px;
+      margin: 15px;
+      right: 10px;
+      top: 10px;
+    }
+  }
 }
 
 @media (max-width: 550px) {
@@ -46,6 +56,16 @@
           left: 90px;
         }
       }
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 65px;
+      width: 65px;
+      margin: 12px;
+      right: 8px;
+      top: 8px;
     }
   }
 }
@@ -79,6 +99,16 @@
       }
     }
   }
+  
+  .headerButtonContainer {
+    .button {
+      height: 60px;
+      width: 60px;
+      margin: 10px;
+      right: 5px;
+      top: 5px;
+    }
+  }
 }
 
 @media (max-width: 390px) {
@@ -110,6 +140,16 @@
       }
     }
   }
+  
+  .headerButtonContainer {
+    .button {
+      height: 55px;
+      width: 55px;
+      margin: 8px;
+      right: 3px;
+      top: 3px;
+    }
+  }
 }
 
 .menuName {
@@ -117,10 +157,11 @@
 }
 
 .header {
-  position: absolute;
+  position: fixed;
   color: var(--text-primary);
   top: 0;
-  z-index: 10; /* Ensure header stays above all content */
+  left: 0;
+  z-index: 1000; /* Ensure header stays above all content */
   display: flex;
   justify-content: space-between;
   padding: 35px;
@@ -274,7 +315,8 @@
   transform: scale(0); /* Start hidden, will appear on scroll */
   position: fixed;
   right: 0px;
-  z-index: 4;
+  top: 0px;
+  z-index: 1001; /* Higher than header to ensure it's always visible */
 
   .button {
     position: relative;
@@ -353,7 +395,50 @@
     .button {
       height: 55px;
       width: 55px;
-      margin: 10px;
+      margin: 8px;
+      right: 3px;
+      top: 3px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .header {
+    padding: 10px 5px;
+    z-index: 10;
+    
+    .navContainer {
+      gap: 12px;
+      
+      .menuName p {
+        font-size: 13px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 14px;
+      }
+      
+      .name {
+        p {
+          font-size: 13px;
+        }
+        
+        .jain {
+          left: 60px;
+        }
+      }
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 50px;
+      width: 50px;
+      margin: 6px;
+      right: 2px;
+      top: 2px;
     }
   }
 }

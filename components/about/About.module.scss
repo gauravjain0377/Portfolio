@@ -1,7 +1,7 @@
 .aboutContainer {
   min-height: 100vh;
   background: var(--bg-primary);
-  padding: 120px 200px 120px;
+  padding: 180px 200px 120px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -9,12 +9,22 @@
   transition: background-color 0.3s ease;
 
   @media (max-width: 1200px) {
-    padding: 100px 100px 100px;
+    padding: 180px 100px 100px;
   }
 
   @media (max-width: 768px) {
-    padding: 80px 40px 80px;
+    padding: 160px 40px 80px;
     gap: 80px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 140px 30px 80px;
+    gap: 60px;
+  }
+
+  @media (max-width: 390px) {
+    padding: 120px 20px 80px;
+    gap: 50px;
   }
 }
 
