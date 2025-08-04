@@ -32,6 +32,16 @@
     background: var(--accent-secondary);
   }
   
+  // Click effect
+  &.click {
+    transform: translate(-50%, -50%) scale(0.8);
+    background: var(--accent-secondary);
+    box-shadow: 
+      0 0 0 6px rgba(45, 58, 140, 0.4),
+      0 0 40px rgba(45, 58, 140, 0.8),
+      0 0 80px rgba(45, 58, 140, 0.4);
+  }
+  
   // Hide on mobile devices
   @media (max-width: 768px) {
     display: none;
@@ -75,6 +85,19 @@
     &::before {
       transform: scale(3);
       opacity: 0.2;
+    }
+  }
+  
+  &.click {
+    transform: translate(-50%, -50%) scale(0.7);
+    background: var(--accent-secondary);
+    box-shadow: 
+      0 0 0 4px rgba(45, 58, 140, 0.6),
+      0 0 25px rgba(45, 58, 140, 0.9);
+    
+    &::before {
+      transform: scale(1.5);
+      opacity: 0.1;
     }
   }
 } 

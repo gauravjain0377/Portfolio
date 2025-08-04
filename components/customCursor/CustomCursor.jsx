@@ -58,10 +58,25 @@ const CustomCursor = () => {
       }
     };
 
+    // Handle click events
+    const handleMouseDown = () => {
+      if (cursor) {
+        cursor.classList.add(styles.click);
+      }
+    };
+
+    const handleMouseUp = () => {
+      if (cursor) {
+        cursor.classList.remove(styles.click);
+      }
+    };
+
     // Add event listeners
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
 
     // Add hover effects to interactive elements
     const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"], .interactive');
@@ -78,6 +93,8 @@ const CustomCursor = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
       
       interactiveElements.forEach(element => {
         element.removeEventListener('mouseenter', handleElementHover);

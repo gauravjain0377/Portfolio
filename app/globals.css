@@ -68,9 +68,21 @@ body {
   background: var(--accent-secondary);
 }
 
-/* Show default cursor on interactive elements */
-a, button, input, textarea, select, [role="button"] {
-  cursor: pointer;
+/* Hide default cursor on all interactive elements to show only custom cursor */
+a, button, input, textarea, select, [role="button"], .interactive, 
+[data-cursor="pointer"], [data-cursor="button"], [data-cursor="text"] {
+  cursor: none !important;
+}
+
+/* Ensure no default cursor shows anywhere */
+* {
+  cursor: none !important;
+}
+
+/* Exception for text selection areas if needed */
+input[type="text"], input[type="email"], input[type="password"], 
+textarea, [contenteditable="true"] {
+  cursor: none !important;
 }
 
 /* Theme-specific body classes */
