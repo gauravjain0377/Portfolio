@@ -26,7 +26,7 @@
   top: calc(100vh - 300px);
   left: 0;
   width: 100%;
-  overflow: hidden;
+  overflow: visible; /* Change from hidden to visible */
 }
 
 .slider {
@@ -37,22 +37,22 @@
 }
 
 .slider p {
-  font-family: sans-serif;
-  position: relative;
-  margin: 0px;
+  font-size: 120px;
+  font-weight: 600;
   color: var(--text-primary);
-  font-size: 230px;
-  font-weight: 500;
-  padding-right: 50px;
-  transition: color 0.3s ease;
-  line-height: 0.8;
-  white-space: nowrap;
+  padding-right: 25px;
   letter-spacing: -0.02em; /* Reduce letter spacing to prevent overlap */
 }
 
+.slider p:nth-of-type(1) {
+  position: relative; /* Change from absolute to relative */
+  left: 0;
+  margin-left: 0px;
+}
+
 .slider p:nth-of-type(2) {
-  position: absolute;
-  left: 100%;
+  position: relative; /* Change from absolute to relative */
+  left: 0;
   margin-left: 20px; /* Add space between the two text instances */
 }
 
@@ -752,6 +752,56 @@
     left: 2% !important;
     font-size: 0.8rem !important;
     width: 98% !important;
+  }
+}
+
+/* Mobile responsiveness for the slider text */
+@media (max-width: 820px) {
+  .slideContainer {
+    top: calc(100vh - 200px); /* Move lower on mobile */
+    overflow: visible !important;
+  }
+  
+  .slider {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  
+  .slider p {
+    font-size: 80px !important; /* Smaller font size for mobile */
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    padding-right: 15px !important;
+    /* Ensure text is visible */
+    position: relative !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    /* Add text shadow for better visibility */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .slider p:nth-of-type(1) {
+    position: relative !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  .slider p:nth-of-type(2) {
+    position: relative !important;
+    left: 0 !important;
+    margin-left: 15px !important;
+  }
+}
+
+/* Additional mobile fixes for smaller screens */
+@media (max-width: 480px) {
+  .slider p {
+    font-size: 60px !important;
+    padding-right: 10px !important;
+  }
+  
+  .slider p:nth-of-type(2) {
+    margin-left: 10px !important;
   }
 }
 

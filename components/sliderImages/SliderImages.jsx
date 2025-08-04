@@ -58,7 +58,6 @@ const SliderImages = () => {
         {slider1.map((pro, index) => {
           return (
             <div
-
               className={Styles.project}
               key={`sli_${index}`}
               style={{ backgroundColor: pro.color}}
@@ -68,17 +67,9 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
-                  sizes="(max-width: 768px) 100vw, (max-width: 480px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, 25vw"
                   quality={90}
                   priority={index < 2}
-                  loading="lazy"
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${pro.src}`);
-                    e.target.style.display = 'none';
-                  }}
-                  onLoad={() => {
-                    console.log(`Successfully loaded image: ${pro.src}`);
-                  }}
                 />
               </div>
             </div>
@@ -98,17 +89,9 @@ const SliderImages = () => {
                   alt="ProjectImages"
                   fill={true}
                   src={`/images/${pro.src}`}
-                  sizes="(max-width: 768px) 100vw, (max-width: 480px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, 25vw"
                   quality={90}
                   priority={index < 2}
-                  loading="lazy"
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${pro.src}`);
-                    e.target.style.display = 'none';
-                  }}
-                  onLoad={() => {
-                    console.log(`Successfully loaded image: ${pro.src}`);
-                  }}
                 />
               </div>
             </div>
