@@ -1,0 +1,97 @@
+"use client";
+
+import { useEffect, useRef } from 'react';
+import styles from './CustomCursor.module.scss';
+
+const CustomCursor = () => {
+  const cursorRef = useRef(null);
+
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+
+    const updateCursor = () => {
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      
+      cursorX += dx * 0.1;
+      cursorY += dy * 0.1;
+      
+      if (cursor) {
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+      }
+      
+      requestAnimationFrame(updateCursor);
+    };
+
+    const handleMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const handleMouseEnter = () => {
+      if (cursor) {
+        cursor.style.opacity = '1';
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (cursor) {
+        cursor.style.opacity = '0';
+      }
+    };
+
+    // Add hover effects for interactive elements
+    const handleElementHover = () => {
+      if (cursor) {
+        cursor.classList.add(styles.hover);
+      }
+    };
+
+    const handleElementLeave = () => {
+      if (cursor) {
+        cursor.classList.remove(styles.hover);
+      }
+    };
+
+    // Add event listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseenter', handleMouseEnter);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    // Add hover effects to interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"], .interactive');
+    interactiveElements.forEach(element => {
+      element.addEventListener('mouseenter', handleElementHover);
+      element.addEventListener('mouseleave', handleElementLeave);
+    });
+
+    // Start the animation loop
+    updateCursor();
+
+    // Cleanup
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      
+      interactiveElements.forEach(element => {
+        element.removeEventListener('mouseenter', handleElementHover);
+        element.removeEventListener('mouseleave', handleElementLeave);
+      });
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={cursorRef}
+      className={styles.customCursor}
+    />
+  );
+};
+
+export default CustomCursor; 

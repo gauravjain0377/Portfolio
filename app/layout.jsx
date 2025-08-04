@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
+import CustomCursor from "../components/customCursor/CustomCursor";
 
 export const metadata = {
   title: "Gaurav Portfolio",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={``}>
+        <CustomCursor />
         <ClientLayout>
           {children}
         </ClientLayout>

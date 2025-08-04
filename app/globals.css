@@ -44,10 +44,33 @@
 /* Base Styles */
 body {
   margin: 0px;
-  cursor: wait;
+  cursor: none; /* Hide default cursor for custom cursor */
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Global Cursor */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease;
+}
+
+.custom-cursor.hover {
+  transform: scale(1.5);
+  background: var(--accent-secondary);
+}
+
+/* Show default cursor on interactive elements */
+a, button, input, textarea, select, [role="button"] {
+  cursor: pointer;
 }
 
 /* Theme-specific body classes */
