@@ -7,7 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Hero = () => {
   const firstText = useRef(null);
-  const seconfText = useRef(null);
+  const secondText = useRef(null);
+  const thirdText = useRef(null);
+  const fourthText = useRef(null);
+  const fifthText = useRef(null);
   const slider = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   let xPercent = 0;
@@ -24,7 +27,7 @@ const Hero = () => {
     window.addEventListener('resize', checkMobile);
 
     // Only run animations if elements exist and we're not on mobile
-    if (!firstText.current || !seconfText.current || !slider.current || isMobile) {
+    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || !slider.current || isMobile) {
       return;
     }
 
@@ -60,18 +63,25 @@ const Hero = () => {
 
   const animtion = () => {
     // Check if elements exist before animating
-    if (!firstText.current || !seconfText.current || isMobile) {
+    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || isMobile) {
       return;
     }
 
+    // Reset position when reaching the end to create seamless loop
     if (xPercent <= -100) {
       xPercent = 0;
     }
     if (xPercent > 0) {
       xPercent = -100;
     }
+    
+    // Set all text elements to the same position for seamless loop
     gsap.set(firstText.current, { xPercent: xPercent });
-    gsap.set(seconfText.current, { xPercent: xPercent });
+    gsap.set(secondText.current, { xPercent: xPercent });
+    gsap.set(thirdText.current, { xPercent: xPercent });
+    gsap.set(fourthText.current, { xPercent: xPercent });
+    gsap.set(fifthText.current, { xPercent: xPercent });
+    
     xPercent += 0.15 * direction; // Increased speed from 0.1 to 0.15
     animationId = requestAnimationFrame(animtion);
   };
@@ -82,7 +92,10 @@ const Hero = () => {
       <div className={Style.slideContainer}>
         <div ref={slider} className={Style.slider}>
           <p ref={firstText}>Gaurav Jain -</p>
-          <p ref={seconfText}>Gaurav Jain -</p>
+          <p ref={secondText}>Gaurav Jain -</p>
+          <p ref={thirdText}>Gaurav Jain -</p>
+          <p ref={fourthText}>Gaurav Jain -</p>
+          <p ref={fifthText}>Gaurav Jain -</p>
         </div>
       </div>
 
