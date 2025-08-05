@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Style from "./heroStyle.module.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,17 +9,27 @@ const Hero = () => {
   const firstText = useRef(null);
   const seconfText = useRef(null);
   const slider = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   let xPercent = 0;
   let direction = 1;
+  let animationId = null;
 
   useEffect(() => {
-    // Only run animations if elements exist
-    if (!firstText.current || !seconfText.current || !slider.current) {
+    // Check if we're on mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Only run animations if elements exist and we're not on mobile
+    if (!firstText.current || !seconfText.current || !slider.current || isMobile) {
       return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
-    let animationId = requestAnimationFrame(animtion);
+    animationId = requestAnimationFrame(animtion);
 
     // scrolling adjusment for the slider
     const scrollTrigger = gsap.to(slider.current, {
@@ -44,12 +54,13 @@ const Hero = () => {
         scrollTrigger.scrollTrigger.kill();
       }
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      window.removeEventListener('resize', checkMobile);
     };
-  }, []);
+  }, [isMobile]);
 
   const animtion = () => {
     // Check if elements exist before animating
-    if (!firstText.current || !seconfText.current) {
+    if (!firstText.current || !seconfText.current || isMobile) {
       return;
     }
 
@@ -61,8 +72,8 @@ const Hero = () => {
     }
     gsap.set(firstText.current, { xPercent: xPercent });
     gsap.set(seconfText.current, { xPercent: xPercent });
-    xPercent += 0.1 * direction;
-    return requestAnimationFrame(animtion);
+    xPercent += 0.15 * direction; // Increased speed from 0.1 to 0.15
+    animationId = requestAnimationFrame(animtion);
   };
 
   return (
@@ -70,8 +81,8 @@ const Hero = () => {
       <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority sizes="100vw" />
       <div className={Style.slideContainer}>
         <div ref={slider} className={Style.slider}>
-                  <p ref={firstText}>Gaurav Jain -</p>
-        <p ref={seconfText}>Gaurav Jain -</p>
+          <p ref={firstText}>Gaurav Jain -</p>
+          <p ref={seconfText}>Gaurav Jain -</p>
         </div>
       </div>
 

@@ -1,134 +1,18 @@
-@media (max-width: 768px) {
-  .header {
-    padding: 25px 20px;
-    z-index: 10; /* Ensure header stays above hero content */
-    
-    .nav {
-      gap: 15px;
-      
-      .el {
-        padding: 10px;
-        
-        p {
-          font-size: 16px;
-        }
-      }
-    }
-    
-    .logo {
-      .name {
-        .jain {
-          left: 110px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 550px) {
-  .nav {
-    display: none !important;
-  }
-  .shownav {
-    display: flex;
-  }
-  .menuName {
-    display: block !important;
-  }
-  
-  .header {
-    padding: 20px 15px;
-    z-index: 10;
-    
-    .logo {
-      .name {
-        .jain {
-          left: 90px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 15px 10px;
-    z-index: 10;
-    
-    .navContainer {
-      gap: 20px;
-      
-      .menuName p {
-        font-size: 16px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 18px;
-      }
-      
-      .name {
-        p {
-          font-size: 16px;
-        }
-        
-        .jain {
-          left: 80px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 390px) {
-  .header {
-    padding: 12px 8px;
-    z-index: 10;
-    
-    .navContainer {
-      gap: 15px;
-      
-      .menuName p {
-        font-size: 14px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 16px;
-      }
-      
-      .name {
-        p {
-          font-size: 14px;
-        }
-        
-        .jain {
-          left: 70px;
-        }
-      }
-    }
-  }
-}
-
-.menuName {
-  display: none;
-}
-
+/* Mobile-first responsive header design */
 .header {
   position: absolute;
   color: var(--text-primary);
   top: 0;
-  z-index: 10; /* Ensure header stays above all content */
+  z-index: 10;
   display: flex;
   justify-content: space-between;
-  padding: 35px;
+  align-items: center;
+  padding: clamp(15px, 4vw, 35px);
   width: 100%;
   box-sizing: border-box;
   transition: color 0.3s ease;
   background: linear-gradient(to bottom, var(--bg-primary) 0%, transparent 100%);
-  padding-bottom: 20px;
+  padding-bottom: clamp(10px, 2vw, 20px);
 
   &.workHeader {
     color: var(--text-primary);
@@ -157,22 +41,28 @@
   .navContainer {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: clamp(15px, 4vw, 40px);
     
-    .menuName p{
-      font-size: 18px;
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-    }
-    .MenuEndicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--text-primary);
-      position: absolute;
-      top: 40%;
-      left: -30%;
-      transition: background-color 0.3s ease;
+    .menuName {
+      display: none; /* Hidden by default, shown on mobile */
+      
+      p {
+        font-size: clamp(14px, 3.5vw, 18px);
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+        margin: 0;
+      }
+      
+      .MenuEndicator {
+        width: clamp(4px, 1vw, 6px);
+        height: clamp(4px, 1vw, 6px);
+        border-radius: 50%;
+        background-color: var(--text-primary);
+        position: absolute;
+        top: 40%;
+        left: -30%;
+        transition: background-color 0.3s ease;
+      }
     }
   }
   
@@ -182,12 +72,13 @@
     cursor: pointer;
 
     .copyright {
-      font-size: 20px;
+      font-size: clamp(16px, 4vw, 20px);
       color: var(--text-primary);
       transition: color 0.3s ease;
     }
+    
     p {
-      margin: 0px;
+      margin: 0;
       transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
       position: relative;
       color: var(--text-primary);
@@ -199,24 +90,29 @@
       white-space: nowrap;
       position: relative;
       transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+      
       p {
-        font-size: 18px;
+        font-size: clamp(14px, 3.5vw, 18px);
         position: relative;
         transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
         color: var(--text-primary);
       }
+      
       .codeby {
         padding-left: 0.3rem;
       }
+      
       .gaurav {
         padding-left: 0.3rem;
       }
+      
       .jain {
         position: absolute;
-        left: 130px;
+        left: clamp(60px, 15vw, 130px);
         padding-left: 0.3rem;
       }
     }
+    
     &:hover {
       .copyright {
         transform: rotate(360deg);
@@ -238,26 +134,29 @@
   
   .nav {
     display: flex;
-    gap: 20px;
+    gap: clamp(10px, 2.5vw, 20px);
     
     .el {
       display: flex;
       position: relative;
-      padding: 15px;
+      padding: clamp(8px, 2vw, 15px);
       cursor: pointer;
+      
       p {
-        font-size: 18px;
+        font-size: clamp(14px, 3.5vw, 18px);
         color: var(--text-primary);
         transition: color 0.3s ease;
       }
+      
       &:hover {
         .endicator {
           transform: scale(1);
         }
       }
+      
       .endicator {
-        width: 6px;
-        height: 6px;
+        width: clamp(4px, 1vw, 6px);
+        height: clamp(4px, 1vw, 6px);
         border-radius: 50%;
         background-color: var(--text-primary);
         position: absolute;
@@ -271,17 +170,17 @@
 }
 
 .headerButtonContainer {
-  transform: scale(0); /* Start hidden, will appear on scroll */
+  transform: scale(0);
   position: fixed;
-  right: 0px;
+  right: 0;
   z-index: 4;
 
   .button {
     position: relative;
-    right: 0px;
-    margin: 20px;
-    height: 80px;
-    width: 80px;
+    right: 0;
+    margin: clamp(10px, 2.5vw, 20px);
+    height: clamp(50px, 12vw, 80px);
+    width: clamp(50px, 12vw, 80px);
     border-radius: 50%;
     background-color: var(--bg-tertiary);
     cursor: pointer;
@@ -296,6 +195,7 @@
     width: 100%;
     position: relative;
     z-index: 1;
+    
     &::after,
     &::before {
       content: "";
@@ -307,9 +207,11 @@
       position: relative;
       transition: all 0.3s, background-color 0.3s ease;
     }
+    
     &::after {
       top: -5px;
     }
+    
     &::before {
       top: 5px;
     }
@@ -327,18 +229,114 @@
   }
 }
 
-// Mobile responsive adjustments for the burger button
-@media (max-width: 768px) {
+/* Small mobile devices (320px - 375px) */
+@media (min-width: 320px) and (max-width: 375px) {
+  .header {
+    padding: 12px 8px;
+    
+    .navContainer {
+      gap: 10px;
+      
+      .menuName p {
+        font-size: 14px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 16px;
+      }
+      
+      .name {
+        p {
+          font-size: 14px;
+        }
+        
+        .jain {
+          left: 60px;
+        }
+      }
+    }
+  }
+  
   .headerButtonContainer {
     .button {
-      height: 70px;
-      width: 70px;
-      margin: 15px;
+      height: 50px;
+      width: 50px;
+      margin: 8px;
     }
   }
 }
 
-@media (max-width: 480px) {
+/* Medium mobile devices (376px - 480px) */
+@media (min-width: 376px) and (max-width: 480px) {
+  .header {
+    padding: 15px 10px;
+    
+    .navContainer {
+      gap: 15px;
+      
+      .menuName p {
+        font-size: 15px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 17px;
+      }
+      
+      .name {
+        p {
+          font-size: 15px;
+        }
+        
+        .jain {
+          left: 70px;
+        }
+      }
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 55px;
+      width: 55px;
+      margin: 10px;
+    }
+  }
+}
+
+/* Large mobile devices (481px - 600px) */
+@media (min-width: 481px) and (max-width: 600px) {
+  .header {
+    padding: 18px 12px;
+    
+    .navContainer {
+      gap: 20px;
+      
+      .menuName p {
+        font-size: 16px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 18px;
+      }
+      
+      .name {
+        p {
+          font-size: 16px;
+        }
+        
+        .jain {
+          left: 80px;
+        }
+      }
+    }
+  }
+  
   .headerButtonContainer {
     .button {
       height: 60px;
@@ -348,12 +346,179 @@
   }
 }
 
-@media (max-width: 390px) {
+/* Tablet portrait (601px - 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+  .header {
+    padding: 22px 15px;
+    
+    .navContainer {
+      gap: 25px;
+      
+      .menuName p {
+        font-size: 17px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 19px;
+      }
+      
+      .name {
+        p {
+          font-size: 17px;
+        }
+        
+        .jain {
+          left: 90px;
+        }
+      }
+    }
+  }
+  
   .headerButtonContainer {
     .button {
-      height: 55px;
-      width: 55px;
+      height: 65px;
+      width: 65px;
+      margin: 15px;
+    }
+  }
+}
+
+/* Tablet landscape (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    padding: 25px 20px;
+    
+    .navContainer {
+      gap: 30px;
+      
+      .menuName p {
+        font-size: 18px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 20px;
+      }
+      
+      .name {
+        p {
+          font-size: 18px;
+        }
+        
+        .jain {
+          left: 100px;
+        }
+      }
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 70px;
+      width: 70px;
+      margin: 18px;
+    }
+  }
+}
+
+/* Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .header {
+    padding: 35px;
+    
+    .navContainer {
+      gap: 40px;
+      
+      .menuName p {
+        font-size: 18px;
+      }
+    }
+    
+    .logo {
+      .copyright {
+        font-size: 20px;
+      }
+      
+      .name {
+        p {
+          font-size: 18px;
+        }
+        
+        .jain {
+          left: 130px;
+        }
+      }
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 80px;
+      width: 80px;
+      margin: 20px;
+    }
+  }
+}
+
+/* Mobile navigation - hide desktop nav, show mobile menu */
+@media (max-width: 768px) {
+  .nav {
+    display: none !important;
+  }
+  
+  .shownav {
+    display: flex !important;
+  }
+  
+  .menuName {
+    display: block !important;
+  }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .header {
+    padding: 10px 15px;
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: 50px;
+      width: 50px;
       margin: 10px;
     }
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .header {
+    .nav .el,
+    .logo,
+    .navContainer .menuName {
+      /* Improve touch targets */
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  .headerButtonContainer {
+    .button {
+      /* Ensure adequate touch target size */
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .header {
+    /* Improve text rendering on high DPI displays */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
