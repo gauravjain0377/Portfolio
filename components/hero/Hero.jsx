@@ -26,8 +26,8 @@ const Hero = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Only run animations if elements exist and we're not on mobile
-    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || !slider.current || isMobile) {
+    // Only run animations if elements exist
+    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || !slider.current) {
       return;
     }
 
@@ -63,7 +63,7 @@ const Hero = () => {
 
   const animtion = () => {
     // Check if elements exist before animating
-    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || isMobile) {
+    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current) {
       return;
     }
 

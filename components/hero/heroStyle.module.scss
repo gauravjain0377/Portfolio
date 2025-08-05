@@ -35,11 +35,11 @@
   white-space: nowrap;
   width: 100%;
   
-  /* Mobile: Stack text vertically */
+  /* Mobile: Keep horizontal layout for continuous animation */
   @media (max-width: 768px) {
-    flex-direction: column;
-    white-space: normal;
-    gap: 10px;
+    flex-direction: row;
+    white-space: nowrap;
+    gap: 0;
   }
 }
 
@@ -51,10 +51,10 @@
   letter-spacing: -0.02em;
   line-height: 0.9;
   
-  /* Mobile: Remove right padding and adjust spacing */
+  /* Mobile: Adjust padding and spacing for horizontal layout */
   @media (max-width: 768px) {
-    padding-right: 0;
-    line-height: 0.8;
+    padding-right: clamp(4px, 1vw, 12px);
+    line-height: 0.9;
   }
 }
 
@@ -63,11 +63,10 @@
   left: 0;
   margin-left: 0;
   
-  /* Mobile: Reset positioning for stacked layout */
+  /* Mobile: Allow GSAP positioning for horizontal animation */
   @media (max-width: 768px) {
-    position: static;
+    position: relative;
     margin-left: 0;
-    transform: none !important; /* Prevent GSAP from interfering on mobile */
   }
 }
 
@@ -76,11 +75,10 @@
   left: 0;
   margin-left: clamp(8px, 2vw, 20px);
   
-  /* Mobile: Reset positioning for stacked layout */
+  /* Mobile: Allow GSAP positioning for horizontal animation */
   @media (max-width: 768px) {
-    position: static;
-    margin-left: 0;
-    transform: none !important; /* Prevent GSAP from interfering on mobile */
+    position: relative;
+    margin-left: clamp(4px, 1vw, 10px);
   }
 }
 
@@ -89,11 +87,10 @@
   left: 0;
   margin-left: clamp(8px, 2vw, 20px);
   
-  /* Mobile: Reset positioning for stacked layout */
+  /* Mobile: Allow GSAP positioning for horizontal animation */
   @media (max-width: 768px) {
-    position: static;
-    margin-left: 0;
-    transform: none !important; /* Prevent GSAP from interfering on mobile */
+    position: relative;
+    margin-left: clamp(4px, 1vw, 10px);
   }
 }
 
@@ -102,11 +99,10 @@
   left: 0;
   margin-left: clamp(8px, 2vw, 20px);
   
-  /* Mobile: Reset positioning for stacked layout */
+  /* Mobile: Allow GSAP positioning for horizontal animation */
   @media (max-width: 768px) {
-    position: static;
-    margin-left: 0;
-    transform: none !important; /* Prevent GSAP from interfering on mobile */
+    position: relative;
+    margin-left: clamp(4px, 1vw, 10px);
   }
 }
 
@@ -115,11 +111,10 @@
   left: 0;
   margin-left: clamp(8px, 2vw, 20px);
   
-  /* Mobile: Reset positioning for stacked layout */
+  /* Mobile: Allow GSAP positioning for horizontal animation */
   @media (max-width: 768px) {
-    position: static;
-    margin-left: 0;
-    transform: none !important; /* Prevent GSAP from interfering on mobile */
+    position: relative;
+    margin-left: clamp(4px, 1vw, 10px);
   }
 }
 
@@ -128,22 +123,23 @@
   top: 25%;
   left: 10%;
   color: var(--text-primary);
-  font-size: clamp(14px, 3vw, 32px);
-  font-weight: 300;
+  font-size: clamp(18px, 4vw, 48px);
+  font-weight: 600;
   transition: color 0.3s ease;
   z-index: 2;
   width: 80%;
-  max-width: 400px;
+  max-width: 600px;
   
   p {
     margin: 0;
     margin-bottom: 7px;
-    line-height: 1.4;
+    line-height: 1.2;
+    font-weight: 600;
   }
   
   svg {
-    transform: scale(clamp(0.8, 2, 2));
-    margin-bottom: clamp(20px, 4vw, 80px);
+    transform: scale(clamp(1, 2.5, 2.5));
+    margin-bottom: clamp(25px, 5vw, 100px);
     fill: var(--text-primary);
     transition: fill 0.3s ease;
   }
@@ -366,9 +362,15 @@
   
   .description {
     top: 32%;
-    left: 15%;
-    width: 70%;
-    font-size: clamp(22px, 5vw, 28px);
+    left: 3%;
+    width: 50%;
+    font-size: clamp(48px, 10vw, 56px);
+    
+    p {
+      font-weight: 600;
+      line-height: 1.2;
+      font-size: clamp(48px, 10vw, 56px) !important;
+    }
     
     svg {
       transform: scale(1.4);
@@ -406,9 +408,15 @@
   
   .description {
     top: 35%;
-    left: 18%;
-    width: 65%;
-    font-size: clamp(24px, 5.5vw, 30px);
+    left: 2%;
+    width: 45%;
+    font-size: clamp(56px, 12vw, 64px);
+    
+    p {
+      font-weight: 600;
+      line-height: 1.2;
+      font-size: clamp(56px, 12vw, 64px) !important;
+    }
     
     svg {
       transform: scale(1.6);
@@ -446,9 +454,15 @@
   
   .description {
     top: 38%;
-    left: 20%;
-    width: 60%;
-    font-size: clamp(26px, 6vw, 32px);
+    left: 1%;
+    width: 40%;
+    font-size: clamp(64px, 14vw, 72px);
+    
+    p {
+      font-weight: 600;
+      line-height: 1.2;
+      font-size: clamp(64px, 14vw, 72px) !important;
+    }
     
     svg {
       transform: scale(1.8);
