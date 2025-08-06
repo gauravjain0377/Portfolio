@@ -10,9 +10,30 @@
   padding: clamp(10px, 3vw, 25px);
   width: 100%;
   box-sizing: border-box;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   background: linear-gradient(to bottom, var(--bg-primary) 0%, transparent 100%);
   padding-bottom: clamp(8px, 1.5vw, 15px);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  
+  &.hidden {
+    background: linear-gradient(to bottom, var(--bg-primary) 0%, rgba(var(--bg-primary-rgb, 255, 255, 255), 0.8) 50%, transparent 100%);
+    
+    /* On desktop, hide the nav when scrolled */
+    .nav {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* On mobile, keep menu button fully visible and accessible - no blurring or movement */
+    .menuName {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: opacity 0.3s ease;
+    }
+  }
 
   &.workHeader {
     color: var(--text-primary);
@@ -44,7 +65,11 @@
     gap: clamp(15px, 4vw, 40px);
     
     .menuName {
-      display: none; /* Hidden by default, shown on mobile */
+      display: none; /* Hidden by default, shown only on mobile via JS */
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+      transition: opacity 0.3s ease;
       
       p {
         font-size: clamp(14px, 3.5vw, 18px);
@@ -180,10 +205,13 @@
 }
 
 .headerButtonContainer {
-  transform: scale(0);
   position: fixed;
   right: 0;
-  z-index: 4;
+  top: 0;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 
   .button {
     position: relative;
@@ -197,8 +225,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 1002;
     transition: background-color 0.3s ease;
+    pointer-events: auto;
   }
   
   .burger {
@@ -485,6 +514,41 @@
   
   .menuName {
     display: block !important;
+    z-index: 1001;
+  }
+  
+  .headerButtonContainer {
+    z-index: 1002;
+  }
+}
+
+/* Desktop navigation - show nav by default */
+@media (min-width: 769px) {
+  .nav {
+    display: flex !important;
+  }
+  
+  .menuName {
+    display: none !important;
+  }
+  
+  /* Burger button should only appear when scrolling on desktop */
+  .headerButtonContainer {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Mobile - burger button should only appear when scrolling, but not interfere with menu button */
+@media (max-width: 768px) {
+  .headerButtonContainer {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999; /* Lower than menu button */
+  }
+  
+  .menuName {
+    z-index: 1001; /* Higher than burger button */
   }
 }
 

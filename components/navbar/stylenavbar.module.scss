@@ -5,16 +5,20 @@
   top: 0;
   height: 100vh;
   width: 100vw;
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
+  background-color: #000000; /* Black background in light mode */
+  color: #ffffff; /* White text */
   z-index: 9999;
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-y: auto;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    background-color: #1a1a1a; /* Dark grey in dark mode */
+    color: #ffffff;
+  }
 
   .body {
-    padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 20px);
+    padding: clamp(80px, 12vw, 120px) clamp(40px, 8vw, 80px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -33,17 +37,17 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: clamp(10px, 2.5vw, 20px);
-        margin-bottom: clamp(15px, 4vw, 30px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: clamp(40px, 8vw, 60px);
+        margin-bottom: clamp(50px, 10vw, 80px);
         transition: border-color 0.3s ease;
         
         p {
-          font-size: clamp(14px, 3.5vw, 18px);
-          color: var(--text-secondary);
+          font-size: clamp(32px, 8vw, 48px);
+          color: rgba(255, 255, 255, 0.9);
           transition: color 0.3s ease;
           margin: 0;
-          font-weight: 500;
+          font-weight: 700;
         }
         
         .headerControls {
@@ -56,13 +60,13 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          height: clamp(35px, 8vw, 50px);
-          width: clamp(35px, 8vw, 50px);
+          height: clamp(70px, 15vw, 100px);
+          width: clamp(70px, 15vw, 100px);
           cursor: pointer;
           border: none;
-          font-size: clamp(1.2rem, 3vw, 1.5rem);
+          font-size: clamp(2.5rem, 6vw, 3.5rem);
           background: transparent;
-          color: var(--text-primary);
+          color: #ffffff;
           transition: all 0.3s ease;
           border-radius: 50%;
           
@@ -75,16 +79,17 @@
       
       a {
         text-decoration: none;
-        color: var(--text-primary);
-        font-weight: 400;
-        font-size: clamp(20px, 5vw, 32px);
-        line-height: 1.2;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: clamp(48px, 12vw, 80px);
+        line-height: 1.0;
         transition: all 0.3s ease;
-        padding: clamp(6px, 1.5vw, 10px) 0;
+        padding: clamp(20px, 5vw, 35px) 0;
+        letter-spacing: -0.02em;
         
         &:hover {
-          color: var(--accent-color);
-          transform: translateX(10px);
+          color: #007bff;
+          transform: translateX(20px);
         }
       }
     }
@@ -92,21 +97,21 @@
     .footer {
       display: flex;
       flex-direction: column;
-      gap: clamp(8px, 2vw, 15px);
-      font-size: clamp(10px, 2.5vw, 14px);
+      gap: clamp(20px, 5vw, 30px);
+      font-size: clamp(20px, 5vw, 28px);
       margin-top: auto;
-      padding-top: clamp(15px, 4vw, 30px);
-      color: var(--text-secondary);
+      padding-top: clamp(50px, 10vw, 80px);
+      color: rgba(255, 255, 255, 0.7);
       transition: color 0.3s ease;
       
       a {
         text-decoration: none;
-        color: var(--text-secondary);
+        color: rgba(255, 255, 255, 0.7);
         transition: color 0.3s ease;
-        padding: clamp(3px, 1vw, 5px) 0;
+        padding: clamp(12px, 3vw, 20px) 0;
         
         &:hover {
-          color: var(--text-primary);
+          color: #007bff;
         }
       }
     }

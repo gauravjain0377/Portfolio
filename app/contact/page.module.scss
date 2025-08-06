@@ -4,7 +4,7 @@
   position: relative;
   background: var(--bg-primary);
   transition: background-color 0.3s ease;
-  padding-top: 120px; /* Reduced top padding to move content closer to navbar */
+  padding-top: 200px; /* Increased top padding to move content further from navbar */
 }
 
 .contactContainer {
@@ -19,11 +19,11 @@
   transition: background-color 0.3s ease;
 
   @media (max-width: 1200px) {
-    padding: 60px 100px;
+    padding: 100px 100px;
   }
 
   @media (max-width: 768px) {
-    padding: 40px 40px;
+    padding: 80px 40px;
     gap: 60px;
   }
 }

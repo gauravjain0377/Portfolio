@@ -12,13 +12,13 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const Header = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [isMenu, setMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const targertBurger = useRef(null);
+  const headerRef = useRef(null);
   const pathname = usePathname();
   const scrollTriggerRef = useRef(null);
-  
-
   
   // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
@@ -27,115 +27,102 @@ const Header = () => {
   const isHomePage = pathname === "/";
   const isDarkPage = isWorkPage || isAboutPage || isContactPage || isHomePage;
 
-  useLayoutEffect(() => {
+  // Check if screen is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
     if (!targertBurger.current) {
       return;
     }
 
-    // Only create ScrollTrigger if it doesn't exist or pathname changed
-    if (scrollTriggerRef.current && scrollTriggerRef.current.pathname === pathname) {
-      return;
-    }
-
-    // Small delay to ensure page transition is complete before setting up ScrollTrigger
-    const setupDelay = pathname === "/" ? 1000 : 500; // Much longer delay to ensure transition is complete
-
-    try {
-      gsap.registerPlugin(ScrollTrigger);
+    // Reset the burger button to initial state - hidden by default
+    gsap.set(targertBurger.current, { opacity: 0, visibility: 'hidden' });
+    
+    // Create a simple scroll-based approach
+    let isMenuVisible = false;
+    
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
       
-      // Kill existing ScrollTrigger if it exists
-      if (scrollTriggerRef.current?.trigger) {
-        scrollTriggerRef.current.trigger.kill();
-      }
-      
-      // Reset the burger button to initial state
-      gsap.set(targertBurger.current, { scale: 0 });
-      
-      // Create a robust scroll-based approach
-      let isMenuVisible = false;
-      
-      const handleScroll = () => {
-        const scrollY = window.scrollY;
-        
-        if (scrollY > 100 && !isMenuVisible) {
+      // Show burger button when scrolled down (both mobile and desktop)
+      if (scrollY > 100) {
+        if (!isMenuVisible) {
           isMenuVisible = true;
           gsap.to(targertBurger.current, {
-            scale: 1,
+            opacity: 1,
+            visibility: 'visible',
             duration: 0.25,
             ease: "power1.out",
           });
-        } else if (scrollY <= 100 && isMenuVisible) {
+        }
+        setIsHeaderHidden(true);
+      } else {
+        if (isMenuVisible) {
           isMenuVisible = false;
           gsap.to(targertBurger.current, {
-            scale: 0,
+            opacity: 0,
+            visibility: 'hidden',
             duration: 0.25,
             ease: "power1.out",
           });
         }
-      };
+        setIsHeaderHidden(false);
+      }
+    };
 
-      setTimeout(() => {
-        // Add scroll listener
-        window.addEventListener('scroll', handleScroll);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll);
 
-        // Check initial scroll position
-        setTimeout(() => {
-          handleScroll();
-        }, 100);
+    // Check initial scroll position
+    handleScroll();
 
-        // Create ScrollTrigger for compatibility
-        const scrollTrigger = gsap.to(targertBurger.current, {
-          scrollTrigger: {
-            trigger: document.documentElement,
-            start: "top -100px",
-            end: "bottom top",
-            onEnter: () => {
-              gsap.to(targertBurger.current, {
-                scale: 1,
-                duration: 0.25,
-                ease: "power1.out",
-              });
-            },
-            onLeaveBack: () => {
-              gsap.to(targertBurger.current, {
-                scale: 0,
-                duration: 0.25,
-                ease: "power1.out",
-              });
-            }
-          },
-        });
-
-        // Store reference to prevent recreation
-        scrollTriggerRef.current = {
-          trigger: scrollTrigger.scrollTrigger,
-          pathname: pathname
-        };
-      }, setupDelay);
-
-      // Cleanup function
-      return () => {
-        if (scrollTriggerRef.current?.trigger) {
-          scrollTriggerRef.current.trigger.kill();
-          scrollTriggerRef.current = null;
-        }
-        // Remove manual scroll listener
-        window.removeEventListener('scroll', handleScroll);
-      };
-    } catch (error) {
-      console.error('❌ Error in ScrollTrigger setup:', error);
-    }
-  }, [pathname]); // Reinitialize when pathname changes
-
-  
+    // Cleanup function
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile]); // Re-run when mobile state changes
 
   const toggleMenu = () => {
-    setMenu((prev) => !prev);
+    setIsMenuOpen((prev) => !prev);
   };
-  
+
+  // Close menu when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest(`.${style.menuName}`) && !event.target.closest(`.${style.headerButtonContainer}`)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isMenuOpen]);
+
   return (
     <>
-      <div className={`${style.header} ${isDarkPage ? style.workHeader : ''}`}>
+      <div ref={headerRef} className={`${style.header} ${isDarkPage ? style.workHeader : ''} ${isHeaderHidden ? style.hidden : ''}`}>
         <Megnatic>
           <div className={style.logo}>
             <p className={style.copyright}>©</p>
@@ -148,18 +135,18 @@ const Header = () => {
         </Megnatic>
 
         <div className={style.navContainer}>
-          <Megnatic>
-            <div className={`${style.menuName}`} onClick={toggleMenu}>
-              <p>Menu</p>
-              <div className={style.MenuEndicator}></div>
-            </div>
-          </Megnatic>
-
-          <AnimatePresence mode="exit">
-            {isMenu && <Navbar toggleMenu={toggleMenu} />}
-          </AnimatePresence>
+          {/* Menu button - only show on mobile */}
+          {isMobile && (
+            <Megnatic>
+              <div className={`${style.menuName}`} onClick={toggleMenu}>
+                <p>Menu</p>
+                <div className={style.MenuEndicator}></div>
+              </div>
+            </Megnatic>
+          )}
           
-          <div className={`${style.nav} ${isMenu ? style.shownav : ""}`}>
+          {/* Desktop navigation - hide on mobile */}
+          <div className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
             {(isWorkPage || isAboutPage || isContactPage) && (
               <Megnatic>
                 <Link href="/" className={style.el}>
@@ -196,22 +183,21 @@ const Header = () => {
           </div>
         </div>
 
+        {/* Burger button - only show when scrolling on desktop */}
         <div ref={targertBurger} className={style.headerButtonContainer}>
           <Buttonx
-            onClick={() => {
-              setIsActive(!isActive);
-            }}
+            onClick={toggleMenu}
             className={style.button}
           >
             <div
               className={`${style.burger} ${
-                isActive ? style.burgerActive : ""
+                isMenuOpen ? style.burgerActive : ""
               }`}
             ></div>
           </Buttonx>
         </div>
 
-        <AnimatePresence mode="exit">{isActive && <Navbar toggleMenu={() => setIsActive(false)} />}</AnimatePresence>
+        <AnimatePresence mode="exit">{isMenuOpen && <Navbar toggleMenu={toggleMenu} />}</AnimatePresence>
       </div>
     </>
   );

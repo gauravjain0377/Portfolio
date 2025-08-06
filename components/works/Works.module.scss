@@ -11,7 +11,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 200px);
+  padding: clamp(120px, 15vw, 200px) clamp(20px, 5vw, 200px);
   display: flex;
   flex-direction: column;
   gap: clamp(40px, 8vw, 80px);
@@ -263,7 +263,7 @@
 /* Small mobile devices (320px - 375px) */
 @media (min-width: 320px) and (max-width: 375px) {
   .worksContainer {
-    padding: 40px 15px;
+    padding: 120px 15px;
     gap: 30px;
   }
 
@@ -315,7 +315,7 @@
 /* Medium mobile devices (376px - 480px) */
 @media (min-width: 376px) and (max-width: 480px) {
   .worksContainer {
-    padding: 50px 20px;
+    padding: 130px 20px;
     gap: 35px;
   }
 
@@ -363,7 +363,7 @@
 /* Large mobile devices (481px - 600px) */
 @media (min-width: 481px) and (max-width: 600px) {
   .worksContainer {
-    padding: 60px 25px;
+    padding: 140px 25px;
     gap: 40px;
   }
 
@@ -411,7 +411,7 @@
 /* Tablet portrait (601px - 768px) */
 @media (min-width: 601px) and (max-width: 768px) {
   .worksContainer {
-    padding: 70px 30px;
+    padding: 150px 30px;
     gap: 45px;
   }
 
@@ -459,7 +459,7 @@
 /* Tablet landscape (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .worksContainer {
-    padding: 80px 40px;
+    padding: 160px 40px;
     gap: 50px;
   }
 
@@ -507,7 +507,7 @@
 /* Desktop (1025px+) */
 @media (min-width: 1025px) {
   .worksContainer {
-    padding: 100px 60px;
+    padding: 180px 60px;
     gap: 60px;
   }
 
@@ -555,7 +555,7 @@
 /* Landscape orientation fixes for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
   .worksContainer {
-    padding: 40px 20px;
+    padding: 120px 20px;
     gap: 30px;
   }
   
