@@ -17,7 +17,7 @@
   transition: all 0.3s ease;
   
   &.hidden {
-    background: linear-gradient(to bottom, var(--bg-primary) 0%, rgba(var(--bg-primary-rgb, 255, 255, 255), 0.8) 50%, transparent 100%);
+    background: linear-gradient(to bottom, var(--bg-primary) 0%, rgba(var(--bg-primary), 0.8) 50%, transparent 100%);
     
     /* On desktop, hide the nav when scrolled */
     .nav {
@@ -76,6 +76,10 @@
         color: var(--text-primary);
         transition: color 0.3s ease;
         margin: 0;
+        /* Ensure white color in dark mode */
+        [data-theme="dark"] & {
+          color: #ffffff !important;
+        }
       }
       
       .MenuEndicator {
@@ -87,6 +91,10 @@
         top: 40%;
         left: -30%;
         transition: background-color 0.3s ease;
+        /* Ensure white color in dark mode */
+        [data-theme="dark"] & {
+          background-color: #ffffff !important;
+        }
       }
     }
   }
@@ -103,6 +111,10 @@
       color: var(--text-primary);
       transition: color 0.3s ease;
       line-height: 1;
+      /* Ensure white color in dark mode */
+      [data-theme="dark"] & {
+        color: #ffffff !important;
+      }
     }
     
     p {
@@ -111,6 +123,10 @@
       position: relative;
       color: var(--text-primary);
       line-height: 1;
+      /* Ensure white color in dark mode */
+      [data-theme="dark"] & {
+        color: #ffffff !important;
+      }
     }
 
     .name {
@@ -181,6 +197,10 @@
         transition: color 0.3s ease;
         line-height: 1;
         margin: 0;
+        /* Ensure white color in dark mode */
+        [data-theme="dark"] & {
+          color: #ffffff !important;
+        }
       }
       
       &:hover {
@@ -199,6 +219,10 @@
         left: 50%;
         transform: scale(0) translateX(-50%);
         transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1), background-color 0.3s ease;
+        /* Ensure white color in dark mode */
+        [data-theme="dark"] & {
+          background-color: #ffffff !important;
+        }
       }
     }
   }
