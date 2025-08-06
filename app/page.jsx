@@ -1,10 +1,50 @@
-'use client'
 import Hero from "@/components/hero/Hero";
 import Project from "@/components/project";
 import styles from "./page.module.scss";
 import Decs from "@/components/descripction/Decs";
 import SliderImages from "@/components/sliderImages/SliderImages";
 import Contact from "@/components/contact/Contact";
+
+export const metadata = {
+  title: "Gaurav Jain – Web3 & Full-Stack Developer",
+  description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+  keywords: "Web3, Blockchain, MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development",
+  author: "Gaurav Jain",
+  openGraph: {
+    title: "Gaurav Jain – Web3 & Full-Stack Developer",
+    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    url: "https://www.gaurav-jain.me",
+    siteName: "Gaurav Jain Portfolio",
+    images: [
+      {
+        url: "/images/Gaurav_Jain.png",
+        width: 400,
+        height: 400,
+        alt: "Gaurav Jain - Web3 & Full-Stack Developer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gaurav Jain – Web3 & Full-Stack Developer",
+    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    images: ["/images/Gaurav_Jain.png"],
+    creator: "@gauravjain0377",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default function Home() {
   return (

@@ -1,3 +1,4 @@
+"use client";
 import styles from './stylefooter.module.scss';
 import Image from 'next/image';
 import Rounded from '../../common/roundedbutton';

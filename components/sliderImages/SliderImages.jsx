@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Styles from "./styleSliderImages.module.scss";
 import { useRef } from "react";

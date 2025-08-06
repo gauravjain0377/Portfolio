@@ -1,3 +1,4 @@
+"use client";
 import { motion, useInView } from "framer-motion";
 import Styles from "./styledesc.module.scss";
 import { opacity, sildeUp } from "./anime";
