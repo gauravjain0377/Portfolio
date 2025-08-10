@@ -10,6 +10,7 @@ import Buttonx from "../../common/roundedbutton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "../themeToggle/ThemeToggle";
+import { useTheme } from "@/hooks/useTheme";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +20,7 @@ const Header = () => {
   const headerRef = useRef(null);
   const pathname = usePathname();
   const scrollTriggerRef = useRef(null);
+  const { theme } = useTheme();
   
   // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
@@ -53,8 +55,8 @@ const Header = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       
-      // Show burger button when scrolled down (both mobile and desktop)
-      if (scrollY > 100) {
+      // Show burger button and hide main nav when scrolled down on desktop
+      if (scrollY > 30 && !isMobile) {
         if (!isMenuVisible) {
           isMenuVisible = true;
           gsap.to(targertBurger.current, {

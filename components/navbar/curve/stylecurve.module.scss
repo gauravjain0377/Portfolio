@@ -4,7 +4,7 @@
   left: -99px;
   width: 100px;
   height: 100%;
-  fill: rgb(41, 41, 41);
+  fill: var(--bg-primary);
   stroke: none;
-
+  transition: fill 0.3s ease;
 }

@@ -31,15 +31,7 @@ const Decs = () => {
             );
           })}
         </p>
-        <motion.p
-          variants={sildeUp}
-          initial="initial"
-          animate={isInView ? "open" : "closed"}
-        >
-          The combination of my passion for desgin, code & interaction position
-          me in a unique place.
-        </motion.p>
-
+       
         <div data-scroll data-scroll-speed={0.1}>
           <Link href="/about">
             <Button className={Styles.button}>
