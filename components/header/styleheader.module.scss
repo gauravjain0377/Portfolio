@@ -233,6 +233,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  filter: drop-shadow(0 2px 8px var(--shadow-medium));
 
   .button {
     position: relative;
@@ -241,14 +242,21 @@
     height: clamp(32px, 8vw, 48px);
     width: clamp(32px, 8vw, 48px);
     border-radius: 50%;
-    background-color: var(--bg-tertiary);
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1002;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     pointer-events: auto;
+    
+    &:hover {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: scale(1.05);
+    }
   }
   
   .burger {
@@ -261,19 +269,20 @@
       content: "";
       display: block;
       width: 40%;
-      height: 1px;
+      height: 2px;
       background-color: var(--text-primary);
       margin: auto;
       position: relative;
-      transition: all 0.3s, background-color 0.3s ease;
+      transition: all 0.3s ease;
+      border-radius: 1px;
     }
     
     &::after {
-      top: -5px;
+      top: -6px;
     }
     
     &::before {
-      top: 5px;
+      top: 6px;
     }
   }
 

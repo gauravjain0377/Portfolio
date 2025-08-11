@@ -4,47 +4,75 @@
   height: 50px;
   padding: 8px;
   border-radius: 50%;
-  border: 1px solid var(--border-color);
-  background: transparent;
-  backdrop-filter: none;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  backdrop-filter: blur(10px);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   transition: all 0.3s ease;
-  box-shadow: none;
+  box-shadow: 0 2px 8px var(--shadow-light);
   color: var(--text-primary);
+  overflow: hidden;
+
+  /* Add subtle background pattern */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    box-shadow: 0 4px 16px var(--shadow-medium);
+    transform: translateY(-2px);
+    
+    &::before {
+      opacity: 0.3;
+    }
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.95) translateY(-1px);
   }
 
   // Dark mode styles
   .dark-mode & {
-    background: transparent;
-    box-shadow: none;
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px var(--shadow-light);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: white;
+      box-shadow: 0 4px 16px var(--shadow-medium);
     }
   }
 
   // Light mode styles
   .light-mode & {
-    background: transparent;
-    box-shadow: none;
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px var(--shadow-light);
 
     &:hover {
-      background: rgba(0, 0, 0, 0.05);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: white;
+      box-shadow: 0 4px 16px var(--shadow-medium);
     }
   }
 
@@ -62,10 +90,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: inherit;
   transition: color 0.3s ease;
   margin: 0;
   padding: 0;
+  z-index: 1;
 }
 
 .sunIcon, .moonIcon {
@@ -85,6 +114,7 @@
     stroke-width: 2;
     fill: none;
     display: block;
+    filter: drop-shadow(0 1px 2px var(--shadow-light));
   }
 }
 

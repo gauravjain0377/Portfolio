@@ -1,4 +1,34 @@
 /* Mobile-first responsive navigation menu */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  animation: fadeIn 0.3s ease forwards;
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Show backdrop on desktop */
+  @media (min-width: 769px) {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+    
+    /* Ensure backdrop is behind the menu but above other content */
+    z-index: 9997;
+  }
+}
+
 .menu {
   position: fixed;
   right: 0;
@@ -8,10 +38,35 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   z-index: 9999;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
-  
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  border-left: 1px solid var(--border-color);
 
+  /* Desktop styles - partial overlay */
+  @media (min-width: 769px) {
+    width: 400px; /* Fixed width for desktop */
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1), 0 0 40px var(--glow-color);
+    border-left: 2px solid var(--border-color);
+    transform: translateX(100%) scale(0.95); /* Start off-screen and slightly scaled down */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.3s ease, 
+                color 0.3s ease, 
+                width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* When menu is open, slide in from right and scale up */
+    &.open {
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    width: 450px; /* Slightly wider on larger screens */
+  }
+
+  @media (min-width: 1441px) {
+    width: 500px; /* Even wider on ultra-wide screens */
+  }
 
   .body {
     padding: clamp(80px, 12vw, 120px) clamp(40px, 8vw, 80px);
@@ -21,22 +76,74 @@
     height: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    background: var(--gradient-primary);
+    position: relative;
+    
+    /* Add subtle background pattern */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, var(--glow-color) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--glow-color) 0%, transparent 50%);
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
 
     .nav {
       display: flex;
       flex-direction: column;
       gap: clamp(10px, 2.5vw, 20px);
       margin-top: clamp(10px, 2.5vw, 20px);
+      position: relative;
+      z-index: 1;
+
+      /* Add entrance animation for nav items */
+      a {
+        opacity: 0;
+        transform: translateX(30px);
+        animation: slideInNav 0.6s ease forwards;
+        
+        &:nth-child(2) { animation-delay: 0.1s; }
+        &:nth-child(3) { animation-delay: 0.2s; }
+        &:nth-child(4) { animation-delay: 0.3s; }
+        &:nth-child(5) { animation-delay: 0.4s; }
+      }
+
+      @keyframes slideInNav {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
 
       .header {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 2px solid var(--border-color);
         padding-bottom: clamp(40px, 8vw, 60px);
         margin-bottom: clamp(50px, 10vw, 80px);
         transition: border-color 0.3s ease;
+        position: relative;
+        
+        /* Add subtle gradient line */
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--gradient-accent);
+          opacity: 0.6;
+        }
         
         p {
           font-size: clamp(32px, 8vw, 48px);
@@ -44,6 +151,22 @@
           transition: color 0.3s ease;
           margin: 0;
           font-weight: 700;
+          letter-spacing: -0.02em;
+          text-shadow: 0 2px 4px var(--shadow-light);
+          position: relative;
+          
+          /* Add subtle accent underline */
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            opacity: 0.8;
+          }
         }
         
         .headerControls {
@@ -59,16 +182,45 @@
           height: clamp(70px, 15vw, 100px);
           width: clamp(70px, 15vw, 100px);
           cursor: pointer;
-          border: none;
+          border: 2px solid var(--border-color);
           font-size: clamp(2.5rem, 6vw, 3.5rem);
-          background: transparent;
+          background: var(--bg-secondary);
           color: var(--text-primary);
           transition: all 0.3s ease;
           border-radius: 50%;
+          font-weight: bold;
+          box-shadow: 0 4px 12px var(--shadow-light);
+          position: relative;
+          overflow: hidden;
+          
+          /* Add subtle background pattern */
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-secondary);
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+          }
           
           &:hover {
-            background-color: var(--bg-tertiary);
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
             transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            
+            &::before {
+              opacity: 0.1;
+            }
+          }
+
+          &:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px var(--shadow-light);
           }
         }
       }
@@ -79,13 +231,71 @@
         font-weight: 600;
         font-size: clamp(48px, 12vw, 80px);
         line-height: 1.0;
-        transition: all 0.3s ease;
-        padding: clamp(20px, 5vw, 35px) 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: clamp(20px, 5vw, 35px) clamp(15px, 3vw, 25px);
         letter-spacing: -0.02em;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        background: transparent;
+        cursor: pointer;
         
         &:hover {
           color: var(--accent-color);
           transform: translateX(20px);
+          background: var(--hover-bg);
+          box-shadow: 0 4px 16px var(--shadow-light);
+          letter-spacing: 0.01em;
+        }
+        
+        &:active {
+          background: var(--active-bg);
+          transform: translateX(15px) scale(0.98);
+          transition: all 0.1s ease;
+        }
+
+        /* Add subtle underline animation */
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 15px;
+          width: 0;
+          height: 3px;
+          background: var(--gradient-accent);
+          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 2px;
+        }
+
+        &:hover::after {
+          width: calc(100% - 30px);
+        }
+        
+        /* Add subtle left border indicator */
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 100%;
+          background: var(--accent-color);
+          transition: width 0.3s ease;
+          opacity: 0.1;
+        }
+        
+        &:hover::before {
+          width: 4px;
+        }
+
+        /* Desktop specific improvements */
+        @media (min-width: 769px) {
+          font-size: clamp(32px, 4vw, 60px);
+          padding: clamp(15px, 2vw, 25px) clamp(12px, 2vw, 20px);
+          
+          &:hover {
+            transform: translateX(15px);
+          }
         }
       }
     }
@@ -99,15 +309,59 @@
       padding-top: clamp(50px, 10vw, 80px);
       color: var(--text-secondary);
       transition: color 0.3s ease;
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      z-index: 1;
+      
+      /* Add subtle top border accent */
+      &::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--gradient-accent);
+        opacity: 0.4;
+      }
       
       a {
         text-decoration: none;
         color: var(--text-secondary);
-        transition: color 0.3s ease;
-        padding: clamp(12px, 3vw, 20px) 0;
+        transition: all 0.3s ease;
+        padding: clamp(12px, 3vw, 20px) clamp(15px, 3vw, 25px);
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
         
         &:hover {
           color: var(--accent-color);
+          background: var(--hover-bg);
+          transform: translateX(10px);
+          box-shadow: 0 2px 8px var(--shadow-light);
+        }
+        
+        &:active {
+          background: var(--active-bg);
+          transform: translateX(8px) scale(0.98);
+        }
+        
+        /* Add subtle left border on hover */
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 100%;
+          background: var(--accent-color);
+          transition: width 0.3s ease;
+          opacity: 0.1;
+        }
+        
+        &:hover::before {
+          width: 4px;
         }
       }
     }
@@ -290,50 +544,7 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .menu {
     .body {
-      padding: 40px 30px;
-      
-      .nav {
-        gap: 25px;
-        
-        .header {
-          padding-bottom: 25px;
-          margin-bottom: 35px;
-          
-          p {
-            font-size: 18px;
-          }
-          
-          .headerControls {
-            gap: 18px;
-          }
-          
-          .closeButton {
-            height: 55px;
-            width: 55px;
-            font-size: 1.6rem;
-          }
-        }
-        
-        a {
-          font-size: 36px;
-          padding: 12px 0;
-        }
-      }
-      
-      .footer {
-        gap: 18px;
-        font-size: 14px;
-        padding-top: 35px;
-      }
-    }
-  }
-}
-
-/* Desktop (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .menu {
-    .body {
-      padding: 50px 40px;
+      padding: 60px 40px;
       
       .nav {
         gap: 30px;
@@ -343,7 +554,7 @@
           margin-bottom: 40px;
           
           p {
-            font-size: 20px;
+            font-size: 24px;
           }
           
           .headerControls {
@@ -353,30 +564,30 @@
           .closeButton {
             height: 60px;
             width: 60px;
-            font-size: 1.7rem;
+            font-size: 1.8rem;
           }
         }
         
         a {
-          font-size: 40px;
+          font-size: 42px;
           padding: 15px 0;
         }
       }
       
       .footer {
         gap: 20px;
-        font-size: 15px;
+        font-size: 16px;
         padding-top: 40px;
       }
     }
   }
 }
 
-/* Large desktop (1201px - 1440px) */
-@media (min-width: 1201px) and (max-width: 1440px) {
+/* Desktop (1025px - 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
   .menu {
     .body {
-      padding: 60px 50px;
+      padding: 70px 50px;
       
       .nav {
         gap: 35px;
@@ -386,7 +597,7 @@
           margin-bottom: 45px;
           
           p {
-            font-size: 22px;
+            font-size: 28px;
           }
           
           .headerControls {
@@ -396,30 +607,30 @@
           .closeButton {
             height: 65px;
             width: 65px;
-            font-size: 1.8rem;
+            font-size: 2rem;
           }
         }
         
         a {
-          font-size: 44px;
+          font-size: 48px;
           padding: 18px 0;
         }
       }
       
       .footer {
         gap: 25px;
-        font-size: 16px;
+        font-size: 18px;
         padding-top: 45px;
       }
     }
   }
 }
 
-/* Ultra-wide desktop (1441px+) */
-@media (min-width: 1441px) {
+/* Large desktop (1201px - 1440px) */
+@media (min-width: 1201px) and (max-width: 1440px) {
   .menu {
     .body {
-      padding: 70px 60px;
+      padding: 80px 60px;
       
       .nav {
         gap: 40px;
@@ -429,7 +640,7 @@
           margin-bottom: 50px;
           
           p {
-            font-size: 24px;
+            font-size: 32px;
           }
           
           .headerControls {
@@ -439,20 +650,63 @@
           .closeButton {
             height: 70px;
             width: 70px;
-            font-size: 2rem;
+            font-size: 2.2rem;
           }
         }
         
         a {
-          font-size: 48px;
+          font-size: 54px;
           padding: 20px 0;
         }
       }
       
       .footer {
         gap: 30px;
-        font-size: 18px;
+        font-size: 20px;
         padding-top: 50px;
+      }
+    }
+  }
+}
+
+/* Ultra-wide desktop (1441px+) */
+@media (min-width: 1441px) {
+  .menu {
+    .body {
+      padding: 90px 70px;
+      
+      .nav {
+        gap: 45px;
+        
+        .header {
+          padding-bottom: 45px;
+          margin-bottom: 55px;
+          
+          p {
+            font-size: 36px;
+          }
+          
+          .headerControls {
+            gap: 35px;
+          }
+          
+          .closeButton {
+            height: 75px;
+            width: 75px;
+            font-size: 2.4rem;
+          }
+        }
+        
+        a {
+          font-size: 60px;
+          padding: 22px 0;
+        }
+      }
+      
+      .footer {
+        gap: 35px;
+        font-size: 22px;
+        padding-top: 55px;
       }
     }
   }
