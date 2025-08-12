@@ -58,6 +58,8 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
+      console.log('Submitting form data:', formData);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -67,6 +69,7 @@ const Contact = () => {
       });
 
       const data = await response.json();
+      console.log('API response:', { status: response.status, data });
 
       if (response.ok) {
         setSubmitStatus('success');

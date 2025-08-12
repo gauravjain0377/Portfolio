@@ -13,23 +13,60 @@ export async function POST(request) {
       );
     }
 
-    // Debug: Check if environment variables are loaded
-    console.log('EMAIL_USER:', process.env.EMAIL_USER ? 'Set' : 'Not set');
-    console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'Set' : 'Not set');
-    console.log('Nodemailer version:', nodemailer.version);
+    // Enhanced logging for production debugging
+    console.log('Contact form submission received:', {
+      name: name ? 'Provided' : 'Missing',
+      email: email ? 'Provided' : 'Missing',
+      phone: phone ? 'Provided' : 'Missing',
+      organization: organization ? 'Provided' : 'Missing',
+      services: services ? 'Provided' : 'Missing',
+      message: message ? 'Provided' : 'Missing',
+      timestamp: new Date().toISOString()
+    });
 
-    // Create transporter using Gmail SMTP
+    // Check environment variables
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+
+    if (!emailUser || !emailPass) {
+      console.error('Missing environment variables:', {
+        EMAIL_USER: emailUser ? 'Set' : 'Missing',
+        EMAIL_PASS: emailPass ? 'Set' : 'Missing'
+      });
+      return NextResponse.json(
+        { error: 'Email service configuration error. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
+    // Create transporter using Gmail SMTP with enhanced error handling
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your Gmail address
-        pass: process.env.EMAIL_PASS  // Your Gmail app password
-      }
+        user: emailUser,
+        pass: emailPass
+      },
+      // Add timeout and connection settings for Vercel
+      connectionTimeout: 60000,
+      greetingTimeout: 30000,
+      socketTimeout: 60000
     });
 
-    // Email content
+    // Verify transporter configuration
+    try {
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (verifyError) {
+      console.error('SMTP verification failed:', verifyError);
+      return NextResponse.json(
+        { error: 'Email service temporarily unavailable. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
+    // Email content with dynamic phone number for "Call Now" button
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: emailUser,
       to: 'gjain0229@gmail.com',
       subject: '🎯 New Project Inquiry - Gaurav Portfolio',
       html: `
@@ -62,36 +99,36 @@ export async function POST(request) {
                   👤 Contact Information
                 </h2>
                 
-                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                   <div>
-                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Name</strong>
-                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${name}</p>
-                   </div>
-                   <div>
-                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Email</strong>
-                     <p style="color: #455ce9; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
-                       <a href="mailto:${email}" style="color: #455ce9; text-decoration: none;">${email}</a>
-                     </p>
-                   </div>
-                 </div>
-                 
-                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                   <div>
-                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Phone</strong>
-                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
-                       ${phone ? `<a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a>` : 'Not provided'}
-                     </p>
-                   </div>
-                   <div>
-                     <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Organization</strong>
-                     <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${organization || 'Not provided'}</p>
-                   </div>
-                 </div>
-                 
-                 <div>
-                   <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Services Required</strong>
-                   <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${services || 'Not specified'}</p>
-                 </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                  <div>
+                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Name</strong>
+                    <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${name}</p>
+                  </div>
+                  <div>
+                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Email</strong>
+                    <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
+                      <a href="mailto:${email}" style="color: #455ce9; text-decoration: none;">${email}</a>
+                    </p>
+                  </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                  <div>
+                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Phone</strong>
+                    <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">
+                      ${phone ? `<a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a>` : 'Not provided'}
+                    </p>
+                  </div>
+                  <div>
+                    <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Organization</strong>
+                    <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${organization || 'Not provided'}</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <strong style="color: #64748b; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Services Required</strong>
+                  <p style="color: #1e293b; margin: 5px 0 0 0; font-size: 16px; font-weight: 500;">${services || 'Not specified'}</p>
+                </div>
               </div>
 
               <!-- Message Section -->
@@ -104,16 +141,21 @@ export async function POST(request) {
                 </div>
               </div>
 
-              <!-- Action Buttons -->
+              <!-- Action Buttons with Dynamic Phone Number -->
               <div style="text-align: center; margin-bottom: 30px;">
                 <a href="mailto:${email}?subject=Re: Project Inquiry from ${name}" 
                    style="display: inline-block; background-color: #455ce9; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; margin: 0 10px;">
                   📧 Reply to ${name}
                 </a>
-                <a href="tel:+91XXXXXXXXXX" 
-                   style="display: inline-block; background-color: #10b981; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; margin: 0 10px;">
-                  📞 Call Now
-                </a>
+                ${phone ? 
+                  `<a href="tel:${phone}" 
+                     style="display: inline-block; background-color: #10b981; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; margin: 0 10px;">
+                    📞 Call ${name} (${phone})
+                  </a>` : 
+                  `<span style="display: inline-block; background-color: #9ca3af; color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; margin: 0 10px; cursor: not-allowed;">
+                    📞 No Phone Provided
+                  </span>`
+                }
               </div>
 
               <!-- Footer -->
@@ -130,8 +172,7 @@ export async function POST(request) {
                   })}
                 </p>
                 <p style="color: #64748b; margin: 0; font-size: 12px;">
-                  This message was sent from your portfolio contact form at 
-                  <a href="https://your-portfolio-url.com" style="color: #455ce9; text-decoration: none;">your-portfolio-url.com</a>
+                  This message was sent from your portfolio contact form
                 </p>
               </div>
 
@@ -150,8 +191,13 @@ export async function POST(request) {
       `
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Send email with enhanced error handling
+    const result = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', {
+      messageId: result.messageId,
+      response: result.response,
+      timestamp: new Date().toISOString()
+    });
 
     return NextResponse.json(
       { message: 'Email sent successfully!' },
@@ -159,14 +205,28 @@ export async function POST(request) {
     );
 
   } catch (error) {
-    console.error('Email sending error:', error);
-    console.error('Error details:', {
+    // Enhanced error logging for production debugging
+    console.error('Contact form submission error:', {
       message: error.message,
       code: error.code,
-      command: error.command
+      command: error.command,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
     });
+
+    // Return user-friendly error messages
+    let errorMessage = 'Failed to send email. Please try again later.';
+    
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Please contact support.';
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Connection failed. Please check your internet and try again.';
+    } else if (error.code === 'ETIMEDOUT') {
+      errorMessage = 'Request timed out. Please try again.';
+    }
+
     return NextResponse.json(
-      { error: `Failed to send email: ${error.message}` },
+      { error: errorMessage },
       { status: 500 }
     );
   }

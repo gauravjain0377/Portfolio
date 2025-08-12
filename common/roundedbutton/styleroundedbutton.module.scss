@@ -6,16 +6,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 60px 15px 60px;
+    padding: 12px 40px 12px 40px;
     background-color: var(--bg-secondary);
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px var(--shadow-light);
+    min-height: 48px;
 
     p{
         position: relative;
         z-index: 12;
         transition: color 0.4s linear;
         color: var(--text-primary);
+        margin: 0;
+        line-height: 1.2;
+        text-align: center;
     }
 
     &:hover{
@@ -36,4 +40,34 @@
     border-radius: 50%;
     top: 100%;
     z-index: -1;
+}
+
+// Responsive adjustments for better card sizing
+@media (max-width: 768px) {
+  .roundedButton {
+    padding: 10px 32px 10px 32px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .roundedButton {
+    padding: 8px 28px 8px 28px;
+    min-height: 40px;
+    
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .roundedButton {
+    padding: 6px 24px 6px 24px;
+    min-height: 36px;
+    
+    p {
+      font-size: 13px;
+    }
+  }
 }
