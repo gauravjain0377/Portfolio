@@ -1,5 +1,5 @@
 'use client'
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 import { motion } from 'framer-motion';
 import styles from './ThemeToggle.module.scss';
 

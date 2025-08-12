@@ -32,7 +32,7 @@ export const metadata = {
     locale: "en_US",
     url: "https://www.gaurav-jain.me",
     siteName: "Gaurav Jain Portfolio",
-    title: "Gaurav Jain – Web3 & Full-Stack Developer",
+    title: "Gaurav Jain - Web3 & Full-Stack Developer",
     description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
     images: [
       {

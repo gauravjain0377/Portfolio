@@ -10,7 +10,7 @@ import Buttonx from "../../common/roundedbutton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "../themeToggle/ThemeToggle";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "../../hooks/useTheme";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -169,8 +169,8 @@ const Header = () => {
             <p className={style.copyright}>©</p>
             <div className={style.name}>
               <p className={style.codeby}>Code by</p>
-                              <p className={style.gaurav}>Gaurav</p>
-                <p className={style.jain}>Jain</p>
+              <p className={style.gaurav}>Gaurav</p>
+              <p className={style.jain}>Jain</p>
             </div>
           </div>
         </Megnatic>

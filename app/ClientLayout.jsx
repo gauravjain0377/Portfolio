@@ -1,34 +1,21 @@
 'use client'
-import Header from "@/components/header/Header";
-import PageTransitionWrapper from "@/components/transition/PageTransitionWrapper";
-import PageContentWrapper from "@/components/transition/PageContentWrapper";
-import { ThemeProvider } from "@/hooks/useTheme";
-import { useEffect, useState } from "react";
-import Preloader from "@/components/preloader/Preloader";
-import { AnimatePresence } from "framer-motion";
+import Header from "../components/header/Header";
+import { ThemeProvider } from "../hooks/useTheme";
 
 export default function ClientLayout({ children }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Show preloader for 2 seconds on initial load
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <ThemeProvider>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
-      <PageTransitionWrapper />
-      <Header/>
-      <PageContentWrapper>
-        {children}
-      </PageContentWrapper>
+      <div style={{ 
+        minHeight: '100vh',
+        backgroundColor: 'var(--bg-primary)',
+        color: 'var(--text-primary)',
+        transition: 'background-color 0.3s ease, color 0.3s ease'
+      }}>
+        <Header />
+        <div style={{ paddingTop: '80px' }}>
+          {children}
+        </div>
+      </div>
     </ThemeProvider>
   );
-} 
+}

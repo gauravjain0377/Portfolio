@@ -35,6 +35,25 @@ const Navbar = ({ toggleMenu }) => {
     },
   ];
 
+  const socialLinks = [
+    {
+      title: "LinkedIn",
+      href: "https://www.linkedin.com/in/this-is-gaurav-jain/",
+    },
+    {
+      title: "Github",
+      href: "https://github.com/gauravjain0377",
+    },
+    {
+      title: "X",
+      href: "https://x.com/gauravjain0377",
+    },
+    {
+      title: "Instagram",
+      href: "https://www.instagram.com/gauravjain0377/",
+    },
+  ];
+
   const handleClose = () => {
     if (toggleMenu) {
       toggleMenu();
@@ -84,7 +103,6 @@ const Navbar = ({ toggleMenu }) => {
         <div className={styles.body}>
           <div className={styles.nav}>
             <div className={styles.header}>
-              <p>Navigation Menu</p>
               <div className={styles.headerControls}>
                 <ThemeToggle />
                 <button 
@@ -101,15 +119,33 @@ const Navbar = ({ toggleMenu }) => {
               </div>
             </div>
 
-            {navItems.map((item, index) => {
-              return <Links key={index} data={{ ...item, index }} onLinkClick={handleClose} />;
-            })}
-          </div>
-          <div className={styles.footer}>
-            <a href="https://www.linkedin.com/in/this-is-gaurav-jain/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://github.com/gauravjain0377" target="_blank" rel="noopener noreferrer">Github</a>
-            <a href="https://x.com/gauravjain0377" target="_blank" rel="noopener noreferrer">X</a>
-            <a href="https://www.instagram.com/gauravjain0377/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <div className={styles.navigationSection}>
+              <h3 className={styles.sectionTitle}>NAVIGATION</h3>
+              <div className={styles.sectionDivider}></div>
+              <div className={styles.navLinks}>
+                {navItems.map((item, index) => {
+                  return <Links key={index} data={{ ...item, index }} onLinkClick={handleClose} />;
+                })}
+              </div>
+            </div>
+
+            <div className={styles.socialsSection}>
+              <h3 className={styles.sectionTitle}>SOCIALS</h3>
+              <div className={styles.sectionDivider}></div>
+              <div className={styles.socialLinks}>
+                {socialLinks.map((item, index) => (
+                  <a 
+                    key={index}
+                    href={item.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                  >
+                    {item.title}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         <Curve />
