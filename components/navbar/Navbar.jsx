@@ -54,29 +54,27 @@ const Navbar = ({ toggleMenu }) => {
     },
   ];
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (toggleMenu) {
       toggleMenu();
     }
   };
 
-  // Handle click outside for desktop
+  // Handle escape key only
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      // Check if click is outside the menu content and not on the close button
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        // Don't close if clicking on backdrop (it has its own handler)
-        if (!event.target.classList.contains(styles.backdrop)) {
-          handleClose();
-        }
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        handleClose(event);
       }
     };
 
-    // Add click listener to document for better click-outside detection
-    document.addEventListener('mousedown', handleClickOutside);
-
+    document.addEventListener('keydown', handleEscape);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
     };
   }, [toggleMenu]);
 
@@ -85,11 +83,7 @@ const Navbar = ({ toggleMenu }) => {
       {/* Backdrop overlay for desktop */}
       <div 
         className={styles.backdrop} 
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleClose();
-        }} 
+        onClick={handleClose} 
       />
       
       <motion.div
@@ -98,7 +92,7 @@ const Navbar = ({ toggleMenu }) => {
         animate="enter"
         exit="exit"
         initial="initial"
-        className={`${styles.menu} ${styles.open}`}
+        className={styles.menu}
       >
         <div className={styles.body}>
           <div className={styles.nav}>
@@ -106,15 +100,12 @@ const Navbar = ({ toggleMenu }) => {
               <div className={styles.headerControls}>
                 <ThemeToggle />
                 <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleClose();
-                  }} 
+                  onClick={handleClose}
                   className={styles.closeButton}
                   aria-label="Close navigation menu"
+                  type="button"
                 >
-                  ×
+                  <span className={styles.closeIcon}>×</span>
                 </button>
               </div>
             </div>

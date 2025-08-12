@@ -23,8 +23,6 @@
     opacity: 1;
     pointer-events: auto;
     cursor: pointer;
-    
-    /* Ensure backdrop is behind the menu but above other content */
     z-index: 9997;
   }
 }
@@ -35,249 +33,195 @@
   top: 0;
   height: 100vh;
   width: 100vw;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background: #ffffff;
+  color: #333333;
   z-index: 9999;
-  transition: background-color 0.3s ease, color 0.3s ease, width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden; /* Remove scrolling */
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  border-left: 1px solid var(--border-color);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
 
   /* Desktop styles - partial overlay */
   @media (min-width: 769px) {
-    width: 400px; /* Fixed width for desktop */
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1), 0 0 40px var(--glow-color);
-    border-left: 2px solid var(--border-color);
-    transform: translateX(100%) scale(0.95); /* Start off-screen and slightly scaled down */
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                background-color 0.3s ease, 
-                color 0.3s ease, 
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 400px;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* When menu is open, slide in from right and scale up */
     &.open {
-      transform: translateX(0) scale(1);
+      transform: translateX(0);
     }
   }
 
   @media (min-width: 1025px) {
-    width: 450px; /* Slightly wider on larger screens */
+    width: 450px;
   }
 
   @media (min-width: 1441px) {
-    width: 500px; /* Even wider on ultra-wide screens */
+    width: 500px;
   }
 
   .body {
-    padding: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 35px);
+    padding: 40px 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    background: var(--gradient-primary);
     position: relative;
-    
-    /* Add subtle background pattern */
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        radial-gradient(circle at 20% 80%, var(--glow-color) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, var(--glow-color) 0%, transparent 50%);
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 0;
-    }
 
     .nav {
       display: flex;
       flex-direction: column;
-      gap: clamp(4px, 1vw, 8px);
-      margin-top: clamp(4px, 1vw, 8px);
+      height: 100%;
       position: relative;
       z-index: 1;
-
-      /* Add entrance animation for nav items */
-      a {
-        opacity: 0;
-        transform: translateX(30px);
-        animation: slideInNav 0.6s ease forwards;
-        
-        &:nth-child(2) { animation-delay: 0.1s; }
-        &:nth-child(3) { animation-delay: 0.2s; }
-        &:nth-child(4) { animation-delay: 0.3s; }
-        &:nth-child(5) { animation-delay: 0.4s; }
-      }
-
-      @keyframes slideInNav {
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
 
       .header {
         width: 100%;
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin-bottom: clamp(20px, 4vw, 30px);
-        transition: border-color 0.3s ease;
+        margin-bottom: 60px;
         position: relative;
         
         .headerControls {
           display: flex;
           align-items: center;
-          gap: clamp(6px, 1.5vw, 12px);
+          gap: 20px;
         }
         
         .closeButton {
           display: flex;
           align-items: center;
           justify-content: center;
-          height: clamp(45px, 10vw, 65px);
-          width: clamp(45px, 10vw, 65px);
+          height: 50px;
+          width: 50px;
           cursor: pointer;
-          border: 2px solid var(--border-color);
-          font-size: clamp(1.8rem, 4vw, 2.5rem);
-          background: var(--bg-secondary);
-          color: var(--text-primary);
+          border: 2px solid #e0e0e0;
+          background: #f8f9fa;
+          color: #333333;
           transition: all 0.3s ease;
           border-radius: 50%;
-          font-weight: bold;
-          box-shadow: 0 4px 12px var(--shadow-light);
+          font-weight: 400;
           position: relative;
           overflow: hidden;
           
-          /* Add subtle background pattern */
-          &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-secondary);
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-          }
-          
           &:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-            color: white;
+            background: #e9ecef;
+            border-color: #adb5bd;
             transform: scale(1.05);
-            box-shadow: 0 6px 20px var(--shadow-medium);
-            
-            &::before {
-              opacity: 0.1;
-            }
           }
 
           &:active {
             transform: scale(0.95);
-            box-shadow: 0 2px 8px var(--shadow-light);
+          }
+
+          .closeIcon {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1;
+            pointer-events: none;
           }
         }
       }
 
       .navigationSection {
-        margin-bottom: clamp(25px, 5vw, 35px);
+        margin-bottom: 50px;
         
         .sectionTitle {
-          font-size: clamp(12px, 2vw, 16px);
-          color: var(--text-secondary);
+          font-size: 14px;
+          color: #6c757d;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          margin: 0 0 clamp(8px, 2vw, 12px) 0;
-          opacity: 0.8;
+          margin: 0 0 15px 0;
+          position: relative;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: #6f42c1;
+            border-radius: 1px;
+          }
         }
         
         .sectionDivider {
           width: 100%;
           height: 1px;
-          background: var(--border-color);
-          margin-bottom: clamp(12px, 3vw, 18px);
-          opacity: 0.6;
+          background: #e9ecef;
+          margin-bottom: 25px;
         }
         
         .navLinks {
           display: flex;
           flex-direction: column;
-          gap: clamp(3px, 0.8vw, 6px);
+          gap: 8px;
         }
       }
 
       .socialsSection {
+        margin-top: auto;
+        
         .sectionTitle {
-          font-size: clamp(12px, 2vw, 16px);
-          color: var(--text-secondary);
+          font-size: 14px;
+          color: #6c757d;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          margin: 0 0 clamp(8px, 2vw, 12px) 0;
-          opacity: 0.8;
+          margin: 0 0 15px 0;
+          position: relative;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: #6f42c1;
+            border-radius: 1px;
+          }
         }
         
         .sectionDivider {
           width: 100%;
           height: 1px;
-          background: var(--border-color);
-          margin-bottom: clamp(12px, 3vw, 18px);
-          opacity: 0.6;
+          background: #e9ecef;
+          margin-bottom: 25px;
         }
         
         .socialLinks {
           display: flex;
           flex-wrap: wrap;
-          gap: clamp(8px, 2vw, 15px);
+          gap: 15px;
           
           .socialLink {
             text-decoration: none;
-            color: var(--text-primary);
-            font-size: clamp(14px, 2.5vw, 18px);
-            font-weight: 500;
+            color: #333333;
+            font-size: 16px;
+            font-weight: 400;
             transition: all 0.3s ease;
-            padding: clamp(4px, 1vw, 8px) clamp(8px, 1.5vw, 12px);
+            padding: 10px 15px;
             border-radius: 6px;
             position: relative;
-            overflow: hidden;
             cursor: pointer;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
             
             &:hover {
-              color: var(--accent-color);
-              background: var(--hover-bg);
-              transform: translateX(5px);
-              box-shadow: 0 2px 8px var(--shadow-light);
+              color: #6f42c1;
+              background: #f3e5f5;
+              border-color: #d1b3d3;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(111, 66, 193, 0.1);
             }
             
             &:active {
-              background: var(--active-bg);
-              transform: translateX(3px) scale(0.98);
-            }
-            
-            /* Add subtle left border on hover */
-            &::before {
-              content: '';
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 0;
-              height: 100%;
-              background: var(--accent-color);
-              transition: width 0.3s ease;
-              opacity: 0.1;
-            }
-            
-            &:hover::before {
-              width: 3px;
+              transform: translateY(0);
             }
           }
         }
@@ -285,426 +229,109 @@
       
       a {
         text-decoration: none;
-        color: var(--text-primary);
-        font-weight: 600;
-        font-size: clamp(16px, 3vw, 22px);
-        line-height: 1.2;
-        transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
-        padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 20px);
-        letter-spacing: -0.02em;
+        color: #333333;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 1.3;
+        transition: all 0.3s ease;
+        padding: 15px 20px;
+        letter-spacing: -0.01em;
         position: relative;
         overflow: hidden;
         border-radius: 8px;
-        background: transparent;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
         cursor: pointer;
         
         &:hover {
-          color: var(--accent-color);
-          transform: translateX(15px);
-          background: var(--hover-bg);
-          box-shadow: 0 4px 16px var(--shadow-light);
-          letter-spacing: 0.01em;
+          color: #6f42c1;
+          background: #f3e5f5;
+          border-color: #d1b3d3;
+          transform: translateX(5px);
+          box-shadow: 0 4px 12px rgba(111, 66, 193, 0.1);
         }
         
         &:active {
-          background: var(--active-bg);
-          transform: translateX(12px) scale(0.98);
-          transition: all 0.1s ease;
+          transform: translateX(3px);
         }
 
-        /* Add subtle underline animation */
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 12px;
-          width: 0;
-          height: 2px;
-          background: var(--gradient-accent);
-          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          border-radius: 2px;
-        }
-
-        &:hover::after {
-          width: calc(100% - 24px);
-        }
-        
-        /* Add subtle left border indicator */
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 0;
-          height: 100%;
-          background: var(--accent-color);
-          transition: width 0.3s ease;
-          opacity: 0.1;
-        }
-        
-        &:hover::before {
-          width: 3px;
-        }
-
-        /* Desktop specific improvements - reduced sizes */
+        /* Desktop specific improvements */
         @media (min-width: 769px) {
-          font-size: clamp(20px, 2.5vw, 32px);
-          padding: clamp(8px, 1.5vw, 15px) clamp(10px, 1.5vw, 18px);
+          font-size: 28px;
+          padding: 18px 24px;
           
           &:hover {
-            transform: translateX(12px);
+            transform: translateX(8px);
           }
         }
       }
     }
-
-
   }
 }
 
-/* Small mobile devices (320px - 375px) */
-@media (min-width: 320px) and (max-width: 375px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .menu {
     .body {
-      padding: 12px 8px;
+      padding: 30px 30px;
       
       .nav {
-        gap: 8px;
-        
         .header {
-          padding-bottom: 8px;
-          margin-bottom: 12px;
-          
-          p {
-            font-size: 12px;
-          }
-          
-          .headerControls {
-            gap: 6px;
-          }
+          margin-bottom: 40px;
           
           .closeButton {
-            height: 30px;
-            width: 30px;
-            font-size: 1rem;
+            height: 45px;
+            width: 45px;
           }
         }
         
-        a {
-          font-size: 16px;
-          padding: 4px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Medium mobile devices (376px - 480px) */
-@media (min-width: 376px) and (max-width: 480px) {
-  .menu {
-    .body {
-      padding: 15px 12px;
-      
-      .nav {
-        gap: 10px;
-        
-        .header {
-          padding-bottom: 10px;
-          margin-bottom: 15px;
-          
-          p {
-            font-size: 13px;
-          }
-          
-          .headerControls {
-            gap: 8px;
-          }
-          
-          .closeButton {
-            height: 35px;
-            width: 35px;
-            font-size: 1.1rem;
-          }
-        }
-        
-        a {
-          font-size: 18px;
-          padding: 5px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Large mobile devices (481px - 600px) */
-@media (min-width: 481px) and (max-width: 600px) {
-  .menu {
-    .body {
-      padding: 18px 15px;
-      
-      .nav {
-        gap: 12px;
-        
-        .header {
-          padding-bottom: 12px;
-          margin-bottom: 18px;
-          
-          p {
-            font-size: 14px;
-          }
-          
-          .headerControls {
-            gap: 10px;
-          }
-          
-          .closeButton {
-            height: 38px;
-            width: 38px;
-            font-size: 1.2rem;
-          }
-        }
-        
-        a {
-          font-size: 20px;
-          padding: 6px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Tablet portrait (601px - 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .menu {
-    .body {
-      padding: 22px 18px;
-      
-      .nav {
-        gap: 14px;
-        
-        .header {
-          padding-bottom: 14px;
-          margin-bottom: 20px;
-          
-          p {
-            font-size: 15px;
-          }
-          
-          .headerControls {
-            gap: 12px;
-          }
-          
-          .closeButton {
-            height: 42px;
-            width: 42px;
-            font-size: 1.3rem;
-          }
+        .navigationSection {
+          margin-bottom: 40px;
         }
         
         a {
           font-size: 22px;
-          padding: 7px 0;
+          padding: 14px 18px;
+        }
+        
+        .socialLinks .socialLink {
+          font-size: 15px;
+          padding: 8px 12px;
         }
       }
-      
-
     }
   }
 }
 
-/* Tablet landscape (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 480px) {
   .menu {
     .body {
-      padding: 35px 30px;
+      padding: 25px 25px;
       
       .nav {
-        gap: 20px;
-        
         .header {
-          padding-bottom: 20px;
-          margin-bottom: 25px;
-          
-          p {
-            font-size: 18px;
-          }
-          
-          .headerControls {
-            gap: 15px;
-          }
-          
-          .closeButton {
-            height: 50px;
-            width: 50px;
-            font-size: 1.6rem;
-          }
-        }
-        
-        a {
-          font-size: 28px;
-          padding: 10px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Desktop (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .menu {
-    .body {
-      padding: 40px 35px;
-      
-      .nav {
-        gap: 22px;
-        
-        .header {
-          padding-bottom: 22px;
-          margin-bottom: 28px;
-          
-          p {
-            font-size: 20px;
-          }
-          
-          .headerControls {
-            gap: 18px;
-          }
-          
-          .closeButton {
-            height: 55px;
-            width: 55px;
-            font-size: 1.8rem;
-          }
-        }
-        
-        a {
-          font-size: 30px;
-          padding: 12px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Large desktop (1201px - 1440px) */
-@media (min-width: 1201px) and (max-width: 1440px) {
-  .menu {
-    .body {
-      padding: 45px 40px;
-      
-      .nav {
-        gap: 25px;
-        
-        .header {
-          padding-bottom: 25px;
           margin-bottom: 30px;
           
-          p {
-            font-size: 22px;
-          }
-          
-          .headerControls {
-            gap: 20px;
-          }
-          
           .closeButton {
-            height: 60px;
-            width: 60px;
-            font-size: 2rem;
+            height: 40px;
+            width: 40px;
           }
+        }
+        
+        .navigationSection {
+          margin-bottom: 30px;
         }
         
         a {
-          font-size: 32px;
-          padding: 14px 0;
+          font-size: 20px;
+          padding: 12px 16px;
+        }
+        
+        .socialLinks .socialLink {
+          font-size: 14px;
+          padding: 8px 12px;
         }
       }
-      
-
-    }
-  }
-}
-
-/* Ultra-wide desktop (1441px+) */
-@media (min-width: 1441px) {
-  .menu {
-    .body {
-      padding: 50px 45px;
-      
-      .nav {
-        gap: 28px;
-        
-        .header {
-          padding-bottom: 28px;
-          margin-bottom: 35px;
-          
-          p {
-            font-size: 24px;
-          }
-          
-          .headerControls {
-            gap: 25px;
-          }
-          
-          .closeButton {
-            height: 65px;
-            width: 65px;
-            font-size: 2.2rem;
-          }
-        }
-        
-        a {
-          font-size: 34px;
-          padding: 16px 0;
-        }
-      }
-      
-
-    }
-  }
-}
-
-/* Landscape orientation fixes for mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-  .menu {
-    .body {
-      padding: 10px 15px;
-      
-      .nav {
-        gap: 8px;
-        
-        .header {
-          padding-bottom: 8px;
-          margin-bottom: 10px;
-          
-          p {
-            font-size: 12px;
-          }
-          
-          .closeButton {
-            height: 30px;
-            width: 30px;
-            font-size: 1rem;
-          }
-        }
-        
-        a {
-          font-size: 16px;
-          padding: 4px 0;
-        }
-      }
-      
-
     }
   }
 }
@@ -715,22 +342,24 @@
     .body {
       .nav {
         a {
-          /* Improve touch targets */
-          min-height: 44px;
+          min-height: 48px;
           display: flex;
           align-items: center;
         }
         
         .header {
           .closeButton {
-            /* Ensure adequate touch target size */
-            min-height: 44px;
-            min-width: 44px;
+            min-height: 48px;
+            min-width: 48px;
           }
         }
+        
+        .socialLinks .socialLink {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
       }
-      
-
     }
   }
 }
@@ -738,47 +367,7 @@
 /* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .menu {
-    /* Improve text rendering on high DPI displays */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-}
-
-/* Prevent horizontal scroll on very small screens */
-@media (max-width: 320px) {
-  .menu {
-    .body {
-      padding: 10px 6px;
-      
-      .nav {
-        gap: 6px;
-        
-        .header {
-          padding-bottom: 6px;
-          margin-bottom: 8px;
-          
-          p {
-            font-size: 11px;
-          }
-          
-          .headerControls {
-            gap: 4px;
-          }
-          
-          .closeButton {
-            height: 28px;
-            width: 28px;
-            font-size: 0.9rem;
-          }
-        }
-        
-        a {
-          font-size: 14px;
-          padding: 3px 0;
-        }
-      }
-      
-
-    }
   }
 }

@@ -136,14 +136,8 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
-  // Close menu when clicking outside or pressing Escape
+  // Close menu when pressing Escape only
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMenuOpen && !event.target.closest(`.${style.menuName}`) && !event.target.closest(`.${style.headerButtonContainer}`)) {
-        setIsMenuOpen(false);
-      }
-    };
-
     const handleEscape = (event) => {
       if (event.key === 'Escape' && isMenuOpen) {
         setIsMenuOpen(false);
@@ -151,12 +145,10 @@ const Header = () => {
     };
 
     if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscape);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isMenuOpen]);
@@ -239,7 +231,9 @@ const Header = () => {
           </Buttonx>
         </div>
 
-        <AnimatePresence mode="exit">{isMenuOpen && <Navbar toggleMenu={toggleMenu} />}</AnimatePresence>
+        <AnimatePresence mode="wait">
+          {isMenuOpen && <Navbar key="navbar" toggleMenu={toggleMenu} />}
+        </AnimatePresence>
       </div>
     </>
   );

@@ -1,27 +1,47 @@
 export const menuSlider = {
   initial: {
-    x: "calc(100% + 100px)",
+    x: "100%",
+    opacity: 0,
   },
   enter: {
     x: "0%",
-    transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+    opacity: 1,
+    transition: { 
+      duration: 0.5, 
+      ease: [0.4, 0, 0.2, 1],
+      staggerChildren: 0.1
+    },
   },
   exit: {
-    x: "calc(100% + 100px)",
-    transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+    x: "100%",
+    opacity: 0,
+    transition: { 
+      duration: 0.4, 
+      ease: [0.4, 0, 0.2, 1] 
+    },
   },
 };
 
 export const sldier = {
   initial: {
-    x: "80px",
+    x: "30px",
+    opacity: 0,
   },
   enter: (i) => ({
     x: "0px",
-    transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.05 * i },
+    opacity: 1,
+    transition: { 
+      duration: 0.5, 
+      ease: [0.4, 0, 0.2, 1], 
+      delay: 0.1 * i 
+    },
   }),
   exit: (i) => ({
-    x: "80px",
-    transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.05 * i },
+    x: "30px",
+    opacity: 0,
+    transition: { 
+      duration: 0.3, 
+      ease: [0.4, 0, 0.2, 1] 
+    },
   }),
 };
