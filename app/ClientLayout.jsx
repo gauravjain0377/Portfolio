@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
 export default function ClientLayout({ children }) {
-  const { showPageNamePreloader, targetPageName } = usePageTransition();
+  const { showPageNamePreloader, targetPageName, shouldBlockContent } = usePageTransition();
   const [showInitialPreloader, setShowInitialPreloader] = useState(true);
 
   // Show initial preloader on first load
@@ -33,8 +33,8 @@ export default function ClientLayout({ children }) {
           {showInitialPreloader && <Preloader key="initial-preloader" />}
         </AnimatePresence>
 
-        {/* Main Content */}
-        {!showInitialPreloader && (
+        {/* Main Content - Only show when no preloader is active */}
+        {!showInitialPreloader && !shouldBlockContent && (
           <>
             <Header />
             <div style={{ paddingTop: '80px' }}>

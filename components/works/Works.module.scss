@@ -7,85 +7,221 @@
   position: relative;
 }
 
+/* Ensure last work card has proper spacing */
+.workCard:last-child {
+  margin-bottom: clamp(40px, 8vw, 80px);
+  
+  .expandedContent {
+    margin-bottom: clamp(20px, 4vw, 40px);
+  }
+}
+
+/* Improve spacing consistency */
 .worksContainer {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(120px, 15vw, 200px) clamp(20px, 5vw, 200px);
+  padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 200px) clamp(40px, 8vw, 80px);
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 8vw, 80px);
+  gap: clamp(15px, 3vw, 30px);
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
+  min-height: calc(100vh - 200px); /* Ensure minimum height to prevent footer overlap */
+}
+
+.worksHeader {
+  text-align: center;
+  margin-bottom: clamp(15px, 3vw, 30px);
+  
+  h1 {
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: clamp(8px, 2vw, 16px);
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  
+  p {
+    font-size: clamp(16px, 3vw, 20px);
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.8;
+  }
+}
+
+.headerSeparator {
+  width: 100%;
+  max-width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-color) 50%, transparent 100%);
+  margin: 0 auto;
+  opacity: 0.6;
+  border-radius: 1px;
 }
 
 .timeline {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  padding-top: clamp(15px, 3vw, 30px);
+  padding-bottom: clamp(15px, 3vw, 30px); /* Add bottom padding */
 }
 
 .timelineLine {
   position: absolute;
   left: clamp(15px, 4vw, 30px);
   top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 50%, var(--text-primary) 100%);
-  opacity: 0.6;
+  height: calc(100% - clamp(15px, 3vw, 30px)); /* Limit height to content area */
+  width: 3px;
+  background: linear-gradient(180deg, 
+    var(--accent-color) 0%, 
+    var(--text-primary) 20%, 
+    var(--text-secondary) 50%, 
+    var(--text-primary) 80%, 
+    var(--accent-color) 100%
+  );
+  opacity: 0.8;
   transition: background 0.3s ease;
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.3);
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -2px;
-    width: 6px;
-    height: 6px;
-    background: var(--text-primary);
+    left: -3px;
+    width: 9px;
+    height: 9px;
+    background: var(--accent-color);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--glow-color);
-    transition: background 0.3s ease;
+    box-shadow: 0 0 20px var(--accent-color);
+    transition: all 0.3s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -3px;
+    width: 9px;
+    height: 9px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--accent-color);
+    transition: all 0.3s ease;
   }
 }
 
 .workCard {
   position: relative;
-  margin-bottom: clamp(20px, 5vw, 40px);
-  padding-left: clamp(40px, 10vw, 80px);
+  margin-bottom: clamp(30px, 6vw, 60px);
+  padding-left: clamp(50px, 12vw, 100px);
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: clamp(20px, 4vw, 40px);
+  }
+  
+  &:hover {
+    .timelineDot::before {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
   }
 }
 
 .timelineDot {
   position: absolute;
-  left: clamp(13px, 3.5vw, 26px);
+  left: clamp(12px, 3vw, 24px);
   top: 20px;
-  width: clamp(8px, 2vw, 10px);
-  height: clamp(8px, 2vw, 10px);
-  background: var(--text-primary);
+  width: clamp(12px, 2.5vw, 16px);
+  height: clamp(12px, 2.5vw, 16px);
+  background: var(--accent-color);
+  border: 3px solid var(--bg-primary);
   border-radius: 50%;
-  box-shadow: 0 0 15px var(--glow-color);
+  box-shadow: 0 0 25px var(--accent-color);
   z-index: 2;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  animation: pulse 2s ease-in-out infinite;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 35px var(--accent-color);
+    
+    &::before {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+}
+
+/* Add pulse animation for timeline dots */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
 }
 
 .cardContent {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: clamp(16px, 4vw, 24px);
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px var(--shadow-light);
+  border-radius: 20px;
+  padding: clamp(20px, 5vw, 32px);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px var(--shadow-light);
   backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
     background: var(--bg-secondary);
     border-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px var(--shadow-medium);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px var(--shadow-medium);
+    
+    &::before {
+      opacity: 1;
+    }
   }
 }
 
@@ -104,19 +240,41 @@
 }
 
 .logo {
-  width: clamp(32px, 8vw, 48px);
-  height: clamp(32px, 8vw, 48px);
-  border-radius: 8px;
+  width: clamp(40px, 8vw, 60px);
+  height: clamp(40px, 8vw, 60px);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: clamp(8px, 2vw, 12px);
-  text-align: center;
-  line-height: 1.2;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px var(--shadow-light);
+  font-size: clamp(12px, 2.5vw, 16px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
 }
 
 .companyDetails {
@@ -150,38 +308,15 @@
   transition: color 0.3s ease;
 }
 
-.expandButton {
-  width: clamp(32px, 8vw, 40px);
-  height: clamp(32px, 8vw, 40px);
-  border-radius: 50%;
-  background: var(--accent-color);
-  border: none;
-  color: white;
-  font-size: clamp(12px, 3vw, 16px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-
-  &:hover {
-    background: var(--accent-secondary);
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px var(--glow-color);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
 .expandedContent {
   margin-top: clamp(16px, 4vw, 24px);
   padding-top: clamp(16px, 4vw, 24px);
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   transition: all 0.3s ease;
+  overflow: hidden;
+  will-change: height, opacity, transform, scale; /* Optimize all animations */
+  transform-origin: top center; /* Better scale animation origin */
 
   h4 {
     color: var(--text-primary);
@@ -189,6 +324,23 @@
     font-weight: 600;
     margin: 0 0 clamp(8px, 2vw, 12px) 0;
     transition: color 0.3s ease;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.6s ease 0.3s; /* Delay to match animation timing */
+    }
+    
+    /* Animate underline when section appears */
+    &.animate-underline::after {
+      width: 100%;
+    }
   }
 
   p {
@@ -206,7 +358,17 @@
       margin-bottom: clamp(4px, 1vw, 8px);
       line-height: 1.5;
       color: var(--text-secondary);
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      cursor: default;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &:hover {
+        color: var(--text-primary);
+        transform: translateX(5px);
+      }
     }
   }
 }
@@ -230,12 +392,31 @@
   font-weight: 500;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
 
   &:hover {
     background: var(--accent-color);
     color: white;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(var(--accent-color-rgb), 0.3);
+    
+    &::before {
+      left: 100%;
+    }
   }
 }
 
@@ -260,10 +441,54 @@
   }
 }
 
+.expandButton {
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
+  border-radius: 50%;
+  background: var(--accent-color);
+  border: none;
+  color: white;
+  font-size: clamp(12px, 3vw, 16px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    background: var(--accent-secondary);
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px var(--glow-color);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 /* Small mobile devices (320px - 375px) */
 @media (min-width: 320px) and (max-width: 375px) {
   .worksContainer {
-    padding: 120px 15px;
+    padding: 120px 15px 60px;
     gap: 30px;
   }
 
@@ -273,6 +498,10 @@
 
   .workCard {
     padding-left: 35px;
+    
+    &:last-child {
+      margin-bottom: 40px;
+    }
   }
 
   .timelineLine {
@@ -315,12 +544,16 @@
 /* Medium mobile devices (376px - 480px) */
 @media (min-width: 376px) and (max-width: 480px) {
   .worksContainer {
-    padding: 130px 20px;
+    padding: 130px 20px 70px;
     gap: 35px;
   }
 
   .workCard {
     padding-left: 40px;
+    
+    &:last-child {
+      margin-bottom: 50px;
+    }
   }
 
   .timelineLine {
@@ -363,12 +596,16 @@
 /* Large mobile devices (481px - 600px) */
 @media (min-width: 481px) and (max-width: 600px) {
   .worksContainer {
-    padding: 140px 25px;
+    padding: 140px 25px 80px;
     gap: 40px;
   }
 
   .workCard {
     padding-left: 45px;
+    
+    &:last-child {
+      margin-bottom: 60px;
+    }
   }
 
   .timelineLine {
@@ -411,12 +648,16 @@
 /* Tablet portrait (601px - 768px) */
 @media (min-width: 601px) and (max-width: 768px) {
   .worksContainer {
-    padding: 150px 30px;
+    padding: 150px 30px 90px;
     gap: 45px;
   }
 
   .workCard {
     padding-left: 50px;
+    
+    &:last-child {
+      margin-bottom: 70px;
+    }
   }
 
   .timelineLine {
@@ -459,12 +700,16 @@
 /* Tablet landscape (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .worksContainer {
-    padding: 160px 40px;
+    padding: 160px 40px 100px;
     gap: 50px;
   }
 
   .workCard {
     padding-left: 55px;
+    
+    &:last-child {
+      margin-bottom: 80px;
+    }
   }
 
   .timelineLine {
@@ -507,12 +752,16 @@
 /* Desktop (1025px+) */
 @media (min-width: 1025px) {
   .worksContainer {
-    padding: 180px 60px;
-    gap: 60px;
+    padding: 50px 60px 80px;
+    gap: 40px;
   }
 
   .workCard {
     padding-left: 60px;
+    
+    &:last-child {
+      margin-bottom: 60px;
+    }
   }
 
   .timelineLine {
@@ -552,15 +801,43 @@
   }
 }
 
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  .worksContainer {
+    padding: 40px 80px 100px;
+    gap: 35px;
+  }
+  
+  .worksHeader {
+    margin-bottom: 25px;
+    
+    h1 {
+      margin-bottom: 12px;
+    }
+  }
+  
+  .timeline {
+    padding-top: 20px;
+  }
+  
+  .workCard:last-child {
+    margin-bottom: 80px;
+  }
+}
+
 /* Landscape orientation fixes for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
   .worksContainer {
-    padding: 120px 20px;
+    padding: 120px 20px 60px;
     gap: 30px;
   }
   
   .workCard {
     padding-left: 40px;
+    
+    &:last-child {
+      margin-bottom: 50px;
+    }
   }
   
   .timelineLine {

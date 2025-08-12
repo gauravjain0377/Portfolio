@@ -1,74 +1,46 @@
-@media (max-width: 750px ) {
-  .project{
-    gap: 40px !important; /* Increased gap for better spacing */
-    padding: 38px 60px 38px 60px !important;
-    h2{
-        font-size: 30px !important;
-        line-height: 50px !important;
-    }
-  }
-}
-@media (max-width: 390px ) {
-  .project{
-    gap: 50px !important; /* Increased gap for better spacing */
-    padding: 26px 30px 26px 30px !important;
-    h2{
-        font-size: 18px !important;
-        line-height: 20px !important;
-    }
-  }
-}
-@media (max-width: 480px ) {
-  .project{
-    gap: 45px !important; /* Increased gap for better spacing */
-    padding: 30px 40px 30px 40px !important;
-    h2{
-        font-size: 22px !important;
-        line-height: 28px !important;
-    }
-  }
-}
-
-@media (max-width: 320px ) {
-  .project{
-    gap: 45px !important; /* Increased gap for better spacing */
-    padding: 20px 25px 20px 25px !important;
-    h2{
-        font-size: 16px !important;
-        line-height: 18px !important;
-    }
-  }
-}
 .project{
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 100px 50px 100px;
+    padding: 60px 100px 60px 100px;
     border-top: 1px solid var(--border-color);
     background-color: var(--bg-primary);
-    transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 0;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--border-color);
+        opacity: 0.6;
+    }
 
     .hoverArea {
         flex: 1;
         cursor: pointer;
-        transition: all 0.2s;
         height: 100%;
         display: flex;
         align-items: center;
+        margin-right: 80px;
+        min-width: 0;
     }
     
     h2{
         font-size: 80px;
         margin: 0px;
-        line-height:70px;
+        line-height: 70px;
         font-weight: 400;
-        transition: all 0.4s;
         color: var(--text-primary);
+        white-space: nowrap;
     }
 
     p{
-        transition: all 0.4s ease;
         font-weight: 300;
         color: var(--text-secondary);
     }
@@ -77,6 +49,8 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        flex-shrink: 0;
+        margin-left: auto;
     }
 
     .githubLink {
@@ -92,12 +66,12 @@
         border: 1px solid var(--border-color);
         pointer-events: auto;
         transition: all 0.3s ease;
+        white-space: nowrap;
         
         svg {
             width: 18px;
             height: 18px;
             fill: var(--text-primary);
-            transition: fill 0.3s ease;
         }
         
         span {
@@ -118,5 +92,67 @@
 
     &:last-of-type{
         border-bottom: 1px solid var(--border-color);
+        margin-bottom: 0;
     }
+}
+
+// Responsive adjustments
+@media (max-width: 750px ) {
+  .project{
+    padding: 40px 60px 40px 60px;
+    
+    .hoverArea {
+        margin-right: 60px;
+    }
+    
+    h2{
+        font-size: 30px;
+        line-height: 50px;
+    }
+  }
+}
+
+@media (max-width: 480px ) {
+  .project{
+    padding: 30px 40px 30px 40px;
+    
+    .hoverArea {
+        margin-right: 40px;
+    }
+    
+    h2{
+        font-size: 22px;
+        line-height: 28px;
+    }
+  }
+}
+
+@media (max-width: 390px ) {
+  .project{
+    padding: 26px 30px 26px 30px;
+    
+    .hoverArea {
+        margin-right: 30px;
+    }
+    
+    h2{
+        font-size: 18px;
+        line-height: 20px;
+    }
+  }
+}
+
+@media (max-width: 320px ) {
+  .project{
+    padding: 20px 25px 20px 25px;
+    
+    .hoverArea {
+        margin-right: 25px;
+    }
+    
+    h2{
+        font-size: 16px;
+        line-height: 18px;
+    }
+  }
 }

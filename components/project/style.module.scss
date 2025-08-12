@@ -1,11 +1,11 @@
-/* Mobile-first responsive projects design */
+/* Clean, minimal projects design */
 .projects {
   display: flex;
   align-items: center;
   padding-left: clamp(20px, 5vw, 200px);
   padding-right: clamp(20px, 5vw, 200px);
   flex-direction: column;
-  margin-top: clamp(100px, 20vw, 300px);
+  margin-top: clamp(200px, 25vw, 400px);
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
 
@@ -20,11 +20,12 @@
 
     .projectsTitle {
       font-size: clamp(24px, 6vw, 48px);
-      font-weight: 600;
-      margin-bottom: clamp(30px, 6vw, 60px);
+      font-weight: 500;
+      margin-bottom: clamp(80px, 10vw, 160px);
       color: var(--text-primary);
       text-align: center;
       transition: color 0.3s ease;
+      letter-spacing: -0.02em;
     }
   }
 
@@ -86,351 +87,39 @@
   }
 }
 
-/* Small mobile devices (320px - 375px) */
-@media (min-width: 320px) and (max-width: 375px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .projects {
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 80px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-  }
-  
-  .modalContainer {
-    height: 180px;
-    width: 220px;
-  }
-  
-  .modal img {
-    max-width: 85%;
-    max-height: 85%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 45px;
-    height: 45px;
-    font-size: 10px;
-  }
-}
-
-/* Medium mobile devices (376px - 480px) */
-@media (min-width: 376px) and (max-width: 480px) {
-  .projects {
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 90px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 24px;
-      margin-bottom: 25px;
-    }
-  }
-  
-  .modalContainer {
-    height: 200px;
-    width: 240px;
-  }
-  
-  .modal img {
-    max-width: 87%;
-    max-height: 87%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 50px;
-    height: 50px;
-    font-size: 11px;
-  }
-}
-
-/* Large mobile devices (481px - 600px) */
-@media (min-width: 481px) and (max-width: 600px) {
-  .projects {
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-top: 100px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
-  }
-  
-  .modalContainer {
-    height: 220px;
-    width: 260px;
-  }
-  
-  .modal img {
-    max-width: 88%;
-    max-height: 88%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 55px;
-    height: 55px;
-    font-size: 12px;
-  }
-}
-
-/* Tablet portrait (601px - 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .projects {
-    padding-left: 40px;
-    padding-right: 40px;
     margin-top: 120px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 28px;
-      margin-bottom: 35px;
-    }
-  }
-  
-  .modalContainer {
-    height: 240px;
-    width: 280px;
-  }
-  
-  .modal img {
-    max-width: 89%;
-    max-height: 89%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 60px;
-    height: 60px;
-    font-size: 13px;
-  }
-}
-
-/* Tablet landscape (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .projects {
-    padding-left: 60px;
-    padding-right: 60px;
-    margin-top: 140px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 32px;
-      margin-bottom: 40px;
-    }
-  }
-  
-  .modalContainer {
-    height: 260px;
-    width: 300px;
-  }
-  
-  .modal img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 65px;
-    height: 65px;
-    font-size: 13px;
-  }
-}
-
-/* Small desktop (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .projects {
-    padding-left: 100px;
-    padding-right: 100px;
-    margin-top: 160px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 36px;
-      margin-bottom: 45px;
-    }
-  }
-  
-  .modalContainer {
-    height: 280px;
-    width: 320px;
-  }
-  
-  .modal img {
-    max-width: 91%;
-    max-height: 91%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 70px;
-    height: 70px;
-    font-size: 14px;
-  }
-}
-
-/* Large desktop (1201px - 1440px) */
-@media (min-width: 1201px) and (max-width: 1440px) {
-  .projects {
-    padding-left: 150px;
-    padding-right: 150px;
-    margin-top: 180px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 40px;
-      margin-bottom: 50px;
-    }
-  }
-  
-  .modalContainer {
-    height: 300px;
-    width: 340px;
-  }
-  
-  .modal img {
-    max-width: 92%;
-    max-height: 92%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 75px;
-    height: 75px;
-    font-size: 14px;
-  }
-}
-
-/* Ultra-wide desktop (1441px+) */
-@media (min-width: 1441px) {
-  .projects {
-    padding-left: 200px;
-    padding-right: 200px;
-    margin-top: 200px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 44px;
-      margin-bottom: 55px;
-    }
-  }
-  
-  .modalContainer {
-    height: 320px;
-    width: 360px;
-  }
-  
-  .modal img {
-    max-width: 93%;
-    max-height: 93%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 80px;
-    height: 80px;
-    font-size: 14px;
-  }
-}
-
-/* Landscape orientation fixes for mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-  .projects {
-    margin-top: 60px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: clamp(20px, 4vw, 24px);
-      margin-bottom: 20px;
-    }
-  }
-  
-  .modalContainer {
-    height: clamp(150px, 30vh, 200px);
-    width: clamp(200px, 40vw, 250px);
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: clamp(40px, 8vw, 50px);
-    height: clamp(40px, 8vw, 50px);
-    font-size: clamp(8px, 2vw, 10px);
-  }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .projects {
-    .modalContainer {
-      /* Improve touch interaction */
-      pointer-events: auto;
-    }
     
-    .cursor,
-    .cursorLabel {
-      /* Hide custom cursor on touch devices */
-      display: none !important;
+    .body {
+      .projectsTitle {
+        margin-bottom: 60px;
+      }
     }
   }
 }
 
-/* High DPI displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (max-width: 480px) {
   .projects {
-    .modal img {
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
+    margin-top: 100px;
+    
+    .body {
+      .projectsTitle {
+        margin-bottom: 50px;
+      }
     }
   }
 }
 
-/* Prevent horizontal scroll on very small screens */
 @media (max-width: 320px) {
   .projects {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: 60px;
-  }
-  
-  .body {
-    .projectsTitle {
-      font-size: 20px;
-      margin-bottom: 15px;
+    margin-top: 80px;
+    
+    .body {
+      .projectsTitle {
+        margin-bottom: 40px;
+      }
     }
-  }
-  
-  .modalContainer {
-    height: 160px;
-    width: 200px;
-  }
-  
-  .modal img {
-    max-width: 80%;
-    max-height: 80%;
-  }
-  
-  .cursor,
-  .cursorLabel {
-    width: 40px;
-    height: 40px;
-    font-size: 9px;
   }
 }

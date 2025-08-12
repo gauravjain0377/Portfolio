@@ -7,6 +7,7 @@ export const usePageTransition = () => {
   const [isPreloaderVisible, setIsPreloaderVisible] = useState(false);
   const [showPageNamePreloader, setShowPageNamePreloader] = useState(false);
   const [targetPageName, setTargetPageName] = useState("");
+  const [shouldBlockContent, setShouldBlockContent] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const previousPathRef = useRef("");
@@ -42,11 +43,13 @@ export const usePageTransition = () => {
       setTargetPageName(getPageName(pathname));
       setShowPageNamePreloader(true);
       setIsLoading(true);
+      setShouldBlockContent(true);
       
       // Hide page name preloader after animation completes
       const timer = setTimeout(() => {
         setShowPageNamePreloader(false);
         setIsLoading(false);
+        setShouldBlockContent(false);
       }, 1200); // Match page transition animation duration
       
       // Update previous path
@@ -61,11 +64,12 @@ export const usePageTransition = () => {
     setTargetPageName(pageName);
     setShowPageNamePreloader(true);
     setIsLoading(true);
+    setShouldBlockContent(true);
     
-    // Small delay to show preloader before navigation
+    // Show preloader for the full animation duration before navigating
     setTimeout(() => {
       router.push(href);
-    }, 100);
+    }, 1200); // Match the preloader animation duration
   };
 
   return {
@@ -73,6 +77,7 @@ export const usePageTransition = () => {
     isPreloaderVisible,
     showPageNamePreloader,
     targetPageName,
+    shouldBlockContent,
     navigateWithPreloader
   };
 }; 

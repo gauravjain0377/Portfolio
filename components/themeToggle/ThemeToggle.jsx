@@ -37,7 +37,7 @@ const ThemeToggle = () => {
             exit={{ opacity: 0, rotate: 90 }}
             transition={{ duration: 0.3 }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
               <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2"/>
               <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2"/>
@@ -57,7 +57,7 @@ const ThemeToggle = () => {
             exit={{ opacity: 0, rotate: -90 }}
             transition={{ duration: 0.3 }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </motion.div>

@@ -1,10 +1,10 @@
 .themeToggle {
   position: relative;
-  width: 50px;
-  height: 50px;
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
   border-radius: 50%;
-  border: 2px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   background: var(--bg-secondary);
   backdrop-filter: blur(10px);
   cursor: pointer;
@@ -77,9 +77,33 @@
   }
 
   @media (max-width: 768px) {
-    width: 45px;
-    height: 45px;
-    padding: 6px;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+  }
+
+  @media (max-width: 600px) {
+    width: 34px;
+    height: 34px;
+    padding: 4px;
+  }
+
+  @media (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+  }
+
+  @media (max-width: 390px) {
+    width: 28px;
+    height: 28px;
+    padding: 2px;
+  }
+
+  @media (max-width: 320px) {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
   }
 }
 
@@ -108,13 +132,59 @@
   padding: 0;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
     display: block;
     filter: drop-shadow(0 1px 2px var(--shadow-light));
+  }
+}
+
+// Responsive icon sizing
+@media (max-width: 768px) {
+  .sunIcon, .moonIcon {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .sunIcon, .moonIcon {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .sunIcon, .moonIcon {
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .sunIcon, .moonIcon {
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .sunIcon, .moonIcon {
+    svg {
+      width: 10px;
+      height: 10px;
+    }
   }
 }
 
@@ -138,66 +208,5 @@
   }
   50% {
     transform: scale(1.05);
-  }
-}
-
-// Responsive adjustments
-@media (max-width: 600px) {
-  .themeToggle {
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-  }
-
-  .sunIcon, .moonIcon {
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .themeToggle {
-    width: 35px;
-    height: 35px;
-    padding: 4px;
-  }
-
-  .sunIcon, .moonIcon {
-    svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-}
-
-@media (max-width: 390px) {
-  .themeToggle {
-    width: 32px;
-    height: 32px;
-    padding: 3px;
-  }
-
-  .sunIcon, .moonIcon {
-    svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-}
-
-@media (max-width: 320px) {
-  .themeToggle {
-    width: 28px;
-    height: 28px;
-    padding: 2px;
-  }
-
-  .sunIcon, .moonIcon {
-    svg {
-      width: 12px;
-      height: 12px;
-    }
   }
 } 

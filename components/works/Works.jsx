@@ -86,26 +86,66 @@ const workExperience = [
       className={styles.worksContainer}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
+      {/* Header Section */}
+      <motion.div 
+        className={styles.worksHeader}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+      >
+        <h1>Work Experience</h1>
+        <p>My professional journey and contributions</p>
+      </motion.div>
+
+      {/* Visual Separator */}
+      <motion.div 
+        className={styles.headerSeparator}
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+      />
+
       <motion.div 
         className={styles.timeline}
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 1.2, delay: 0.4 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
       >
-        <div className={styles.timelineLine}></div>
+        <motion.div 
+          className={styles.timelineLine}
+          initial={{ scaleX: 0, transformOrigin: "left" }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
+        ></motion.div>
         
         {workExperience.map((work, index) => (
           <motion.div
             key={work.id}
             className={styles.workCard}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 + index * 0.15 }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.8 + index * 0.1,
+              ease: "easeOut"
+            }}
+            whileHover={{ 
+              y: -3, 
+              transition: { duration: 0.3, ease: "easeOut" } 
+            }}
           >
-            <div className={styles.timelineDot}></div>
+            <motion.div 
+              className={styles.timelineDot}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: 0.9 + index * 0.1,
+                ease: "easeOut"
+              }}
+            ></motion.div>
             
             <div className={styles.cardContent}>
               <div className={styles.cardHeader}>
@@ -148,46 +188,164 @@ const workExperience = [
                 >
                   <motion.div
                     animate={{ rotate: expandedItem === work.id ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ 
+                      duration: 0.6, 
+                      ease: [0.25, 0.46, 0.45, 0.94] 
+                    }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      transition: { duration: 0.2 }
+                    }}
                   >
                     ▼
                   </motion.div>
                 </button>
               </div>
 
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {expandedItem === work.id && (
                   <motion.div
                     className={styles.expandedContent}
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, height: "auto", scale: 1 }}
+                    exit={{ opacity: 0, height: 0, scale: 0.95 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smooth feel
+                      opacity: { duration: 0.6 },
+                      height: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+                      scale: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+                    }}
+                    style={{ overflow: "hidden" }}
                   >
-                    <div className={styles.description}>
-                      <h4>Description</h4>
-                      <p>{work.description}</p>
-                    </div>
+                    {/* Description Section */}
+                    <motion.div 
+                      className={styles.description}
+                      initial={{ opacity: 0, y: 20, x: -10 }}
+                      animate={{ opacity: 1, y: 0, x: 0 }}
+                      exit={{ opacity: 0, y: 10, x: -5 }}
+                      transition={{ 
+                        duration: 0.7, 
+                        delay: 0.2, 
+                        ease: [0.25, 0.46, 0.45, 0.94] 
+                      }}
+                    >
+                      <motion.h4
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                      >
+                        Description
+                      </motion.h4>
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 5 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                      >
+                        {work.description}
+                      </motion.p>
+                    </motion.div>
                     
-                    <div className={styles.technologies}>
-                      <h4>Technologies</h4>
-                      <div className={styles.techTags}>
+                    {/* Technologies Section */}
+                    <motion.div 
+                      className={styles.technologies}
+                      initial={{ opacity: 0, y: 20, x: -10 }}
+                      animate={{ opacity: 1, y: 0, x: 0 }}
+                      exit={{ opacity: 0, y: 10, x: -5 }}
+                      transition={{ 
+                        duration: 0.7, 
+                        delay: 0.4, 
+                        ease: [0.25, 0.46, 0.45, 0.94] 
+                      }}
+                    >
+                      <motion.h4
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                      >
+                        Technologies
+                      </motion.h4>
+                      <motion.div 
+                        className={styles.techTags}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                      >
                         {work.technologies.map((tech, techIndex) => (
-                          <span key={techIndex} className={styles.techTag}>
+                          <motion.span 
+                            key={techIndex} 
+                            className={styles.techTag}
+                            initial={{ opacity: 0, scale: 0.7, y: 15 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, y: 8 }}
+                            transition={{ 
+                              duration: 0.6, 
+                              delay: 0.7 + techIndex * 0.08, 
+                              ease: [0.25, 0.46, 0.45, 0.94] 
+                            }}
+                            whileHover={{ 
+                              scale: 1.05, 
+                              y: -2,
+                              transition: { duration: 0.2 }
+                            }}
+                          >
                             {tech}
-                          </span>
+                          </motion.span>
                         ))}
-                      </div>
-                    </div>
+                      </motion.div>
+                    </motion.div>
                     
-                    <div className={styles.achievements}>
-                      <h4>Key Achievements</h4>
-                      <ul>
+                    {/* Achievements Section */}
+                    <motion.div 
+                      className={styles.achievements}
+                      initial={{ opacity: 0, y: 20, x: -10 }}
+                      animate={{ opacity: 1, y: 0, x: 0 }}
+                      exit={{ opacity: 0, y: 10, x: -5 }}
+                      transition={{ 
+                        duration: 0.7, 
+                        delay: 0.6, 
+                        ease: [0.25, 0.46, 0.45, 0.94] 
+                      }}
+                    >
+                      <motion.h4
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: 0.7 }}
+                      >
+                        Key Achievements
+                      </motion.h4>
+                      <motion.ul
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, delay: 0.8 }}
+                      >
                         {work.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex}>{achievement}</li>
+                          <motion.li 
+                            key={achievementIndex}
+                            initial={{ opacity: 0, x: -20, scale: 0.9 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: -10, scale: 0.95 }}
+                            transition={{ 
+                              duration: 0.6, 
+                              delay: 0.9 + achievementIndex * 0.1, 
+                              ease: [0.25, 0.46, 0.45, 0.94] 
+                            }}
+                            whileHover={{ 
+                              x: 5,
+                              transition: { duration: 0.2 }
+                            }}
+                          >
+                            {achievement}
+                          </motion.li>
                         ))}
-                      </ul>
-                    </div>
+                      </motion.ul>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
