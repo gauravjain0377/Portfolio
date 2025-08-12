@@ -19,7 +19,9 @@ const index = ({ data, onLinkClick }) => {
       initial="initial"
       className={stylesLINK.link}
     >
-      <Link href={data.href} onClick={handleClick}>{data.title}</Link>
+      <Link href={data.href} onClick={handleClick}>
+        {data.title}
+      </Link>
     </motion.div>
   );
 };
