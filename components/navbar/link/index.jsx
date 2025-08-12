@@ -2,12 +2,20 @@ import Link from "next/link";
 import stylesLINK from "./stylelink.module.scss";
 import { menuSlider, sldier } from "../anima";
 import { motion } from "framer-motion";
+import { usePageTransition } from "../../../hooks/usePageTransition";
 
 const index = ({ data, onLinkClick }) => {
-  const handleClick = () => {
+  const { navigateWithPreloader } = usePageTransition();
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    
     if (onLinkClick) {
       onLinkClick();
     }
+    
+    // Navigate with preloader
+    navigateWithPreloader(data.href);
   };
 
   return (

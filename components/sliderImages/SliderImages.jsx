@@ -53,15 +53,30 @@ const SliderImages = () => {
   const height = useTransform(scrollYProgress, [0, 1], [120, 0]);
 
   return (
-    
-    <div ref={container} className={Styles.slidingImages}>
-      <motion.div style={{ x: x1 }} className={Styles.slider}>
+    <motion.div 
+      ref={container} 
+      className={Styles.slidingImages}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      <motion.div 
+        style={{ x: x1 }} 
+        className={Styles.slider}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
         {slider1.map((pro, index) => {
           return (
-            <div
+            <motion.div
               className={Styles.project}
               key={`sli_${index}`}
               style={{ backgroundColor: pro.color}}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
             >
               <div className={Styles.imageContainer}>
                 <Image
@@ -73,17 +88,28 @@ const SliderImages = () => {
                   priority={index < 2}
                 />
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </motion.div>
-      <motion.div style={{ x: x2 }} className={Styles.slider}>
+      
+      <motion.div 
+        style={{ x: x2 }} 
+        className={Styles.slider}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
         {slider2.map((pro, index) => {
           return (
-            <div
+            <motion.div
               className={Styles.project}
               key={`sli_${index}`}
               style={{ backgroundColor: pro.color }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
             >
               <div className={Styles.imageContainer}>
                 <Image
@@ -95,7 +121,7 @@ const SliderImages = () => {
                   priority={index < 2}
                 />
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </motion.div>
@@ -103,7 +129,7 @@ const SliderImages = () => {
       <motion.div style={{height}} className={Styles.circleContainer}>
         <div className={Styles.circle}></div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

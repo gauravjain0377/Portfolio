@@ -82,17 +82,28 @@ const workExperience = [
   };
 
   return (
-    <div className={styles.worksContainer}>
-      <div className={styles.timeline}>
+    <motion.div 
+      className={styles.worksContainer}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      <motion.div 
+        className={styles.timeline}
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ duration: 1.2, delay: 0.4 }}
+      >
         <div className={styles.timelineLine}></div>
         
         {workExperience.map((work, index) => (
           <motion.div
             key={work.id}
             className={styles.workCard}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ duration: 0.6, delay: 0.6 + index * 0.15 }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
             <div className={styles.timelineDot}></div>
             
@@ -183,8 +194,8 @@ const workExperience = [
             </div>
           </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

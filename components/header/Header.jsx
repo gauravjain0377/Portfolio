@@ -11,6 +11,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { useTheme } from "../../hooks/useTheme";
+import { usePageTransition } from "../../hooks/usePageTransition";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Header = () => {
   const pathname = usePathname();
   const scrollTriggerRef = useRef(null);
   const { theme } = useTheme();
+  const { navigateWithPreloader } = usePageTransition();
   
   // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
@@ -157,7 +159,7 @@ const Header = () => {
     <>
       <div ref={headerRef} className={`${style.header} ${isDarkPage ? style.workHeader : ''} ${isHeaderHidden ? style.hidden : ''}`}>
         <Megnatic>
-          <div className={style.logo}>
+          <div className={style.logo} onClick={() => navigateWithPreloader("/")}>
             <p className={style.copyright}>©</p>
             <div className={style.name}>
               <p className={style.codeby}>Code by</p>
@@ -182,29 +184,29 @@ const Header = () => {
           <div className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
             {(isWorkPage || isAboutPage || isContactPage) && (
               <Megnatic>
-                <Link href="/" className={style.el}>
+                <div className={style.el} onClick={() => navigateWithPreloader("/")}>
                   <p>Home</p>
                   <div className={style.endicator}></div>
-                </Link>
+                </div>
               </Megnatic>
             )}
             <Megnatic>
-              <Link href="/work" className={style.el}>
+              <div className={style.el} onClick={() => navigateWithPreloader("/work")}>
                 <p>Work</p>
                 <div className={style.endicator}></div>
-              </Link>
+              </div>
             </Megnatic>
             <Megnatic>
-              <Link href="/about" className={style.el}>
+              <div className={style.el} onClick={() => navigateWithPreloader("/about")}>
                 <p>About</p>
                 <div className={style.endicator}></div>
-              </Link>
+              </div>
             </Megnatic>
             <Megnatic>
-              <Link href="/contact" className={style.el}>
+              <div className={style.el} onClick={() => navigateWithPreloader("/contact")}>
                 <p>Contact</p>
                 <div className={style.endicator}></div>
-              </Link>
+              </div>
             </Megnatic>
             <Megnatic>
               <div className={style.el}>

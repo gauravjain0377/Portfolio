@@ -120,8 +120,11 @@ const index = () => {
   };
 
   return (
-    <main
+    <motion.main
       className={styles.projects}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
       onMouseMove={(e) => {
         moveItems(e.clientX, e.clientY);
       }}
@@ -132,22 +135,34 @@ const index = () => {
         }
       }}
     >
-      <div className={styles.body}>
+      <motion.div 
+        className={styles.body}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
         <h1 className={styles.projectsTitle}>Projects</h1>
         {projects.map((project, index) => {
           return (
-            <Project
-              index={index}
-              title={project.title}
-              manageModal={manageModal}
-              githubUrl={project.githubUrl}
+            <motion.div
               key={index}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <Project
+                index={index}
+                title={project.title}
+                manageModal={manageModal}
+                githubUrl={project.githubUrl}
+                key={index}
+              />
+            </motion.div>
           );
         })}
-      </div>
-
-     
+      </motion.div>
+      
       <>
         <motion.div
           ref={modalContainer}
@@ -215,7 +230,7 @@ const index = () => {
           </a>
         </motion.div>
       </>
-    </main>
+    </motion.main>
   );
 };
 

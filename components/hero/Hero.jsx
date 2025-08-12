@@ -4,6 +4,7 @@ import Style from "./heroStyle.module.scss";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const firstText = useRef(null);
@@ -13,11 +14,14 @@ const Hero = () => {
   const fifthText = useRef(null);
   const slider = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   let xPercent = 0;
   let direction = 1;
   let animationId = null;
 
   useEffect(() => {
+    setIsVisible(true);
+    
     // Check if we're on mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -87,9 +91,26 @@ const Hero = () => {
   };
 
   return (
-    <main className={Style.mainHero}>
-      <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority sizes="100vw" />
-      <div className={Style.slideContainer}>
+    <motion.main 
+      className={Style.mainHero}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: 1.5, delay: 0.3 }}
+      >
+        <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority sizes="100vw" />
+      </motion.div>
+      
+      <motion.div 
+        className={Style.slideContainer}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+      >
         <div ref={slider} className={Style.slider}>
           <p ref={firstText}>Gaurav Jain -</p>
           <p ref={secondText}>Gaurav Jain -</p>
@@ -97,12 +118,12 @@ const Hero = () => {
           <p ref={fourthText}>Gaurav Jain -</p>
           <p ref={fifthText}>Gaurav Jain -</p>
         </div>
-      </div>
+      </motion.div>
 
       <div data-scroll data-scroll-speed={0.1} className={`${Style.description}`}>
         <p>Software Engineer</p>
       </div>
-    </main>
+    </motion.main>
   );
 };
 

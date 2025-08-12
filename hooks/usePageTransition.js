@@ -1,15 +1,16 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useEffect, useRef } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export const usePageTransition = () => {
-  const [showTransition, setShowTransition] = useState(false);
-  const [pageName, setPageName] = useState("");
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPreloaderVisible, setIsPreloaderVisible] = useState(false);
+  const [showPageNamePreloader, setShowPageNamePreloader] = useState(false);
+  const [targetPageName, setTargetPageName] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
   const previousPathRef = useRef("");
   const isInitialLoadRef = useRef(true);
-  const [shouldBlockContent, setShouldBlockContent] = useState(false);
 
   // Map pathnames to display names
   const getPageName = (path) => {
@@ -27,6 +28,7 @@ export const usePageTransition = () => {
     }
   };
 
+  // Handle page transitions
   useEffect(() => {
     // Handle the very first load of the application
     if (isInitialLoadRef.current) {
@@ -35,37 +37,42 @@ export const usePageTransition = () => {
       return;
     }
 
-    // Only show transition if navigating to a different path
+    // Only show page name preloader if navigating to a different path
     if (pathname && previousPathRef.current !== pathname) {
-      // Immediately block content and show transition
-      setShouldBlockContent(true);
-      setIsTransitioning(true);
-      setShowTransition(true);
-      setPageName(getPageName(pathname));
-
-      // Enhanced timing for Home page
-      const isHomePage = getPageName(pathname) === "Home";
-      const transitionDuration = isHomePage ? 1000 : 800; // Slightly longer for Home, but not too long
+      setTargetPageName(getPageName(pathname));
+      setShowPageNamePreloader(true);
+      setIsLoading(true);
       
-      // Wait for transition to complete before showing new page content
+      // Hide page name preloader after animation completes
       const timer = setTimeout(() => {
-        setShowTransition(false);
-        
-        // Keep isTransitioning true for a bit longer to ensure smooth transition
-        setTimeout(() => {
-          setIsTransitioning(false);
-          setShouldBlockContent(false);
-        }, 100); // Small delay to ensure transition exit animation completes
-      }, transitionDuration);
-
-      // Update previous path after the transition has been initiated
-      previousPathRef.current = pathname; 
-
-      return () => {
-        clearTimeout(timer);
-      };
+        setShowPageNamePreloader(false);
+        setIsLoading(false);
+      }, 1200); // Match page transition animation duration
+      
+      // Update previous path
+      previousPathRef.current = pathname;
+      
+      return () => clearTimeout(timer);
     }
   }, [pathname]);
 
-  return { showTransition, pageName, isTransitioning, shouldBlockContent };
+  const navigateWithPreloader = (href) => {
+    const pageName = getPageName(href);
+    setTargetPageName(pageName);
+    setShowPageNamePreloader(true);
+    setIsLoading(true);
+    
+    // Small delay to show preloader before navigation
+    setTimeout(() => {
+      router.push(href);
+    }, 100);
+  };
+
+  return {
+    isLoading,
+    isPreloaderVisible,
+    showPageNamePreloader,
+    targetPageName,
+    navigateWithPreloader
+  };
 }; 
