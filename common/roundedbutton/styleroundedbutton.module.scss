@@ -24,12 +24,74 @@
 
     &:hover{
         p{
-            color: white;
+            color: white !important; /* Force white text on hover */
         }
-        border-color: var(--accent-color);
-        background-color: var(--accent-color);
+        border-color: var(--accent-color) !important; /* Force accent color border */
+        background-color: var(--accent-color) !important; /* Force accent color background */
         transform: translateY(-2px);
         box-shadow: 0 4px 16px var(--shadow-medium);
+        
+        /* Ensure accent color is maintained in both light and dark modes */
+        [data-theme="light"] & {
+            background-color: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+        }
+        
+        [data-theme="dark"] & {
+            background-color: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+        }
+        
+        /* Override any inline styles */
+        &[style*="background-color"] {
+            background-color: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+        }
+    }
+    
+    /* Active state to maintain accent color */
+    &:active {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+        transform: translateY(-1px);
+    }
+    
+    /* Focus state to maintain accent color */
+    &:focus {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+        outline: none;
+    }
+    
+    /* Override any theme-based background color changes */
+    &[style*="background-color"]:hover {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+    }
+    
+    /* Ensure accent color persists during hover animation */
+    &:hover .circle {
+        background-color: var(--accent-color) !important;
+    }
+    
+    /* Force accent color on hover regardless of any other styles */
+    &:hover,
+    &:hover[style*="background-color"],
+    &:hover[style*="border-color"] {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+    }
+    
+    /* Maximum specificity override for hover state */
+    &.roundedButton:hover {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
+    }
+    
+    /* Override any potential conflicting styles */
+    &:hover {
+        background-color: var(--accent-color) !important;
+        border-color: var(--accent-color) !important;
     }
 }
 
@@ -40,6 +102,7 @@
     border-radius: 50%;
     top: 100%;
     z-index: -1;
+    transition: background-color 0.3s ease;
 }
 
 // Responsive adjustments for better card sizing

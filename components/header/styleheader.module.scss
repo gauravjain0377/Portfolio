@@ -252,10 +252,23 @@
     transition: all 0.3s ease;
     pointer-events: auto;
     
-    &:hover {
+    /* Remove conflicting hover styles - let Buttonx component handle hover */
+    /* &:hover {
       background-color: var(--accent-color);
       border-color: var(--accent-color);
       transform: scale(1.05);
+    } */
+    
+    /* Ensure Buttonx component's hover state is not overridden */
+    &:hover {
+      /* Let Buttonx component handle all hover styles */
+      transform: none;
+    }
+    
+    /* Override any inline styles that might interfere with hover */
+    &[style*="background-color"]:hover {
+      background-color: var(--accent-color) !important;
+      border-color: var(--accent-color) !important;
     }
   }
   

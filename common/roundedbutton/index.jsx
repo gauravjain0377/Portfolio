@@ -2,7 +2,7 @@ import styles from "./styleroundedbutton.module.scss";
 import Megnatic from "../magnetic";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-const index = ({ children, backgroundColor = "#455CE9", ...attributes }) => {
+const index = ({ children, backgroundColor = "var(--accent-color)", ...attributes }) => {
   const circle = useRef(null);
   let timeline = useRef(null);
   let timeoutId = null;

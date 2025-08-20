@@ -223,7 +223,8 @@ const Header = () => {
           <Buttonx
             onClick={toggleMenu}
             className={style.button}
-            backgroundColor={theme === 'dark' ? '#ffffff' : '#000000'}
+            // Remove backgroundColor prop to prevent interference with accent color hover
+            // backgroundColor={theme === 'dark' ? '#ffffff' : '#000000'}
           >
             <div
               className={`${style.burger} ${
