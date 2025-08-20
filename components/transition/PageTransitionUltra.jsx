@@ -6,7 +6,7 @@ const PageTransitionUltra = ({ pageName }) => {
   const initialPath = `M0 0 L0 ${window.innerHeight} Q0 ${window.innerHeight / 2} 0 0`;
   const targetPath = `M0 0 L0 ${window.innerHeight} Q${window.innerWidth} ${window.innerHeight / 2} 0 0`;
 
-  // Ultra-fast path animation
+  // Ultra-fast path animation with minimal performance impact
   const pathAnimation = {
     initial: {
       d: initialPath,
@@ -14,15 +14,15 @@ const PageTransitionUltra = ({ pageName }) => {
     enter: {
       d: targetPath,
       transition: { 
-        duration: 0.35, // Ultra-fast
-        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
+        duration: 0.3, // Even faster
+        ease: [0.25, 0.46, 0.45, 0.94]
       },
     },
     exit: {
       d: initialPath,
       transition: { 
-        duration: 0.35, // Ultra-fast
-        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
+        duration: 0.3, // Even faster
+        ease: [0.25, 0.46, 0.45, 0.94]
       },
     },
   };
@@ -31,25 +31,25 @@ const PageTransitionUltra = ({ pageName }) => {
   const contentAnimation = {
     initial: { 
       opacity: 0, 
-      scale: 0.99,
-      y: 3
+      scale: 0.98,
+      y: 2
     },
     animate: { 
       opacity: 1, 
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.15, // Instant content appearance
-        delay: 0.01, // Minimal delay for immediate feedback
+        duration: 0.1, // Ultra-fast content appearance
+        delay: 0.005, // Minimal delay for immediate feedback
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
     exit: { 
       opacity: 0,
-      scale: 0.99,
-      y: -3,
+      scale: 0.98,
+      y: -2,
       transition: {
-        duration: 0.1, // Instant exit
+        duration: 0.08, // Instant exit
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
@@ -62,8 +62,8 @@ const PageTransitionUltra = ({ pageName }) => {
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ 
-        duration: 0.35, // Ultra-fast slide animation
-        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
+        duration: 0.3, // Ultra-fast slide animation
+        ease: [0.25, 0.46, 0.45, 0.94]
       }}
     >
       <svg className={styles.svgCurve} viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}>
@@ -84,11 +84,11 @@ const PageTransitionUltra = ({ pageName }) => {
         <motion.div 
           className={styles.bullet}
           animate={{
-            scale: [1, 1.03, 1], // Very subtle animation
-            rotate: [0, 0.5, -0.5, 0] // Minimal rotation
+            scale: [1, 1.02, 1], // Very subtle animation
+            rotate: [0, 0.3, -0.3, 0] // Minimal rotation
           }}
           transition={{
-            duration: 0.8,
+            duration: 0.6,
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -98,12 +98,12 @@ const PageTransitionUltra = ({ pageName }) => {
           animate={{
             textShadow: [
               "0 0 0px rgba(255,255,255,0)",
-              "0 0 6px rgba(255,255,255,0.25)", // Minimal glow for readability
+              "0 0 4px rgba(255,255,255,0.2)", // Minimal glow for readability
               "0 0 0px rgba(255,255,255,0)"
             ]
           }}
           transition={{
-            duration: 0.8,
+            duration: 0.6,
             repeat: Infinity,
             ease: "easeInOut"
           }}

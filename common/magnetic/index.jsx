@@ -1,35 +1,48 @@
-import gsap from "gsap";
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 
-const index = ({ children }) => {
-  const megnatic = useRef(null);
+const Magnetic = ({ children, strength = 0.15 }) => {
+  const magneticRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    if (!magneticRef.current) return;
+    
+    const { clientX, clientY } = e;
+    const { height, width, top, left } = magneticRef.current.getBoundingClientRect();
+    const x = (clientX - (left + width / 2)) * strength;
+    const y = (clientY - (top + height / 2)) * strength;
+    
+    // Use CSS transform instead of GSAP for better performance
+    magneticRef.current.style.transform = `translate(${x}px, ${y}px)`;
+  }, [strength]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!magneticRef.current) return;
+    magneticRef.current.style.transform = 'translate(0px, 0px)';
+  }, []);
 
   useEffect(() => {
-    console.log(children);
-    const xto = gsap.quickTo(megnatic.current, "x", {
-      duration: 1,
-      ease: "elastic.out(1, 0.3)",
-    });
-    const yto = gsap.quickTo(megnatic.current, "y", {
-      duration: 1,
-      ease: "elastic.out(1, 0.3)",
-    });
+    const element = magneticRef.current;
+    if (!element) return;
 
-    megnatic.current.addEventListener("mousemove", (e) => {
-      const { clientX, clientY } = e;
-      const { height, width, top, left } =
-        megnatic.current.getBoundingClientRect();
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
-      xto(x * 0.35);
-      yto(x * 0.35);
-    });
-    megnatic.current.addEventListener("mouseleave", () => {
-      xto(0);
-      yto(0);
-    });
-  }, []);
-  return React.cloneElement(children, { ref: megnatic });
+    // Add event listeners
+    element.addEventListener('mousemove', handleMouseMove, { passive: true });
+    element.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+
+    // Cleanup
+    return () => {
+      element.removeEventListener('mousemove', handleMouseMove);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [handleMouseMove, handleMouseLeave]);
+
+  return React.cloneElement(children, { 
+    ref: magneticRef,
+    style: {
+      ...children.props.style,
+      transition: 'transform 0.1s ease-out',
+      willChange: 'transform'
+    }
+  });
 };
 
-export default index;
+export default Magnetic;

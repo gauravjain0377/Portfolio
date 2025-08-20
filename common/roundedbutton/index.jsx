@@ -1,60 +1,40 @@
 import styles from "./styleroundedbutton.module.scss";
-import Megnatic from "../magnetic";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-const index = ({ children, backgroundColor = "var(--accent-color)", ...attributes }) => {
-  const circle = useRef(null);
-  let timeline = useRef(null);
-  let timeoutId = null;
+import Magnetic from "../magnetic";
+import { useRef, useCallback } from "react";
 
-  useEffect(() => {
-    timeline.current = gsap.timeline({ paused: true });
-    timeline.current
-      .to(
-        circle.current,
-        { top: "-25%", width: "150%", duration: 0.4, ease: "power3.in" },
-        "enter"
-      )
-      .to(
-        circle.current,
-        { top: "-150%", width: "125%", duration: 0.25 },
-        "exit"
-      );
+const RoundedButton = ({ children, backgroundColor = "var(--accent-color)", ...attributes }) => {
+  const circleRef = useRef(null);
+
+  const handleMouseEnter = useCallback(() => {
+    if (!circleRef.current) return;
+    circleRef.current.style.top = "-25%";
+    circleRef.current.style.width = "150%";
   }, []);
 
-  const manageMouseEnter = () => {
-    if (timeoutId) clearTimeout(timeoutId);
-    timeline.current.tweenFromTo("enter", "exit");
-  };
-
-  const manageMouseLeave = () => {
-    timeoutId = setTimeout(() => {
-      timeline.current.play();
-    }, 300);
-  };
+  const handleMouseLeave = useCallback(() => {
+    if (!circleRef.current) return;
+    circleRef.current.style.top = "-150%";
+    circleRef.current.style.width = "125%";
+  }, []);
 
   return (
-    <Megnatic>
+    <Magnetic strength={0.1}>
       <div
         className={styles.roundedButton}
         style={{ overflow: "hidden" }}
-        onMouseEnter={() => {
-          manageMouseEnter();
-        }}
-        onMouseLeave={() => {
-          manageMouseLeave();
-        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         {...attributes}
       >
         {children}
         <div
-          ref={circle}
+          ref={circleRef}
           style={{ backgroundColor }}
           className={styles.circle}
         ></div>
       </div>
-    </Megnatic>
+    </Magnetic>
   );
 };
 
-export default index;
+export default RoundedButton;
