@@ -97,31 +97,53 @@ const Hero = () => {
       animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
+      {/* Background Image Container */}
       <motion.div
+        className={Style.imageContainer}
         initial={{ opacity: 0 }}
         animate={{ opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 1.5, delay: 0.3 }}
       >
-        <Image src={"/images/Gaurav_Jain.png"} fill={true} alt="heroBackground" priority sizes="100vw" />
+        <Image 
+          src="/images/Gaurav_Hero.png" 
+          alt="Gaurav Jain - Software Engineer" 
+          priority 
+          width={200}
+          height={300}
+          sizes="100vw"
+          className={Style.heroImage}
+        />
       </motion.div>
       
-      <motion.div 
-        className={Style.slideContainer}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        <div ref={slider} className={Style.slider}>
-          <p ref={firstText}>Gaurav Jain -</p>
-          <p ref={secondText}>Gaurav Jain -</p>
-          <p ref={thirdText}>Gaurav Jain -</p>
-          <p ref={fourthText}>Gaurav Jain -</p>
-          <p ref={fifthText}>Gaurav Jain -</p>
-        </div>
-      </motion.div>
+      {/* Content Overlay */}
+      <div className={Style.contentOverlay}>
+        {/* Software Engineer Text */}
+        <motion.div 
+          data-scroll 
+          data-scroll-speed={0.1} 
+          className={Style.description}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <p>Software Engineer</p>
+        </motion.div>
 
-      <div data-scroll data-scroll-speed={0.1} className={`${Style.description}`}>
-        <p>Software Engineer</p>
+        {/* Scrolling Text Container */}
+        <motion.div 
+          className={Style.slideContainer}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <div ref={slider} className={Style.slider}>
+            <p ref={firstText}>Gaurav Jain -</p>
+            <p ref={secondText}>Gaurav Jain -</p>
+            <p ref={thirdText}>Gaurav Jain -</p>
+            <p ref={fourthText}>Gaurav Jain -</p>
+            <p ref={fifthText}>Gaurav Jain -</p>
+          </div>
+        </motion.div>
       </div>
     </motion.main>
   );

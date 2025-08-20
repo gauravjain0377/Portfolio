@@ -217,7 +217,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  ✅ Message sent successfully! I'll get back to you soon.
+                  Message sent successfully! I'll get back to you soon.
                 </motion.div>
               )}
 

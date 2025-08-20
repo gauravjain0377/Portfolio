@@ -154,10 +154,10 @@ const About = () => {
             transition={{ duration: 0.3 }}
           >
             <Image
-              src="/images/Gaurav_Jain.png"
-              alt="Gaurav Jain - Professional headshot"
+              src="/images/Gaurav.png"
+              alt="Gaurav Jain"
               width={400}
-              height={500}
+              height={100}
               className={styles.profileImage}
             />
           </motion.div>
