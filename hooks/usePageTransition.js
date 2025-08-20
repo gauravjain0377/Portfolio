@@ -50,7 +50,7 @@ export const usePageTransition = () => {
         setShowPageNamePreloader(false);
         setIsLoading(false);
         setShouldBlockContent(false);
-      }, 1200); // Match page transition animation duration
+      }, 800); // Reduced from 1200ms to 800ms for faster transitions
       
       // Update previous path
       previousPathRef.current = pathname;
@@ -66,10 +66,8 @@ export const usePageTransition = () => {
     setIsLoading(true);
     setShouldBlockContent(true);
     
-    // Show preloader for the full animation duration before navigating
-    setTimeout(() => {
-      router.push(href);
-    }, 1200); // Match the preloader animation duration
+    // Navigate immediately - no artificial delay
+    router.push(href);
   };
 
   return {

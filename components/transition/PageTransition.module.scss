@@ -6,10 +6,13 @@
   height: 100%;
   background-color: var(--bg-primary);
   z-index: 9999;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.15s ease; // Ultra-fast background transition
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform; // Optimize for animations
+  transform: translateZ(0); // Force hardware acceleration
+  backface-visibility: hidden; // Optimize rendering
 }
 
 .svgCurve {
@@ -21,7 +24,9 @@
   fill: var(--bg-primary);
   stroke: none;
   border-radius: 90% 90% 0 0; /* 90% round curves */
-  transition: fill 0.3s ease;
+  transition: fill 0.15s ease; // Ultra-fast fill transition
+  will-change: d; // Optimize path animations
+  transform: translateZ(0); // Force hardware acceleration
 }
 
 .content {
@@ -31,6 +36,8 @@
   gap: 12px;
   z-index: 1;
   position: relative;
+  will-change: transform, opacity; // Optimize for animations
+  transform: translateZ(0); // Force hardware acceleration
 }
 
 .bullet {
@@ -38,7 +45,9 @@
   height: 6px;
   background-color: var(--accent-color);
   border-radius: 50%;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.15s ease; // Ultra-fast bullet transition
+  will-change: transform; // Optimize for animations
+  transform: translateZ(0); // Force hardware acceleration
 }
 
 .pageTitle {
@@ -48,5 +57,11 @@
   font-family: 'Inter', sans-serif;
   margin: 0;
   letter-spacing: 0.5px;
-  transition: color 0.3s ease;
+  transition: color 0.15s ease; // Ultra-fast color transition
+  text-rendering: optimizeLegibility; // Improve text readability
+  -webkit-font-smoothing: antialiased; // Smooth text rendering
+  -moz-osx-font-smoothing: grayscale; // Smooth text rendering on Firefox
+  will-change: transform, opacity; // Optimize for animations
+  transform: translateZ(0); // Force hardware acceleration
+  user-select: none; // Prevent text selection during animation
 } 

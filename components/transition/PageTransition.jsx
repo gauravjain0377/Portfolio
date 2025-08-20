@@ -12,12 +12,40 @@ const PageTransition = ({ pageName }) => {
     },
     enter: {
       d: targetPath,
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }, // Faster, smoother
     },
     exit: {
       d: initialPath,
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }, // Faster, smoother
     },
+  };
+
+  // Enhanced content animation for immediate visibility
+  const contentAnimation = {
+    initial: { 
+      opacity: 0, 
+      scale: 0.95,
+      y: 10
+    },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.25, // Very fast content appearance
+        delay: 0.05, // Minimal delay for immediate feedback
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    },
+    exit: { 
+      opacity: 0,
+      scale: 0.95,
+      y: -10,
+      transition: {
+        duration: 0.2, // Fast exit
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
   };
 
   return (
@@ -27,8 +55,8 @@ const PageTransition = ({ pageName }) => {
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ 
-        duration: 0.8,
-        ease: [0.76, 0, 0.24, 1] // Same smooth curve as navigation
+        duration: 0.5, // Faster slide animation
+        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
       }}
     >
       <svg className={styles.svgCurve} viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}>
@@ -39,10 +67,43 @@ const PageTransition = ({ pageName }) => {
           exit="exit"
         />
       </svg>
-      <div className={styles.content}>
-        <div className={styles.bullet}></div>
-        <h1 className={styles.pageTitle}>{pageName}</h1>
-      </div>
+      <motion.div 
+        className={styles.content}
+        variants={contentAnimation}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <motion.div 
+          className={styles.bullet}
+          animate={{
+            scale: [1, 1.1, 1], // Subtle animation
+            rotate: [0, 2, -2, 0] // Gentle rotation
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+        <motion.h1 
+          className={styles.pageTitle}
+          animate={{
+            textShadow: [
+              "0 0 0px rgba(255,255,255,0)",
+              "0 0 10px rgba(255,255,255,0.4)", // Subtle glow for readability
+              "0 0 0px rgba(255,255,255,0)"
+            ]
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          {pageName}
+        </motion.h1>
+      </motion.div>
     </motion.div>
   );
 };

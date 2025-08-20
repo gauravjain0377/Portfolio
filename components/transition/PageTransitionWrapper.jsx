@@ -1,6 +1,6 @@
 "use client";
 import { usePageTransition } from "../../hooks/usePageTransition";
-import PageTransition from "./PageTransitionRounded";
+import PageTransition from "./PageTransitionUltra"; // Use the ultra-fast transition component
 import { AnimatePresence } from "framer-motion";
 
 const PageTransitionWrapper = () => {

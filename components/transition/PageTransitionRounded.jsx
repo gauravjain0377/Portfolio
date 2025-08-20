@@ -11,7 +11,7 @@ const PageTransition = ({ pageName }) => {
   const initialPath = `M0 0 L0 ${height} Q0 ${height / 2} 0 0`;
   const targetPath = `M0 0 L0 ${height} Q${width} ${height / 2} 0 0`;
 
-  // Enhanced animations for Home page
+  // Enhanced animations with faster, smoother timing
   const isHomePage = pageName === "Home";
   
   const pathAnimation = {
@@ -21,43 +21,43 @@ const PageTransition = ({ pageName }) => {
     enter: {
       d: targetPath,
       transition: { 
-        duration: isHomePage ? 0.8 : 0.5, 
-        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1] 
+        duration: isHomePage ? 0.6 : 0.4, // Faster animations
+        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
       },
     },
     exit: {
       d: initialPath,
       transition: { 
-        duration: isHomePage ? 0.8 : 0.5, 
-        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1] 
+        duration: isHomePage ? 0.6 : 0.4, // Faster animations
+        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
       },
     },
   };
 
-  // Enhanced content animation for Home page
+  // Enhanced content animation with immediate visibility
   const contentAnimation = {
     initial: { 
       opacity: 0, 
-      scale: isHomePage ? 0.8 : 1,
-      y: isHomePage ? 20 : 0
+      scale: 0.95,
+      y: 10
     },
     animate: { 
       opacity: 1, 
       scale: 1,
       y: 0,
       transition: {
-        duration: isHomePage ? 0.6 : 0.3,
-        delay: isHomePage ? 0.2 : 0.1,
-        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
+        duration: 0.3, // Faster content appearance
+        delay: 0.1, // Minimal delay for immediate feedback
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
     exit: { 
       opacity: 0,
-      scale: isHomePage ? 0.9 : 1,
-      y: isHomePage ? -20 : 0,
+      scale: 0.95,
+      y: -10,
       transition: {
-        duration: isHomePage ? 0.4 : 0.2,
-        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
+        duration: 0.2, // Fast exit
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
@@ -69,8 +69,8 @@ const PageTransition = ({ pageName }) => {
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ 
-        duration: isHomePage ? 0.8 : 0.5,
-        ease: isHomePage ? [0.25, 0.46, 0.45, 0.94] : [0.76, 0, 0.24, 1]
+        duration: isHomePage ? 0.6 : 0.4, // Faster slide animation
+        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
       }}
     >
       <svg className={styles.svgCurve} viewBox={`0 0 ${width} ${height}`}>
@@ -93,24 +93,30 @@ const PageTransition = ({ pageName }) => {
           animate={isHomePage ? {
             scale: [1, 1.2, 1],
             rotate: [0, 5, -5, 0]
-          } : {}}
+          } : {
+            scale: [1, 1.1, 1] // Subtle animation for other pages
+          }}
           transition={isHomePage ? {
-            duration: 2,
+            duration: 1.5, // Faster animation
             repeat: Infinity,
             ease: "easeInOut"
-          } : {}}
+          } : {
+            duration: 1,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         ></motion.div>
         <motion.h1 
           className={styles.pageTitle}
           animate={isHomePage ? {
             textShadow: [
               "0 0 0px rgba(255,255,255,0)",
-              "0 0 20px rgba(255,255,255,0.8)",
+              "0 0 15px rgba(255,255,255,0.6)", // Reduced glow for better readability
               "0 0 0px rgba(255,255,255,0)"
             ]
           } : {}}
           transition={isHomePage ? {
-            duration: 2,
+            duration: 1.5, // Faster animation
             repeat: Infinity,
             ease: "easeInOut"
           } : {}}
