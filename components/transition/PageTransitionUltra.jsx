@@ -97,9 +97,9 @@ const PageTransitionUltra = ({ pageName }) => {
           className={styles.pageTitle}
           animate={{
             textShadow: [
-              "0 0 0px rgba(255,255,255,0)",
-              "0 0 4px rgba(255,255,255,0.2)", // Minimal glow for readability
-              "0 0 0px rgba(255,255,255,0)"
+              "var(--transition-text-shadow)",
+              "var(--transition-text-shadow-hover)",
+              "var(--transition-text-shadow)"
             ]
           }}
           transition={{

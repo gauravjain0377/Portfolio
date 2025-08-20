@@ -20,7 +20,7 @@ const PageTransition = ({ pageName }) => {
     },
   };
 
-  // Enhanced content animation for immediate visibility
+  // Enhanced content animation for improved text visibility
   const contentAnimation = {
     initial: { 
       opacity: 0, 
@@ -32,8 +32,8 @@ const PageTransition = ({ pageName }) => {
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.25, // Very fast content appearance
-        delay: 0.05, // Minimal delay for immediate feedback
+        duration: 0.2, // Very fast content appearance for better text visibility
+        delay: 0.02, // Minimal delay for immediate text readability
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
@@ -42,7 +42,7 @@ const PageTransition = ({ pageName }) => {
       scale: 0.95,
       y: -10,
       transition: {
-        duration: 0.2, // Fast exit
+        duration: 0.15, // Very fast exit to maintain text visibility
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
@@ -90,9 +90,9 @@ const PageTransition = ({ pageName }) => {
           className={styles.pageTitle}
           animate={{
             textShadow: [
-              "0 0 0px rgba(255,255,255,0)",
-              "0 0 10px rgba(255,255,255,0.4)", // Subtle glow for readability
-              "0 0 0px rgba(255,255,255,0)"
+              "var(--transition-text-shadow)",
+              "var(--transition-text-shadow-hover)",
+              "var(--transition-text-shadow)"
             ]
           }}
           transition={{

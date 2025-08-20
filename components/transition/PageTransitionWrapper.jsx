@@ -1,6 +1,6 @@
 "use client";
 import { usePageTransition } from "../../hooks/usePageTransition";
-import PageTransition from "./PageTransitionUltra"; // Use the ultra-fast transition component
+import PageTransitionWave from "./PageTransitionWave"; // Use the new wave transition component
 import { AnimatePresence } from "framer-motion";
 
 const PageTransitionWrapper = () => {
@@ -9,7 +9,7 @@ const PageTransitionWrapper = () => {
   return (
     <AnimatePresence mode="wait">
       {showTransition && (
-        <PageTransition key={pageName} pageName={pageName} />
+        <PageTransitionWave key={pageName} pageName={pageName} />
       )}
     </AnimatePresence>
   );
