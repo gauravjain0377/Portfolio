@@ -1,8 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./PageTransition.module.scss";
 
 const PageTransitionOcean = ({ pageName }) => {
+  const { theme } = useTheme();
+  
   // Create dynamic ocean wave paths with multiple wave layers
   const createOceanWavePath = (progress, isEnter) => {
     const width = window.innerWidth;
@@ -215,7 +218,7 @@ const PageTransitionOcean = ({ pageName }) => {
 
   return (
     <motion.div
-      className={styles.pageTransition}
+      className={`${styles.pageTransition} ${theme === 'dark' ? styles.pageTransitionDark : ''}`}
       initial={{ y: "100vh", scale: 0.95, opacity: 0 }}
       animate={{ y: 0, scale: 1, opacity: 1 }}
       exit={{ y: "-100vh", scale: 1.03, opacity: 0 }}

@@ -14,6 +14,33 @@
   transform: translateZ(0);
   backface-visibility: hidden;
   overflow: hidden;
+  
+  /* Enhanced background with subtle gradient */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, 
+      var(--accent-glow-primary) 0%, 
+      transparent 70%);
+    opacity: 0.1;
+    z-index: 0;
+    animation: backgroundPulse 4s ease-in-out infinite;
+  }
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
 }
 
 .backgroundOverlay {
@@ -23,11 +50,13 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.08) 0%, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.04) 50%, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.08) 100%);
+    var(--accent-glow-primary) 0%, 
+    var(--accent-glow-secondary) 50%, 
+    var(--accent-glow-primary) 100%);
   z-index: 0;
   will-change: transform, opacity, filter;
+  opacity: 0.08;
+  transition: opacity 0.3s ease;
 }
 
 .waveLayer {
@@ -37,11 +66,13 @@
   width: 100%;
   height: 100%;
   background: radial-gradient(ellipse at center, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.06) 0%, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.02) 50%, 
+    var(--accent-glow-primary) 0%, 
+    var(--accent-glow-secondary) 50%, 
     transparent 100%);
   z-index: 0;
   will-change: transform, opacity, scale;
+  opacity: 0.06;
+  transition: opacity 0.3s ease;
 }
 
 .svgCurve {
@@ -58,6 +89,20 @@
   transform: translateZ(0);
   z-index: 1;
   filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.1));
+  
+  /* Enhanced curve glow effect */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent-gradient-primary);
+    opacity: 0.1;
+    filter: blur(20px);
+    z-index: -1;
+  }
 }
 
 .content {
@@ -73,21 +118,70 @@
   background: var(--transition-content-bg);
   backdrop-filter: blur(15px);
   border-radius: 24px;
-  border: 2px solid var(--transition-border-color);
+  border: 2px solid transparent;
+  background-clip: padding-box;
   box-shadow: var(--transition-box-shadow);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Create gradient border effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: var(--transition-border-color);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+  }
 }
 
 .bullet {
   width: 10px;
   height: 10px;
-  background-color: var(--accent-color);
+  background: var(--accent-gradient-primary);
   border-radius: 50%;
-  transition: background-color 0.15s ease;
+  transition: all 0.3s ease;
   will-change: transform;
   transform: translateZ(0);
   box-shadow: var(--bullet-glow);
   position: relative;
+  
+  /* Enhanced bullet glow effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: var(--accent-gradient-primary);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  
+  /* Additional inner glow */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: radial-gradient(circle, 
+      rgba(255, 255, 255, 0.3) 0%, 
+      transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.8;
+  }
 }
 
 .bullet::after {
@@ -98,21 +192,21 @@
   right: -2px;
   bottom: -2px;
   background: radial-gradient(circle, 
-    rgba(var(--accent-color-rgb, 51, 75, 211), 0.3) 0%, 
+    var(--accent-glow-primary) 0%, 
     transparent 70%);
   border-radius: 50%;
-  z-index: -1;
+  z-index: -2;
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.3;
+    opacity: 0.4;
   }
   50% {
     transform: scale(1.2);
-    opacity: 0.6;
+    opacity: 0.8;
   }
 }
 
@@ -123,7 +217,7 @@
   font-family: 'Inter', sans-serif;
   margin: 0;
   letter-spacing: 0.05em;
-  transition: color 0.15s ease;
+  transition: all 0.3s ease;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -137,21 +231,65 @@
   -webkit-text-fill-color: unset;
   background-clip: unset;
   filter: none; // Ensure no blur effects for perfect readability
+  
+  /* Enhanced text glow effect */
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent-gradient-primary);
+    border-radius: 4px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+  }
 }
 
 // Enhanced hover effects for better interactivity
 .content:hover {
   background: var(--transition-content-hover-bg);
-  border-color: var(--transition-border-hover-color);
   transform: translateY(-3px);
   box-shadow: var(--transition-box-shadow-hover);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Enhanced border on hover */
+  &::before {
+    background: var(--transition-border-hover-color);
+  }
+  
+  .pageTitle {
+    text-shadow: var(--transition-text-shadow-hover);
+    
+    &::after {
+      opacity: 0.3;
+    }
+  }
 }
 
 .content:hover .bullet {
   box-shadow: var(--bullet-glow-hover);
   transform: scale(1.1);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Enhanced bullet glow on hover */
+  &::before {
+    opacity: 0.8;
+    filter: blur(3px);
+  }
+  
+  /* Enhanced inner glow on hover */
+  &::after {
+    opacity: 1;
+    background: radial-gradient(circle, 
+      rgba(255, 255, 255, 0.5) 0%, 
+      transparent 70%);
+  }
 }
 
 // Responsive adjustments
@@ -226,9 +364,15 @@
 }
 
 // Dark mode specific overrides
-[data-theme="dark"] {
+.pageTransition[data-theme="dark"] {
   .svgCurve {
     filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.4));
+    
+    /* Enhanced dark mode curve glow */
+    &::after {
+      opacity: 0.15;
+      filter: blur(25px);
+    }
   }
   
   .pageTransition[data-wave="true"] .svgCurve {
@@ -237,29 +381,226 @@
   
   .backgroundOverlay {
     background: linear-gradient(135deg, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.15) 0%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.08) 50%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.15) 100%);
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      var(--accent-glow-primary) 100%);
+    opacity: 0.12;
   }
   
   .waveLayer {
     background: radial-gradient(ellipse at center, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.12) 0%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.06) 50%, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
       transparent 100%);
+    opacity: 0.08;
   }
   
   .pageTransition[data-ocean="true"] .backgroundOverlay {
     background: linear-gradient(135deg, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.2) 0%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.12) 50%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.2) 100%);
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      var(--accent-glow-primary) 100%);
+    opacity: 0.15;
   }
   
   .pageTransition[data-ocean="true"] .waveLayer {
     background: radial-gradient(ellipse at center, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.18) 0%, 
-      rgba(var(--accent-color-rgb, 51, 75, 211), 0.08) 50%, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
       transparent 100%);
+    opacity: 0.1;
+  }
+  
+  /* Enhanced dark mode content styling */
+  .content {
+    /* Enhanced dark mode shadows */
+    box-shadow: var(--transition-box-shadow);
+    
+    /* Enhanced dark mode border */
+    &::before {
+      background: var(--transition-border-color);
+    }
+  }
+  
+  /* Enhanced dark mode bullet */
+  .bullet {
+    /* Enhanced dark mode glow */
+    box-shadow: var(--bullet-glow);
+    
+    &::before {
+      background: var(--accent-gradient-primary);
+      opacity: 0.7;
+    }
+    
+    &::after {
+      background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        transparent 70%);
+      opacity: 0.9;
+    }
+  }
+  
+  /* Enhanced dark mode title */
+  .pageTitle {
+    /* Enhanced dark mode text shadow */
+    text-shadow: var(--transition-text-shadow);
+    
+    &::after {
+      background: var(--accent-gradient-primary);
+      opacity: 0.2;
+    }
+  }
+  
+  /* Enhanced dark mode hover effects */
+  .content:hover {
+    box-shadow: var(--transition-box-shadow-hover);
+    
+    &::before {
+      background: var(--transition-border-hover-color);
+    }
+    
+    .pageTitle {
+      text-shadow: var(--transition-text-shadow-hover);
+      
+      &::after {
+        opacity: 0.4;
+      }
+    }
+    
+    .bullet {
+      box-shadow: var(--bullet-glow-hover);
+      
+      &::before {
+        opacity: 0.9;
+      }
+      
+      &::after {
+        background: radial-gradient(circle, 
+          rgba(255, 255, 255, 0.6) 0%, 
+          transparent 70%);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* Alternative approach: Create a dark mode class */
+.pageTransitionDark {
+  .svgCurve {
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.4));
+    
+    /* Enhanced dark mode curve glow */
+    &::after {
+      opacity: 0.15;
+      filter: blur(25px);
+    }
+  }
+  
+  .pageTransition[data-wave="true"] .svgCurve {
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.5));
+  }
+  
+  .backgroundOverlay {
+    background: linear-gradient(135deg, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      var(--accent-glow-primary) 100%);
+    opacity: 0.12;
+  }
+  
+  .waveLayer {
+    background: radial-gradient(ellipse at center, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      transparent 100%);
+    opacity: 0.08;
+  }
+  
+  .pageTransition[data-ocean="true"] .backgroundOverlay {
+    background: linear-gradient(135deg, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      var(--accent-glow-primary) 100%);
+    opacity: 0.15;
+  }
+  
+  .pageTransition[data-ocean="true"] .waveLayer {
+    background: radial-gradient(ellipse at center, 
+      var(--accent-glow-primary) 0%, 
+      var(--accent-glow-secondary) 50%, 
+      transparent 100%);
+    opacity: 0.1;
+  }
+  
+  /* Enhanced dark mode content styling */
+  .content {
+    /* Enhanced dark mode shadows */
+    box-shadow: var(--transition-box-shadow);
+    
+    /* Enhanced dark mode border */
+    &::before {
+      background: var(--transition-border-color);
+    }
+  }
+  
+  /* Enhanced dark mode bullet */
+  .bullet {
+    /* Enhanced dark mode glow */
+    box-shadow: var(--bullet-glow);
+    
+    &::before {
+      background: var(--accent-gradient-primary);
+      opacity: 0.7;
+    }
+    
+    &::after {
+      background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        transparent 70%);
+      opacity: 0.9;
+    }
+  }
+  
+  /* Enhanced dark mode title */
+  .pageTitle {
+    /* Enhanced dark mode text shadow */
+    text-shadow: var(--transition-text-shadow);
+    
+    &::after {
+      background: var(--accent-gradient-primary);
+      opacity: 0.2;
+    }
+  }
+  
+  /* Enhanced dark mode hover effects */
+  .content:hover {
+    box-shadow: var(--transition-box-shadow-hover);
+    
+    &::before {
+      background: var(--transition-border-hover-color);
+    }
+    
+    .pageTitle {
+      text-shadow: var(--transition-text-shadow-hover);
+      
+      &::after {
+        opacity: 0.4;
+      }
+    }
+    
+    .bullet {
+      box-shadow: var(--bullet-glow-hover);
+      
+      &::before {
+        opacity: 0.9;
+      }
+      
+      &::after {
+        background: radial-gradient(circle, 
+          rgba(255, 255, 255, 0.6) 0%, 
+          transparent 70%);
+        opacity: 1;
+      }
+    }
   }
 } 

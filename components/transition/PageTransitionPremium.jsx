@@ -1,8 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./PageTransition.module.scss";
 
 const PageTransitionPremium = ({ pageName }) => {
+  const { theme } = useTheme();
+  
   const initialPath = `M0 0 L0 ${window.innerHeight} Q0 ${window.innerHeight / 2} 0 0`;
   const targetPath = `M0 0 L0 ${window.innerHeight} Q${window.innerWidth} ${window.innerHeight / 2} 0 0`;
 
@@ -158,7 +161,7 @@ const PageTransitionPremium = ({ pageName }) => {
 
   return (
     <motion.div
-      className={styles.pageTransition}
+      className={`${styles.pageTransition} ${theme === 'dark' ? styles.pageTransitionDark : ''}`}
       initial={{ y: "100vh", scale: 0.9, opacity: 0, rotateX: -15 }}
       animate={{ y: 0, scale: 1, opacity: 1, rotateX: 0 }}
       exit={{ y: "-100vh", scale: 1.05, opacity: 0, rotateX: 10 }}

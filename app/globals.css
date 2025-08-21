@@ -21,6 +21,14 @@
   --card-border: rgba(69, 92, 233, 0.1);
   --glow-color: rgba(69, 92, 233, 0.1);
   
+  /* Enhanced Accent Colors for Light Mode */
+  --accent-gradient-primary: linear-gradient(135deg, #455ce9 0%, #2d3a8c 100%);
+  --accent-gradient-secondary: linear-gradient(135deg, #2d3a8c 0%, #1a1f4d 100%);
+  --accent-glow-primary: rgba(69, 92, 233, 0.15);
+  --accent-glow-secondary: rgba(45, 58, 140, 0.1);
+  --accent-border-primary: rgba(69, 92, 233, 0.3);
+  --accent-border-secondary: rgba(45, 58, 140, 0.2);
+  
   /* Enhanced Light Mode Colors */
   --gradient-primary: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   --gradient-secondary: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -29,17 +37,17 @@
   --active-bg: rgba(69, 92, 233, 0.1);
   
   /* Transition Colors - Light Mode */
-  --transition-content-bg: rgba(255, 255, 255, 0.95);
-  --transition-content-hover-bg: rgba(255, 255, 255, 0.98);
-  --transition-border-color: rgba(69, 92, 233, 0.3);
-  --transition-border-hover-color: rgba(69, 92, 233, 0.5);
-  --transition-text-color: #212529;
-  --transition-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.6);
-  --transition-text-shadow-hover: 0 2px 12px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.4), 0 4px 16px rgba(0, 0, 0, 0.7);
-  --transition-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 0 40px rgba(69, 92, 233, 0.15);
-  --transition-box-shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.25) inset, 0 0 50px rgba(69, 92, 233, 0.2);
-  --bullet-glow: 0 0 25px rgba(69, 92, 233, 0.7), 0 0 50px rgba(69, 92, 233, 0.3);
-  --bullet-glow-hover: 0 0 35px rgba(69, 92, 233, 0.9), 0 0 70px rgba(69, 92, 233, 0.4);
+  --transition-content-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.92) 100%);
+  --transition-content-hover-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.95) 100%);
+  --transition-border-color: linear-gradient(135deg, rgba(69, 92, 233, 0.4) 0%, rgba(45, 58, 140, 0.3) 100%);
+  --transition-border-hover-color: linear-gradient(135deg, rgba(69, 92, 233, 0.6) 0%, rgba(45, 58, 140, 0.5) 100%);
+  --transition-text-color: #1a1a1a;
+  --transition-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(69, 92, 233, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --transition-text-shadow-hover: 0 2px 12px rgba(0, 0, 0, 0.7), 0 0 25px rgba(69, 92, 233, 0.3), 0 4px 16px rgba(0, 0, 0, 0.5);
+  --transition-box-shadow: 0 20px 60px rgba(69, 92, 233, 0.15), 0 0 0 1px rgba(69, 92, 233, 0.1) inset, 0 0 40px rgba(69, 92, 233, 0.08), 0 8px 32px rgba(0, 0, 0, 0.1);
+  --transition-box-shadow-hover: 0 24px 60px rgba(69, 92, 233, 0.2), 0 0 0 1px rgba(69, 92, 233, 0.15) inset, 0 0 50px rgba(69, 92, 233, 0.12), 0 12px 40px rgba(0, 0, 0, 0.15);
+  --bullet-glow: 0 0 25px rgba(69, 92, 233, 0.8), 0 0 50px rgba(69, 92, 233, 0.4), 0 0 75px rgba(69, 92, 233, 0.2);
+  --bullet-glow-hover: 0 0 35px rgba(69, 92, 233, 1), 0 0 70px rgba(69, 92, 233, 0.6), 0 0 100px rgba(69, 92, 233, 0.3);
 }
 
 /* Dark Mode Colors */
@@ -60,6 +68,14 @@
   --card-border: rgba(69, 92, 233, 0.3);
   --glow-color: rgba(69, 92, 233, 0.2);
   
+  /* Enhanced Accent Colors for Dark Mode */
+  --accent-gradient-primary: linear-gradient(135deg, #455ce9 0%, #2d3a8c 100%);
+  --accent-gradient-secondary: linear-gradient(135deg, #2d3a8c 0%, #1a1f4d 100%);
+  --accent-glow-primary: rgba(69, 92, 233, 0.25);
+  --accent-glow-secondary: rgba(45, 58, 140, 0.2);
+  --accent-border-primary: rgba(69, 92, 233, 0.4);
+  --accent-border-secondary: rgba(45, 58, 140, 0.3);
+  
   /* Enhanced Dark Mode Colors */
   --gradient-primary: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
   --gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
@@ -68,17 +84,17 @@
   --active-bg: rgba(69, 92, 233, 0.2);
   
   /* Transition Colors - Dark Mode */
-  --transition-content-bg: rgba(26, 26, 26, 0.95);
-  --transition-content-hover-bg: rgba(26, 26, 26, 0.98);
-  --transition-border-color: rgba(69, 92, 233, 0.4);
-  --transition-border-hover-color: rgba(69, 92, 233, 0.6);
+  --transition-content-bg: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 42, 42, 0.92) 100%);
+  --transition-content-hover-bg: linear-gradient(135deg, rgba(26, 26, 26, 0.98) 0%, rgba(42, 42, 42, 0.95) 100%);
+  --transition-border-color: linear-gradient(135deg, rgba(69, 92, 233, 0.5) 0%, rgba(45, 58, 140, 0.4) 100%);
+  --transition-border-hover-color: linear-gradient(135deg, rgba(69, 92, 233, 0.7) 0%, rgba(45, 58, 140, 0.6) 100%);
   --transition-text-color: #ffffff;
-  --transition-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(69, 92, 233, 0.4), 0 4px 12px rgba(0, 0, 0, 0.8);
-  --transition-text-shadow-hover: 0 2px 12px rgba(0, 0, 0, 1), 0 0 25px rgba(69, 92, 233, 0.5), 0 4px 16px rgba(0, 0, 0, 0.9);
-  --transition-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(69, 92, 233, 0.2) inset, 0 0 40px rgba(69, 92, 233, 0.25);
-  --transition-box-shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(69, 92, 233, 0.3) inset, 0 0 50px rgba(69, 92, 233, 0.35);
-  --bullet-glow: 0 0 25px rgba(69, 92, 233, 0.8), 0 0 50px rgba(69, 92, 233, 0.4);
-  --bullet-glow-hover: 0 0 35px rgba(69, 92, 233, 1), 0 0 70px rgba(69, 92, 233, 0.5);
+  --transition-text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(69, 92, 233, 0.5), 0 4px 12px rgba(0, 0, 0, 0.8);
+  --transition-text-shadow-hover: 0 2px 12px rgba(0, 0, 0, 1), 0 0 25px rgba(69, 92, 233, 0.6), 0 4px 16px rgba(0, 0, 0, 0.9);
+  --transition-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(69, 92, 233, 0.25) inset, 0 0 40px rgba(69, 92, 233, 0.3), 0 8px 32px rgba(0, 0, 0, 0.3);
+  --transition-box-shadow-hover: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(69, 92, 233, 0.35) inset, 0 0 50px rgba(69, 92, 233, 0.4), 0 12px 40px rgba(0, 0, 0, 0.4);
+  --bullet-glow: 0 0 25px rgba(69, 92, 233, 0.9), 0 0 50px rgba(69, 92, 233, 0.5), 0 0 75px rgba(69, 92, 233, 0.3);
+  --bullet-glow-hover: 0 0 35px rgba(69, 92, 233, 1), 0 0 70px rgba(69, 92, 233, 0.7), 0 0 100px rgba(69, 92, 233, 0.4);
 }
 
 /* Base Styles */

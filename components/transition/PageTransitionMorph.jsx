@@ -1,8 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./PageTransition.module.scss";
 
 const PageTransitionMorph = ({ pageName }) => {
+  const { theme } = useTheme();
+  
   // Create smooth curved paths with multiple control points
   const createCurvedPath = (isEnter) => {
     const width = window.innerWidth;
@@ -176,7 +179,7 @@ const PageTransitionMorph = ({ pageName }) => {
 
   return (
     <motion.div
-      className={styles.pageTransition}
+      className={`${styles.pageTransition} ${theme === 'dark' ? styles.pageTransitionDark : ''}`}
       initial={{ y: "100vh", scale: 0.95, opacity: 0, rotateX: -10 }}
       animate={{ y: 0, scale: 1, opacity: 1, rotateX: 0 }}
       exit={{ y: "-100vh", scale: 1.02, opacity: 0, rotateX: 8 }}

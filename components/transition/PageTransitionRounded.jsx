@@ -1,8 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./PageTransition.module.scss";
 
 const PageTransition = ({ pageName }) => {
+  const { theme } = useTheme();
+  
   // Create perfect 50% round curves on top and bottom
   const radius = 50; // 50% round curve
   const width = window.innerWidth;
@@ -64,7 +67,7 @@ const PageTransition = ({ pageName }) => {
 
   return (
     <motion.div
-      className={styles.pageTransition}
+      className={`${styles.pageTransition} ${theme === 'dark' ? styles.pageTransitionDark : ''}`}
       initial={{ y: "100vh" }}
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
