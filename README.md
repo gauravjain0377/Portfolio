@@ -122,4 +122,4 @@ Gaurav Portfolio
     └── sitemap.xml
 ├── scripts
     └── generate-sitemap.js
-└── tailwind.config.js
+└── tailwind.config.js 
