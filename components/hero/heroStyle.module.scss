@@ -14,11 +14,11 @@
 /* Image Container */
 .imageContainer {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 600px;
   z-index: 1;
 }
 
@@ -27,7 +27,7 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: cover;
-  object-position: center;
+  object-position: center 15%;
   transition: transform 0.5s ease;
   border-radius: 12px;
 }

@@ -3,7 +3,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 60px 100px 60px 100px;
+    padding: 40px 100px 40px 100px;
     border-top: 1px solid var(--border-color);
     background-color: var(--bg-primary);
     transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -27,7 +27,7 @@
         height: 100%;
         display: flex;
         align-items: center;
-        margin-right: 80px;
+        margin-right: 120px;
         min-width: 0;
     }
     
@@ -47,26 +47,30 @@
 
     .projectLinks {
         display: flex;
-        align-items: center;
-        gap: 20px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
         flex-shrink: 0;
         margin-left: auto;
+        width: 120px;
     }
 
     .githubLink {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         color: var(--text-primary);
         text-decoration: none;
         font-weight: 300;
-        padding: 8px 12px;
+        padding: 10px 16px;
         border-radius: 6px;
         background-color: var(--bg-tertiary);
         border: 1px solid var(--border-color);
         pointer-events: auto;
         transition: all 0.3s ease;
         white-space: nowrap;
+        width: 100%;
         
         svg {
             width: 18px;
@@ -96,13 +100,26 @@
     }
 }
 
+// Large screen optimizations
+@media (min-width: 1200px) {
+  .project{
+    padding: 35px 120px 35px 120px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .project{
+    padding: 30px 140px 30px 140px;
+  }
+}
+
 // Responsive adjustments
 @media (max-width: 750px ) {
   .project{
     padding: 40px 60px 40px 60px;
     
     .hoverArea {
-        margin-right: 60px;
+        margin-right: 80px;
     }
     
     h2{
@@ -117,7 +134,7 @@
     padding: 30px 40px 30px 40px;
     
     .hoverArea {
-        margin-right: 40px;
+        margin-right: 60px;
     }
     
     h2{
@@ -132,7 +149,7 @@
     padding: 26px 30px 26px 30px;
     
     .hoverArea {
-        margin-right: 30px;
+        margin-right: 50px;
     }
     
     h2{
@@ -147,7 +164,7 @@
     padding: 20px 25px 20px 25px;
     
     .hoverArea {
-        margin-right: 25px;
+        margin-right: 40px;
     }
     
     h2{
