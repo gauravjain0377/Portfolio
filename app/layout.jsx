@@ -1,15 +1,14 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
-import CustomCursor from "../components/customCursor/CustomCursor";
 
 export const metadata = {
   title: {
-    default: "Gaurav Jain – Web3 & Full-Stack Developer",
+    default: "Gaurav Jain – Full-Stack Developer",
     template: "%s – Gaurav Jain Portfolio"
   },
-  description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-  keywords: "Web3, Blockchain, MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
+  description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+  keywords: "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
   authors: [{ name: "Gaurav Jain" }],
   creator: "Gaurav Jain",
   publisher: "Gaurav Jain",
@@ -32,8 +31,8 @@ export const metadata = {
     locale: "en_US",
     url: "https://www.gaurav-jain.me",
     siteName: "Gaurav Jain Portfolio",
-    title: "Gaurav Jain - Web3 & Full-Stack Developer",
-    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    title: "Gaurav Jain - Full-Stack Developer",
+    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
     images: [
       {
         url: "/images/Gaurav_Jain.png",
@@ -45,8 +44,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gaurav Jain – Web3 & Full-Stack Developer",
-    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    title: "Gaurav Jain – Full-Stack Developer",
+    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
     images: ["/images/Gaurav_Jain.png"],
     creator: "@gauravjain0377",
   },
@@ -85,7 +84,6 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body className={``}>
-        <CustomCursor />
         <ClientLayout>
           {children}
         </ClientLayout>

@@ -309,14 +309,31 @@
 }
 
 .expandedContent {
-  margin-top: clamp(16px, 4vw, 24px);
-  padding-top: clamp(16px, 4vw, 24px);
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   transition: all 0.3s ease;
   overflow: hidden;
-  will-change: height, opacity, transform, scale; /* Optimize all animations */
+  will-change: height, opacity, transform, scale, margin-top, padding-top; /* Optimize all animations */
   transform-origin: top center; /* Better scale animation origin */
+  position: relative;
+  
+  /* Add subtle background gradient for depth */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease 0.1s;
+  }
+  
+  /* Show gradient when expanded */
+  &.expanded::before {
+    opacity: 1;
+  }
 
   h4 {
     color: var(--text-primary);
@@ -391,10 +408,14 @@
   font-size: clamp(8px, 2vw, 12px);
   font-weight: 500;
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  will-change: transform, background-color, box-shadow;
+  opacity: 0;
+  transform: scale(0.8) translateY(6px);
+  animation: techTagAppear 0.2s ease-out forwards;
 
   &::before {
     content: '';
@@ -403,20 +424,32 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   &:hover {
     background: var(--accent-color);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.02);
     border-color: var(--accent-color);
-    box-shadow: 0 4px 15px rgba(var(--accent-color-rgb), 0.3);
+    box-shadow: 0 6px 20px rgba(var(--accent-color-rgb), 0.4);
     
     &::before {
       left: 100%;
     }
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 0.1s ease;
+  }
+}
+
+@keyframes techTagAppear {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -429,6 +462,10 @@
       position: relative;
       padding-left: clamp(12px, 3vw, 20px);
       margin-bottom: clamp(4px, 1vw, 8px);
+      opacity: 0;
+      transform: translateX(-8px) scale(0.95);
+      animation: achievementAppear 0.2s ease-out forwards;
+      transition: all 0.3s ease;
       
       &::before {
         content: '•';
@@ -437,7 +474,19 @@
         color: var(--accent-color);
         font-weight: bold;
       }
+      
+      &:hover {
+        transform: translateX(5px) scale(1.02);
+        color: var(--text-primary);
+      }
     }
+  }
+}
+
+@keyframes achievementAppear {
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
 
@@ -453,10 +502,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  will-change: transform, background-color, box-shadow;
 
   &::before {
     content: '';
@@ -465,23 +515,42 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   &:hover {
     background: var(--accent-secondary);
     transform: scale(1.05);
-    box-shadow: 0 4px 20px var(--glow-color);
+    box-shadow: 0 6px 25px rgba(var(--accent-color-rgb), 0.4);
     
     &::before {
       opacity: 1;
+    }
+    
+    &::after {
+      width: 100%;
+      height: 100%;
     }
   }
 
   &:active {
     transform: scale(0.95);
+    transition: all 0.1s ease;
   }
 }
 

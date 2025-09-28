@@ -1,20 +1,20 @@
 .aboutContainer {
   min-height: 100vh;
   background: var(--bg-primary);
-  padding: 140px 200px 120px;
+  padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 200px) clamp(40px, 8vw, 80px);
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: clamp(60px, 12vw, 120px);
   transition: background-color 0.3s ease;
 
   @media (max-width: 1200px) {
-    padding: 120px 100px 100px;
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 100px) clamp(40px, 8vw, 80px);
   }
 
   @media (max-width: 768px) {
-    padding: 100px 40px 80px;
-    gap: 80px;
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px) clamp(40px, 8vw, 80px);
+    gap: clamp(40px, 8vw, 80px);
   }
 }
 
@@ -147,6 +147,25 @@
   overflow: hidden;
   box-shadow: 0 8px 32px var(--shadow-light);
   transition: box-shadow 0.3s ease;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Create a subtle background pattern */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 30% 20%, var(--accent-color) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, var(--accent-secondary) 0%, transparent 50%);
+    opacity: 0.05;
+    z-index: 1;
+  }
 }
 
 .profileImage {
@@ -154,9 +173,29 @@
   height: auto;
   object-fit: cover;
   transition: transform 0.3s ease;
-
+  position: relative;
+  z-index: 2;
+  
+  /* Remove white background using CSS filters */
+  filter: 
+    contrast(1.2) 
+    brightness(1.1) 
+    saturate(1.1)
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  
+  /* Ensure transparent background */
+  background: transparent;
+  
+  /* Additional background removal technique */
+  mix-blend-mode: normal;
+  
   &:hover {
     transform: scale(1.02);
+    filter: 
+      contrast(1.3) 
+      brightness(1.15) 
+      saturate(1.2)
+      drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
   }
 }
 
@@ -167,7 +206,7 @@
   margin: 0 auto;
   background: var(--bg-tertiary);
   border-radius: 40px;
-  padding: 100px 80px;
+  padding: clamp(60px, 12vw, 100px) clamp(40px, 8vw, 80px);
   border: 1px solid var(--card-border);
   box-shadow: 
     0 20px 60px var(--shadow-medium),
@@ -201,7 +240,7 @@
   }
 
   @media (max-width: 768px) {
-    padding: 80px 40px;
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px);
     border-radius: 30px;
   }
 }
@@ -809,7 +848,7 @@
   margin: 0 auto;
   background: var(--bg-tertiary);
   border-radius: 40px;
-  padding: 100px 80px;
+  padding: clamp(60px, 12vw, 100px) clamp(40px, 8vw, 80px);
   border: 1px solid var(--card-border);
   box-shadow: 
     0 20px 60px var(--shadow-medium),
@@ -843,7 +882,7 @@
   }
 
   @media (max-width: 768px) {
-    padding: 80px 40px;
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px);
     border-radius: 30px;
   }
 }

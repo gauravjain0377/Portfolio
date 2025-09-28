@@ -6,13 +6,13 @@ import SliderImages from "@/components/sliderImages/SliderImages";
 import Contact from "@/components/contact/Contact";
 
 export const metadata = {
-  title: "Gaurav Jain – Web3 & Full-Stack Developer",
-  description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-  keywords: "Web3, Blockchain, MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development",
+  title: "Gaurav Jain – Full-Stack Developer",
+  description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+  keywords: "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development",
   author: "Gaurav Jain",
   openGraph: {
-    title: "Gaurav Jain – Web3 & Full-Stack Developer",
-    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    title: "Gaurav Jain – Full-Stack Developer",
+    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
     url: "https://www.gaurav-jain.me",
     siteName: "Gaurav Jain Portfolio",
     images: [
@@ -20,7 +20,7 @@ export const metadata = {
         url: "/images/Gaurav_Jain.png",
         width: 400,
         height: 400,
-        alt: "Gaurav Jain - Web3 & Full-Stack Developer",
+        alt: "Gaurav Jain - Full-Stack Developer",
       },
     ],
     locale: "en_US",
@@ -28,8 +28,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gaurav Jain – Web3 & Full-Stack Developer",
-    description: "Full-stack developer specializing in Web3, Blockchain, MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    title: "Gaurav Jain – Full-Stack Developer",
+    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
     images: ["/images/Gaurav_Jain.png"],
     creator: "@gauravjain0377",
   },

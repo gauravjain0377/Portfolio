@@ -48,9 +48,6 @@ Gaurav Portfolio
     ├── contact
     │   ├── Contact.jsx
     │   └── stylefooter.module.scss
-    ├── customCursor
-    │   ├── CustomCursor.jsx
-    │   └── CustomCursor.module.scss
     ├── descripction
     │   ├── Decs.jsx
     │   ├── anime.js
