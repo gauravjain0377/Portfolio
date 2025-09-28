@@ -249,7 +249,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <Image
-              src="/images/Gaurav_Jain.png"
+              src="/images/gauravj.png"
               alt="Gaurav Jain"
               width={300}
               height={300}

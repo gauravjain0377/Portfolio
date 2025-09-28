@@ -154,7 +154,7 @@ const About = () => {
             transition={{ duration: 0.3 }}
           >
             <Image
-              src="/images/Gaurav.png"
+              src="/images/Gauravjjj.png"
               alt="Gaurav Jain"
               width={400}
               height={100}
