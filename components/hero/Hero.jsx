@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import Style from "./heroStyle.module.scss";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -127,6 +128,17 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <p>Software Engineer</p>
+          <div className={Style.ctaRow}>
+            <Link
+              href="https://drive.google.com/drive/folders/1jIlbyyBJrInaqRJocRYvEdubgNcZYn42?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open resume in a new tab"
+              className={Style.resumeBtn}
+            >
+              Resume
+            </Link>
+          </div>
         </motion.div>
 
         {/* Scrolling Text Container */}
