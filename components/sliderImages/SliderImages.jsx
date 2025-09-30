@@ -35,11 +35,11 @@ const SliderImages = () => {
     },
     {
       color: "#d7d4cf",
-      src: "Stoxdashboard.png",
+      src: "StoxDashboard.png",
     },
     {
       color: "#e1dad6",
-      src: "HackZenhackathon.png",
+      src: "Hackzenhackathon.png",
     },
   ];
   const container = useRef(null);
@@ -86,6 +86,13 @@ const SliderImages = () => {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   quality={90}
                   priority={index < 2}
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${pro.src}`);
+                    e.target.style.display = 'none';
+                  }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded image: ${pro.src}`);
+                  }}
                 />
               </div>
             </motion.div>
@@ -119,6 +126,13 @@ const SliderImages = () => {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   quality={90}
                   priority={index < 2}
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${pro.src}`);
+                    e.target.style.display = 'none';
+                  }}
+                  onLoad={() => {
+                    console.log(`Successfully loaded image: ${pro.src}`);
+                  }}
                 />
               </div>
             </motion.div>

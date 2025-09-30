@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
 
@@ -67,6 +68,20 @@ export const metadata = {
   },
 };
 
+const displayFont = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const heroFont = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-hero",
+  display: "swap",
+});
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -83,7 +98,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
-      <body className={``}>
+      <body className={`${displayFont.variable} ${heroFont.variable}`}>
         <ClientLayout>
           {children}
         </ClientLayout>

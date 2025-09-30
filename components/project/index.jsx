@@ -188,6 +188,13 @@ const index = () => {
                     width={300}
                     height={0}
                     alt="image"
+                    onError={(e) => {
+                      console.error(`Failed to load modal image: ${src}`);
+                      e.target.style.display = 'none';
+                    }}
+                    onLoad={() => {
+                      console.log(`Successfully loaded modal image: ${src}`);
+                    }}
                   />
                 </div>
               );

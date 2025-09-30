@@ -21,8 +21,12 @@
   }
   .button {
     margin-top: 10px;
-    width: 140px !important;
-    height: 140px !important;
+    width: 120px !important;
+    height: 120px !important;
+    
+    p {
+      font-size: 17px !important;
+    }
   }
 }
 
@@ -45,13 +49,13 @@
     }
   }
   .button {
-    width: 130px !important;
-    height: 130px !important;
+    width: 110px !important;
+    height: 110px !important;
     top: 120% !important; /* Reduced from 180% to bring button closer */
-    left: calc(100% - 150px) !important;
+    left: calc(100% - 130px) !important;
     
     p {
-      font-size: 18px !important;
+      font-size: 16px !important;
     }
   }
 }
@@ -75,13 +79,13 @@
     }
   }
   .button {
-    width: 110px !important;
-    height: 110px !important;
+    width: 100px !important;
+    height: 100px !important;
     top: 110% !important; /* Reduced from 170% to bring button closer */
-    left: calc(100% - 120px) !important;
+    left: calc(100% - 110px) !important;
     
     p {
-      font-size: 16px !important;
+      font-size: 15px !important;
     }
   }
 }
@@ -105,10 +109,10 @@
     }
   }
   .button {
-    width: 100px !important;
-    height: 100px !important;
+    width: 90px !important;
+    height: 90px !important;
     top: 100% !important; /* Reduced from 160% to bring button closer */
-    left: calc(100% - 110px) !important;
+    left: calc(100% - 100px) !important;
     
     p {
       font-size: 14px !important;
@@ -136,10 +140,10 @@
     }
   }
   .button {
-    width: 90px !important;
-    height: 90px !important;
+    width: 80px !important;
+    height: 80px !important;
     top: 90% !important; /* Reduced from 150% to bring button closer */
-    left: calc(100% - 100px) !important;
+    left: calc(100% - 90px) !important;
     
     p {
       font-size: 12px !important;
@@ -164,10 +168,10 @@
     }
   }
   .button {
-    width: 80px !important;
-    height: 80px !important;
+    width: 70px !important;
+    height: 70px !important;
     top: 80% !important; /* Reduced from 140% to bring button closer */
-    left: calc(100% - 90px) !important;
+    left: calc(100% - 80px) !important;
     
     p {
       font-size: 11px !important;
@@ -223,11 +227,11 @@
     .button {
       background-color: var(--accent-color);
       color: white;
-      width: 180px;
-      height: 180px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       top: 80%;
-      left: calc(100% - 200px);
+      left: calc(100% - 160px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -238,12 +242,12 @@
       &:hover {
         background-color: var(--accent-secondary);
         transform: scale(1.05);
-        box-shadow: 0 8px 32px var(--glow-color);
+        box-shadow: 0 6px 24px var(--glow-color);
       }
       p {
         position: relative;
         margin: 0px;
-        font-size: 20px;
+        font-size: 23px;
         font-weight: 600;
       }
     }
