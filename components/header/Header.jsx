@@ -103,28 +103,14 @@ const Header = () => {
   useEffect(() => {
     if (isMenuOpen) {
       // Lock body scroll
-      const originalStyle = window.getComputedStyle(document.body);
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollBarWidth}px`;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${window.scrollY}px`;
-      document.body.style.width = '100%';
       
     } else {
-      // Restore body scroll
-      const scrollY = document.body.style.top;
+      // Restore body scroll without changing page position
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      
-      // Restore scroll position
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
       
     }
 
@@ -132,9 +118,6 @@ const Header = () => {
     return () => {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
     };
   }, [isMenuOpen]);
 
@@ -175,47 +158,48 @@ const Header = () => {
             <Megnatic>
               <div className={`${style.menuName}`} onClick={toggleMenu}>
                 <p>Menu</p>
-                <div className={style.MenuEndicator}></div>
               </div>
             </Megnatic>
           )}
           
-          {/* Desktop navigation - hide on mobile */}
-          <div className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
-            {(isWorkPage || isAboutPage || isContactPage) && (
+          {/* Desktop navigation - render only on non-mobile */}
+          {!isMobile && (
+            <div className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
+              {(isWorkPage || isAboutPage || isContactPage) && (
+                <Megnatic>
+                  <div className={style.el} onClick={() => navigateWithPreloader("/")}>
+                    <p>Home</p>
+                    <div className={style.endicator}></div>
+                  </div>
+                </Megnatic>
+              )}
               <Megnatic>
-                <div className={style.el} onClick={() => navigateWithPreloader("/")}>
-                  <p>Home</p>
+                <div className={style.el} onClick={() => navigateWithPreloader("/work")}>
+                  <p>Work</p>
                   <div className={style.endicator}></div>
                 </div>
               </Megnatic>
-            )}
-            <Megnatic>
-              <div className={style.el} onClick={() => navigateWithPreloader("/work")}>
-                <p>Work</p>
-                <div className={style.endicator}></div>
-              </div>
-            </Megnatic>
-            <Megnatic>
-              <div className={style.el} onClick={() => navigateWithPreloader("/about")}>
-                <p>About</p>
-                <div className={style.endicator}></div>
-              </div>
-            </Megnatic>
-            <Megnatic>
-              <div className={style.el} onClick={() => navigateWithPreloader("/contact")}>
-                <p>Contact</p>
-                <div className={style.endicator}></div>
-              </div>
-            </Megnatic>
-            <Megnatic>
-              <div className={style.el}>
-                <p>
-                  <ThemeToggle />
-                </p>
-              </div>
-            </Megnatic>
-          </div>
+              <Megnatic>
+                <div className={style.el} onClick={() => navigateWithPreloader("/about")}>
+                  <p>About</p>
+                  <div className={style.endicator}></div>
+                </div>
+              </Megnatic>
+              <Megnatic>
+                <div className={style.el} onClick={() => navigateWithPreloader("/contact")}>
+                  <p>Contact</p>
+                  <div className={style.endicator}></div>
+                </div>
+              </Megnatic>
+              <Megnatic>
+                <div className={style.el}>
+                  <p>
+                    <ThemeToggle />
+                  </p>
+                </div>
+              </Megnatic>
+            </div>
+          )}
         </div>
 
         {/* Burger button - only show when scrolling on desktop */}

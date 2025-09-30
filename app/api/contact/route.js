@@ -39,34 +39,45 @@ export async function POST(request) {
       );
     }
 
-    // Create transporter using Gmail SMTP with enhanced error handling
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPass
-      },
-      // Add timeout and connection settings for Vercel
-      connectionTimeout: 60000,
-      greetingTimeout: 30000,
-      socketTimeout: 60000
+    // Resolve transport config (allow overrides via env for debugging)
+    const host = process.env.EMAIL_HOST || 'smtp.gmail.com';
+    const port = Number(process.env.EMAIL_PORT || 465);
+    const secure = process.env.EMAIL_SECURE ? process.env.EMAIL_SECURE === 'true' : port === 465;
+
+    // Redacted config log for diagnostics
+    console.log('Email transport config:', {
+      host,
+      port,
+      secure,
+      userSet: !!emailUser,
+      passLen: emailPass ? emailPass.replace(/\s/g, '').length : 0,
+      userDomain: emailUser ? emailUser.split('@')[1] : 'n/a',
+      timestamp: new Date().toISOString()
     });
 
-    // Verify transporter configuration
-    try {
-      await transporter.verify();
-      console.log('SMTP connection verified successfully');
-    } catch (verifyError) {
-      console.error('SMTP verification failed:', verifyError);
-      return NextResponse.json(
-        { error: 'Email service temporarily unavailable. Please try again later.' },
-        { status: 500 }
-      );
-    }
+    // Create transporter using SMTP (Gmail defaults)
+    // Enable logger + debug to surface SMTP negotiation in server logs
+    const createTransporter = (opts) => nodemailer.createTransport({
+      host: opts.host,
+      port: opts.port,
+      secure: opts.secure,
+      auth: {
+        user: emailUser,
+        pass: emailPass && emailPass.replace(/\s/g, '')
+      },
+      connectionTimeout: 60000,
+      greetingTimeout: 30000,
+      socketTimeout: 60000,
+      logger: true,
+      debug: true
+    });
+
+    let transporter = createTransporter({ host, port, secure });
 
     // Email content with dynamic phone number for "Call Now" button
     const mailOptions = {
-      from: emailUser,
+      from: `Portfolio Contact <${emailUser}>`,
+      replyTo: email,
       to: 'gjain0229@gmail.com',
       subject: '🎯 New Project Inquiry - Gaurav Portfolio',
       html: `
@@ -191,11 +202,56 @@ export async function POST(request) {
       `
     };
 
-    // Send email with enhanced error handling
-    const result = await transporter.sendMail(mailOptions);
+    // Send email with enhanced error handling and fallback to STARTTLS on 587 if needed
+    let result;
+    const startTime = Date.now();
+    try {
+      result = await transporter.sendMail(mailOptions);
+    } catch (sendError) {
+      console.error('sendMail error (primary transport):', {
+        message: sendError.message,
+        code: sendError.code,
+        command: sendError.command,
+        response: sendError.response,
+        responseCode: sendError.responseCode,
+        portTried: port,
+        secureTried: secure,
+        timestamp: new Date().toISOString()
+      });
+
+      // Fallback: if using 465 and it failed with connection/TLS issues, try 587 STARTTLS
+      const shouldFallback = host === 'smtp.gmail.com' && port === 465 && (
+        sendError.code === 'ECONNECTION' ||
+        sendError.code === 'ETIMEDOUT' ||
+        sendError.code === 'ESOCKET' ||
+        sendError.message?.toLowerCase().includes('tls')
+      );
+
+      if (shouldFallback) {
+        console.warn('Retrying with STARTTLS on port 587 after failure on 465');
+        transporter = createTransporter({ host, port: 587, secure: false });
+        try {
+          result = await transporter.sendMail(mailOptions);
+        } catch (fallbackError) {
+          console.error('sendMail error (fallback transport 587 STARTTLS):', {
+            message: fallbackError.message,
+            code: fallbackError.code,
+            command: fallbackError.command,
+            response: fallbackError.response,
+            responseCode: fallbackError.responseCode,
+            timestamp: new Date().toISOString()
+          });
+          throw fallbackError;
+        }
+      } else {
+        throw sendError;
+      }
+    }
+
     console.log('Email sent successfully:', {
       messageId: result.messageId,
       response: result.response,
+      durationMs: Date.now() - startTime,
       timestamp: new Date().toISOString()
     });
 

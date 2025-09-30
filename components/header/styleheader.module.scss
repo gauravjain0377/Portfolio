@@ -119,6 +119,7 @@
       color: var(--text-primary);
       transition: color 0.3s ease;
       line-height: 1;
+      margin-right: 6px;
     }
     
     p {
@@ -738,6 +739,14 @@
       /* Improve touch targets */
       min-height: 44px;
       min-width: 44px;
+    }
+    /* Disable hover-based animations on touch to prevent text jumping */
+    .logo:hover {
+      .copyright { transform: none; }
+      .name { padding-left: 0; }
+      .codeby,
+      .gaurav,
+      .jain { transform: none; }
     }
   }
   

@@ -14,7 +14,7 @@
 @media (max-width: 768px) {
   .slidingImages {
     margin-top: 80px;
-    margin-bottom: 150px;
+    margin-bottom: 40px;
     
     .slider {
       .project {
@@ -24,10 +24,10 @@
     }
     
     .circleContainer {
-      margin-top: 60px;
+      margin-top: 30px;
       
       .circle {
-        height: 80vh;
+        height: 40svh;
       }
     }
   }
@@ -36,7 +36,7 @@
 @media (max-width: 600px) {
   .slidingImages {
     margin-top: 60px;
-    margin-bottom: 120px;
+    margin-bottom: 32px;
     
     .slider {
       .project {
@@ -46,10 +46,10 @@
     }
     
     .circleContainer {
-      margin-top: 40px;
+      margin-top: 24px;
       
       .circle {
-        height: 70vh;
+        height: 35svh;
       }
     }
   }
@@ -58,7 +58,7 @@
 @media (max-width: 480px) {
   .slidingImages {
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 24px;
     
     .slider {
       .project {
@@ -68,10 +68,10 @@
     }
     
     .circleContainer {
-      margin-top: 30px;
+      margin-top: 20px;
       
       .circle {
-        height: 60vh;
+        height: 30svh;
       }
     }
   }
@@ -80,7 +80,7 @@
 @media (max-width: 390px) {
   .slidingImages {
     margin-top: 40px !important;
-    margin-bottom: 80px !important;
+    margin-bottom: 20px !important;
     
     .slider {
       .project {
@@ -90,10 +90,10 @@
     }
     
     .circleContainer {
-      margin-top: 25px;
+      margin-top: 16px;
       
       .circle {
-        height: 50vh;
+        height: 28svh;
       }
     }
   }
@@ -102,7 +102,7 @@
 @media (max-width: 320px) {
   .slidingImages {
     margin-top: 30px !important;
-    margin-bottom: 60px !important;
+    margin-bottom: 16px !important;
     
     .slider {
       .project {
@@ -112,10 +112,10 @@
     }
     
     .circleContainer {
-      margin-top: 20px;
+      margin-top: 12px;
       
       .circle {
-        height: 40vh;
+        height: 25svh;
       }
     }
   }
@@ -126,7 +126,7 @@
   gap: 3vw;
   position: relative;
   margin-top: 200px;
-  margin-bottom: 300px;
+  margin-bottom: 160px;
   background-color: var(--bg-primary);
   overflow: hidden;
   transition: background-color 0.3s ease;
@@ -170,12 +170,12 @@
 
   .circleContainer {
     position: relative;
-    margin-top: 100px;
+    margin-top: 60px;
     // z-index: 10;
     overflow: visible;
 
     .circle {
-      height: 100vh; /* Reduce height to stay within bounds */
+      height: 60vh; /* Reduce height to avoid large gaps on some mobiles */
       width: 120%;
       left: 0;
       border-radius: 0 0 50% 50%;
