@@ -19,13 +19,13 @@ const About = () => {
       description: "Core programming languages I work with",
       icon: "💻",
       skills: [
+        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", proficiency: 100 },
         { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", proficiency: 100 },
-        { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", proficiency: 100 },
         { name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", proficiency: 100 },
         { name: "CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", proficiency: 100 },
         { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", proficiency: 100 },
         { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", proficiency: 100 },
-        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", proficiency: 100 }
+        
       ]
     },
     "Frameworks & Tools": {
@@ -36,10 +36,8 @@ const About = () => {
         { name: "NodeJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", proficiency: 100 },
         { name: "ExpressJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", proficiency: 100 },
         { name: "NextJS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", proficiency: 100 },
-        { name: "MUI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg", proficiency: 100 },
         { name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", proficiency: 100 },
         { name: "Bootstrap", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", proficiency: 100 },
-        { name: "Jest", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg", proficiency: 100 }
       ]
     },
     "Cloud & Databases": {
@@ -60,7 +58,7 @@ const About = () => {
         { name: "Networking", logo: "https://img.icons8.com/color/96/000000/network.png", proficiency: 100 },
         { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", proficiency: 100 },
         { name: "OOPS", logo: "/images/oops.png", proficiency: 100 },
-        { name: "JSON", logo: "https://img.icons8.com/color/96/000000/json.png", proficiency: 100 }
+       
       ]
     }
   };
@@ -188,9 +186,8 @@ const About = () => {
             <motion.div 
               key={category} 
               className={styles.skillCategory}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 2 + index * 0.2 }}
               whileHover={{ scale: 1.02 }}
             >
               <div className={styles.categoryHeader}>
@@ -211,13 +208,12 @@ const About = () => {
                   <motion.div 
                     key={skillIndex} 
                     className={`${styles.skillItem} ${activeSkill === skill.name ? styles.active : ''}`}
-                    whileHover={{ scale: 1.08, y: -8 }}
+                    whileHover={{ scale: 1.06, y: -6, transition: { type: 'tween', duration: 0.35, ease: 'easeOut' } }}
                     whileTap={{ scale: 0.95 }}
                     onHoverStart={() => setActiveSkill(skill.name)}
                     onHoverEnd={() => setActiveSkill(null)}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 1, scale: 1 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 2.2 + skillIndex * 0.05 }}
                   >
                     <div className={styles.skillLogo}>
                       <img 

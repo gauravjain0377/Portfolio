@@ -251,10 +251,11 @@
   h2 {
     font-size: 4rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
     margin: 0 0 24px 0;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -294,7 +295,7 @@
   border-radius: 24px;
   padding: 25px;
   border: 1px solid var(--card-border);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0s;
   box-shadow: 
     0 8px 32px var(--shadow-light),
     0 0 0 1px var(--card-bg) inset;
@@ -328,25 +329,26 @@
   &:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 
-      0 25px 60px var(--shadow-medium),
-      0 0 0 1px #000000 inset;
-    border-color: #000000;
-    background: #ffffff;
+      0 8px 32px var(--shadow-light),
+      0 0 0 1px var(--card-border) inset; /* remove purple glow */
+    border-color: var(--card-border); /* keep default */
+    background: var(--card-bg);
+    z-index: 5;
 
     &::before {
       transform: scaleX(1);
     }
 
     &::after {
-      opacity: 1;
+      opacity: 0; /* prevent purple radial glow */
     }
 
     .categoryInfo h3 {
-      color: #000000;
+      color: var(--text-primary);
     }
 
     .categoryInfo p {
-      color: #333333;
+      color: var(--text-secondary);
     }
   }
 
@@ -451,19 +453,19 @@
 .skillItem {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
-  border: 2px solid var(--card-border);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 25px;
   padding: 12px 18px;
   font-size: 0.9rem;
   color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0s;
   position: relative;
   overflow: hidden;
   box-shadow: 
     0 4px 16px var(--shadow-light),
-    0 0 0 1px var(--glow-color) inset;
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -477,7 +479,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
+    transition: all 0s !important;
   }
 
   &::after {
@@ -489,17 +491,18 @@
     height: 100%;
     background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: all 0s !important;
   }
 
   &:hover {
-    transform: translateY(-8px) scale(1.05);
+    transform: none;
     border-color: var(--accent-color);
     box-shadow: 
       0 15px 40px var(--shadow-medium),
-      0 0 0 1px var(--glow-color) inset;
-    z-index: 10;
-
+      0 0 0 2px var(--accent-color) inset,
+      0 0 0 1px rgba(0,0,0,0.02);
+    z-index: 50;
+    
     &::before {
       left: 100%;
     }
@@ -514,6 +517,7 @@
     position: relative;
     z-index: 2;
     font-weight: 700;
+    transition: all 0s !important;
   }
 }
 
@@ -531,7 +535,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s ease, filter 0.2s ease;
     filter: none;
     opacity: 1;
   }
@@ -639,19 +643,19 @@
 .skillItem {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 0.85rem;
   color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0s;
   position: relative;
   overflow: hidden;
   box-shadow: 
     0 2px 8px var(--shadow-light),
-    0 0 0 1px var(--glow-color) inset;
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -668,7 +672,7 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-    transition: left 0.6s ease;
+    transition: all 0s !important;
   }
 
   &::after {
@@ -680,18 +684,18 @@
     height: 100%;
     background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: all 0s !important;
   }
 
   &:hover {
-    transform: translateY(-2px) scale(1.02);
-    border-color: #000000;
-    background: #ffffff;
+    transform: none;
+    border-color: var(--accent-color);
+    background: var(--card-bg);
     box-shadow: 
-      0 8px 20px var(--shadow-medium),
-      0 0 0 1px #000000 inset;
-    z-index: 10;
-    transition: all 0.1s ease;
+      0 2px 8px var(--shadow-light),
+      0 0 0 2px var(--accent-color) inset,
+      0 0 0 1px rgba(0,0,0,0.02);
+    z-index: 50;
 
     &::before {
       left: 100%;
@@ -700,27 +704,30 @@
     .skillLogo img {
       transform: scale(1.1);
       filter: none;
+      transition: all 0s !important;
     }
 
     span {
-      color: #000000;
+      color: var(--text-primary);
     }
   }
 
   &.active {
     transform: translateY(-1px) scale(1.01);
-    border-color: #000000;
-    background: #ffffff;
+    border-color: var(--accent-color);
+    background: var(--card-bg);
     box-shadow: 
-      0 6px 16px var(--shadow-medium),
-      0 0 0 1px #000000 inset;
+      0 2px 8px var(--shadow-light),
+      0 0 0 2px var(--accent-color) inset,
+      0 0 0 1px rgba(0,0,0,0.02);
 
     .skillLogo img {
       transform: scale(1.05);
+      transition: all 0s !important;
     }
 
     span {
-      color: #000000;
+      color: var(--text-primary);
     }
   }
 
@@ -846,10 +853,11 @@
   h2 {
     font-size: 4rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
     margin: 0 0 24px 0;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -889,7 +897,7 @@
   border-radius: 24px;
   padding: 40px;
   border: 1px solid var(--card-border);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease, transform 0s;
   box-shadow: 
     0 8px 32px var(--shadow-light),
     0 0 0 1px var(--glow-color) inset;
@@ -904,9 +912,10 @@
     transform: translateY(-4px) scale(1.01);
     box-shadow: 
       0 12px 40px var(--shadow-medium),
-      0 0 0 1px #000000 inset;
-    border-color: #000000;
-    background: #ffffff;
+      0 0 0 1px var(--card-border) inset; /* remove purple glow */
+    border-color: var(--card-border);
+    background: var(--card-bg);
+    z-index: 5;
 
     .achievementIcon {
       transform: scale(1.05);
@@ -1115,4 +1124,58 @@
     position: relative;
     z-index: 1;
   }
+}
+
+/* Dark theme overrides scoped for CSS Modules */
+:global([data-theme="dark"]) .skillCategory:hover {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow:
+    0 25px 60px var(--shadow-medium),
+    0 0 0 1px var(--card-bg) inset;
+}
+
+:global([data-theme="dark"]) .skillCategory:hover .categoryInfo h3 {
+  color: var(--text-primary);
+}
+
+:global([data-theme="dark"]) .skillCategory:hover .categoryInfo p {
+  color: var(--text-secondary);
+}
+
+:global([data-theme="dark"]) .skillItem:hover,
+:global([data-theme="dark"]) .skillItem.active {
+  background: var(--card-bg);
+  border-color: var(--accent-color);
+  box-shadow:
+    0 8px 20px var(--shadow-medium),
+    0 0 0 2px var(--accent-color) inset,
+    0 0 0 1px rgba(0,0,0,0.02);
+}
+
+:global([data-theme="dark"]) .skillItem:hover span,
+:global([data-theme="dark"]) .skillItem.active span {
+  color: var(--text-primary);
+}
+
+/* Disable bright shimmer line on skill chips in dark mode */
+:global([data-theme="dark"]) .skillItem::before,
+:global([data-theme="dark"]) .skillItem:hover::before {
+  content: none;
+}
+
+:global([data-theme="dark"]) .achievementCard:hover {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow:
+    0 12px 40px var(--shadow-medium),
+    0 0 0 1px var(--glow-color) inset;
+}
+
+:global([data-theme="dark"]) .achievementCard:hover .achievementContent h3 {
+  color: var(--text-primary);
+}
+
+:global([data-theme="dark"]) .achievementCard:hover .achievementContent p {
+  color: var(--text-secondary);
 }
