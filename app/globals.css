@@ -152,8 +152,31 @@ p {
   overflow-wrap: break-word;
 }
 
-/* Mobile-specific improvements */
-@media (max-width: 768px) {
+/* Responsive Breakpoints */
+/* Small Mobile Devices (320px - 480px) */
+@media (min-width: 320px) and (max-width: 480px) {
+  body {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); }
+  h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+  h3 { font-size: clamp(1.25rem, 3.5vw, 1.75rem); }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Improve spacing on small screens */
+  section {
+    padding: 2rem 0;
+  }
+}
+
+/* Mobile Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
   body {
     font-size: 16px;
     line-height: 1.5;
@@ -181,6 +204,62 @@ p {
   /* Improve scrolling performance */
   * {
     -webkit-overflow-scrolling: touch;
+  }
+  
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  section {
+    padding: 3rem 0;
+  }
+}
+
+/* Tablet Devices (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  section {
+    padding: 4rem 0;
+  }
+}
+
+/* Laptop Devices (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  body {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Desktop Devices (1441px and above) */
+@media (min-width: 1441px) {
+  body {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  
+  .container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 
@@ -234,6 +313,52 @@ body.light-mode {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* Responsive Image Handling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive container for images */
+.img-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Aspect ratio containers */
+.aspect-ratio-16-9 {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.aspect-ratio-4-3 {
+  position: relative;
+  padding-bottom: 75%; /* 4:3 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.aspect-ratio-1-1 {
+  position: relative;
+  padding-bottom: 100%; /* 1:1 Aspect Ratio (Square) */
+  height: 0;
+  overflow: hidden;
+}
+
+/* Image inside aspect ratio container */
+.aspect-ratio-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Selection styling */

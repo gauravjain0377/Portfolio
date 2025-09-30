@@ -7,6 +7,14 @@
   .body {
     max-width: 1020px !important;
     gap: 20px !important;
+    grid-template-columns: 1fr auto; /* keep two columns until tablet */
+    row-gap: 16px !important;
+
+    > div {
+      justify-self: end;
+      align-self: start;
+    }
+
     p {
       &:nth-of-type(1) {
         font-size: 22px !important;
@@ -38,6 +46,14 @@
   }
   .body {
     gap: 15px !important;
+    grid-template-columns: 1fr; /* stack on mobile */
+    row-gap: 16px !important;
+
+    > div {
+      justify-self: start; /* place button below text, left aligned */
+      align-self: start;
+    }
+
     p {
       &:nth-of-type(1) {
         font-size: 20px !important;
@@ -51,8 +67,6 @@
   .button {
     width: 110px !important;
     height: 110px !important;
-    top: 120% !important; /* Reduced from 180% to bring button closer */
-    left: calc(100% - 130px) !important;
     
     p {
       font-size: 16px !important;
@@ -68,6 +82,7 @@
   }
   .body {
     gap: 12px !important;
+
     p {
       &:nth-of-type(1) {
         font-size: 18px !important;
@@ -81,8 +96,6 @@
   .button {
     width: 100px !important;
     height: 100px !important;
-    top: 110% !important; /* Reduced from 170% to bring button closer */
-    left: calc(100% - 110px) !important;
     
     p {
       font-size: 15px !important;
@@ -98,6 +111,7 @@
   }
   .body {
     gap: 10px !important;
+
     p {
       &:nth-of-type(1) {
         font-size: 16px !important;
@@ -111,8 +125,6 @@
   .button {
     width: 90px !important;
     height: 90px !important;
-    top: 100% !important; /* Reduced from 160% to bring button closer */
-    left: calc(100% - 100px) !important;
     
     p {
       font-size: 14px !important;
@@ -127,7 +139,7 @@
     padding-right: 20px !important;
   }
   .body {
-    flex-direction: column !important;
+    flex-direction: column !important; /* legacy fallback, grid still applies */
     gap: 8px !important;
     
     p {
@@ -142,8 +154,6 @@
   .button {
     width: 80px !important;
     height: 80px !important;
-    top: 90% !important; /* Reduced from 150% to bring button closer */
-    left: calc(100% - 90px) !important;
     
     p {
       font-size: 12px !important;
@@ -170,8 +180,6 @@
   .button {
     width: 70px !important;
     height: 70px !important;
-    top: 80% !important; /* Reduced from 140% to bring button closer */
-    left: calc(100% - 80px) !important;
     
     p {
       font-size: 11px !important;
@@ -189,11 +197,20 @@
   transition: background-color 0.3s ease;
 
   .body {
-    display: flex;
+    display: grid; /* prevent overlap by using grid */
+    grid-template-columns: 1fr auto; /* text then button */
+    align-items: start;
     max-width: 1400px;
-    gap: 120px;
+    column-gap: 48px;
+    row-gap: 24px;
     // justify-content: space-between;
     position: relative;
+
+    /* place the button container */
+    > div {
+      justify-self: end;
+      align-self: start;
+    }
 
     p {
       margin: 0px;
@@ -224,18 +241,16 @@
         transition: color 0.3s ease;
       }
     }
+
     .button {
       background-color: var(--accent-color);
       color: white;
       width: 140px;
       height: 140px;
       border-radius: 50%;
-      top: 80%;
-      left: calc(100% - 160px);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: absolute;
       cursor: pointer;
       transition: all 0.3s ease;
 

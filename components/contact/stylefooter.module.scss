@@ -11,13 +11,17 @@
     margin-left: 60px !important;
     margin-right: 60px !important;
   }
-      .nav {
-      margin-top: 100px !important;
-      margin-left: 100px !important;
-      margin-right: 100px !important;
-      flex-direction: column !important;
-      gap: 15px !important;
-    }
+  .nav {
+    margin-top: 100px !important;
+    margin-left: 100px !important;
+    margin-right: 100px !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+  .form {
+    margin-left: 60px !important;
+    margin-right: 60px !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -46,12 +50,6 @@
         width: 80px !important;
         height: 80px !important;
       }
-      
-      .buttonContainer {
-        position: static !important;
-        margin-top: 15px !important;
-        align-self: flex-start !important;
-      }
     }
     
     .nav {
@@ -71,6 +69,19 @@
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 15px !important;
+      }
+    }
+  }
+  
+  .form {
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+    
+    .inputContainer {
+      flex-direction: column !important;
+      
+      .input {
+        width: 100% !important;
       }
     }
   }

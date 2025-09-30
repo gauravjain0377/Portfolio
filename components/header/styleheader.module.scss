@@ -137,6 +137,12 @@
       position: relative;
       transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
       
+      @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: flex-start;
+        white-space: normal;
+      }
+      
       p {
         font-size: clamp(14px, 3.5vw, 18px);
         position: relative;
@@ -147,6 +153,17 @@
       
       .codeby {
         padding-left: 0.3rem;
+        
+        @media (max-width: 480px) {
+          padding-left: 0.2rem;
+          font-size: clamp(10px, 2.5vw, 14px);
+        }
+      }
+      
+      .gaurav, .jain {
+        @media (max-width: 480px) {
+          font-size: clamp(12px, 3vw, 16px);
+        }
       }
       
       .gaurav {

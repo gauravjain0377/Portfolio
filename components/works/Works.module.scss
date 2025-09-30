@@ -28,6 +28,18 @@
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
   min-height: calc(100vh - 200px); /* Ensure minimum height to prevent footer overlap */
+  
+  @media (max-width: 1024px) {
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 100px) clamp(40px, 8vw, 80px);
+  }
+  
+  @media (max-width: 768px) {
+    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px) clamp(40px, 8vw, 80px);
+  }
+  
+  @media (max-width: 480px) {
+    padding: clamp(30px, 6vw, 40px) clamp(15px, 4vw, 20px) clamp(30px, 6vw, 40px);
+  }
 }
 
 .worksHeader {
@@ -969,4 +981,4 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-} 
+}
