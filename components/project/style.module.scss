@@ -5,7 +5,8 @@
   padding-left: clamp(20px, 5vw, 200px);
   padding-right: clamp(20px, 5vw, 200px);
   flex-direction: column;
-  margin-top: clamp(200px, 25vw, 400px);
+  /* Reduce excessive top gap before Projects section */
+  margin-top: clamp(60px, 8vw, 140px);
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
   
