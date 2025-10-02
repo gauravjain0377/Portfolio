@@ -5,7 +5,7 @@
 
 ---
 ## 📸 Preview
-![Code Preview](./images/Picture1.png)  
+![Code Preview](./public/images/Picture1.png)  
 
 ---
 
