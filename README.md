@@ -155,8 +155,4 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 
 This project is licensed under the **MIT License**.
 
-```
-
 ---
-
-```
