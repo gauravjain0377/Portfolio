@@ -150,9 +150,3 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 * **LinkedIn**: [linkedin.com/in/yourusername](https://linkedin.com/in/yourusername)
 
 ---
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
-
----
