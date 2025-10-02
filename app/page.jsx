@@ -17,7 +17,7 @@ export const metadata = {
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
-        url: "/images/Gaurav_Jain.png",
+        url: "/images/gauravj.png",
         width: 400,
         height: 400,
         alt: "Gaurav Jain - Full-Stack Developer",
@@ -30,7 +30,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Gaurav Jain – Full-Stack Developer",
     description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-    images: ["/images/Gaurav_Jain.png"],
+    images: ["/images/gauravj.png"],
     creator: "@gauravjain0377",
   },
   robots: {

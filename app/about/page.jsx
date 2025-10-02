@@ -14,7 +14,7 @@ export const metadata = {
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
-        url: "/images/Gaurav_Jain.png",
+        url: "/images/gauravj.png",
         width: 400,
         height: 400,
         alt: "About Gaurav Jain - Full-Stack Developer",
@@ -27,7 +27,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About – Gaurav Jain Portfolio",
     description: "Learn more about Gaurav Jain, a passionate full-stack developer with expertise in Web3, Blockchain, and modern web technologies. Discover my journey, skills, and experience.",
-    images: ["/images/Gaurav_Jain.png"],
+    images: ["/images/gauravj.png"],
     creator: "@gauravjain0377",
   },
   robots: {

@@ -31,7 +31,7 @@ export default function Contact() {
                             <Image 
                             fill={true}
                             alt={"image"}
-                            src={`/images/Gaurav_Jain.png`}
+                            src={`/images/gauravj.png`}
                             />
                         </div>
                         <h2>Let's work together</h2>
