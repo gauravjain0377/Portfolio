@@ -14,9 +14,9 @@ export const metadata = {
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
-        url: "/images/gauravj.png",
-        width: 400,
-        height: 400,
+        url: "/images/og-image.png?v=1",
+        width: 1200,
+        height: 630,
         alt: "Work Portfolio - Gaurav Jain Projects",
       },
     ],
@@ -27,7 +27,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Work – Gaurav Jain Portfolio",
     description: "Explore my portfolio of Web3, Blockchain, and full-stack development projects. View case studies, technologies used, and innovative solutions I've built.",
-    images: ["/images/gauravj.png"],
+    images: ["/images/og-image.png?v=1"],
     creator: "@gauravjain0377",
   },
   robots: {

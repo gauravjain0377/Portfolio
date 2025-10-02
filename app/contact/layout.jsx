@@ -10,9 +10,9 @@ export const metadata = {
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
-        url: "/images/gauravj.png",
-        width: 400,
-        height: 400,
+        url: "/images/og-image.png?v=1",
+        width: 1200,
+        height: 630,
         alt: "Contact Gaurav Jain - Full-Stack Developer",
       },
     ],
@@ -23,7 +23,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Contact – Gaurav Jain Portfolio",
     description: "Get in touch with Gaurav Jain for collaboration opportunities, project inquiries, or professional discussions. Available for Web3, Blockchain, and full-stack development projects.",
-    images: ["/images/gauravj.png"],
+    images: ["/images/og-image.png?v=1"],
     creator: "@gauravjain0377",
   },
   robots: {

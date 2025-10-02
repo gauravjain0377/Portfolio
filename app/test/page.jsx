@@ -10,9 +10,9 @@ export const metadata = {
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
-        url: "/images/gauravj.png",
-        width: 400,
-        height: 400,
+        url: "/images/og-image.png?v=1",
+        width: 1200,
+        height: 630,
         alt: "Test Page - Gaurav Jain Portfolio",
       },
     ],
@@ -23,7 +23,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Test – Gaurav Jain Portfolio",
     description: "Test page for routing verification in Gaurav Jain's portfolio website. This page is used for development and testing purposes.",
-    images: ["/images/gauravj.png"],
+    images: ["/images/og-image.png?v=1"],
     creator: "@gauravjain0377",
   },
   robots: {
