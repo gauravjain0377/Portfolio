@@ -92,7 +92,7 @@ Portfolio/
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/gauravjain0377/Portfolio.git
 cd portfolio
 npm install
 ```
