@@ -1,72 +1,80 @@
 import localFont from "next/font/local";
+import { headers } from "next/headers";
 import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
 
-export const metadata = {
-  title: {
-    default: "Gaurav Jain – Full-Stack Developer",
-    template: "%s – Gaurav Jain Portfolio"
-  },
-  description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-  keywords: "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
-  authors: [{ name: "Gaurav Jain" }],
-  creator: "Gaurav Jain",
-  publisher: "Gaurav Jain",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://www.gaurav-jain.me"),
-  alternates: {
-    canonical: "/",
-  },
-  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://www.gaurav-jain.me",
-    siteName: "Gaurav Jain Portfolio",
-    title: "Gaurav Jain - Full-Stack Developer",
+export async function generateMetadata() {
+  const h = headers();
+  const protocol = h.get('x-forwarded-proto') ?? 'https';
+  const host = h.get('x-forwarded-host') ?? h.get('host') ?? 'localhost:3000';
+  const baseUrl = `${protocol}://${host}`;
+
+  return {
+    title: {
+      default: "Gaurav Jain – Full-Stack Developer",
+      template: "%s – Gaurav Jain Portfolio"
+    },
     description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-    images: [
-      {
-        url: "/images/Gaurav_Jain.png",
-        width: 400,
-        height: 400,
-        alt: "Gaurav Jain - Full-Stack Developer",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Gaurav Jain – Full-Stack Developer",
-    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-    images: ["/images/Gaurav_Jain.png"],
-    creator: "@gauravjain0377",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    keywords: "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
+    authors: [{ name: "Gaurav Jain" }],
+    creator: "Gaurav Jain",
+    publisher: "Gaurav Jain",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    alternates: {
+      canonical: "/",
+    },
+    viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
+    icons: {
+      icon: '/favicon.svg',
+      apple: '/favicon.svg',
+    },
+    metadataBase: new URL(baseUrl),
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: baseUrl,
+      siteName: "Gaurav Jain Portfolio",
+      title: "Gaurav Jain - Full-Stack Developer",
+      description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+      images: [
+        {
+          url: "/images/Gaurav_Jain.png",
+          width: 400,
+          height: 400,
+          alt: "Gaurav Jain - Full-Stack Developer",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Gaurav Jain – Full-Stack Developer",
+      description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+      images: ["/images/Gaurav_Jain.png"],
+      creator: "@gauravjain0377",
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-    yahoo: "your-yahoo-verification-code",
-  },
-};
+    verification: {
+      google: "your-google-verification-code",
+      yandex: "your-yandex-verification-code",
+      yahoo: "your-yahoo-verification-code",
+    },
+  };
+}
 
 const displayFont = Plus_Jakarta_Sans({
   subsets: ["latin"],

@@ -3,8 +3,8 @@ const fs = require('fs');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const path = require('path');
 
-// Your domain
-const siteUrl = 'https://www.gaurav-jain.me';
+// Your domain (fallback if needed)
+const siteUrl = process.env.SITE_URL || 'https://www.gaurav-jain.me';
 
 // List all your routes manually or dynamically
 const pages = [

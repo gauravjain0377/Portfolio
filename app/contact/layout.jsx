@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: "Contact – Gaurav Jain Portfolio",
     description: "Get in touch with Gaurav Jain for collaboration opportunities, project inquiries, or professional discussions. Available for Web3, Blockchain, and full-stack development projects.",
-    url: "https://www.gaurav-jain.me/contact",
+    url: "/contact",
     siteName: "Gaurav Jain Portfolio",
     images: [
       {

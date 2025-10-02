@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: "Test – Gaurav Jain Portfolio",
     description: "Test page for routing verification in Gaurav Jain's portfolio website. This page is used for development and testing purposes.",
-    url: "https://www.gaurav-jain.me/test",
+    url: "/test",
     siteName: "Gaurav Jain Portfolio",
     images: [
       {

@@ -1,7 +1,11 @@
 # 🌐 Gaurav Jain — Portfolio
 
 ## 🚀 Live Demo
-- **Portfolio**: [gauravjain.tech](https://www.gauravjain.tech)
+- Website: [GauravJain](https://www.gauravjain.tech)
+
+---
+## 📸 Preview
+![Code Preview](./images/Picture1.png)  
 
 ---
 
@@ -92,7 +96,7 @@ Portfolio/
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/gauravjain0377/Portfolio.git
+git clone https://github.com/yourusername/portfolio.git
 cd portfolio
 npm install
 ```
@@ -142,9 +146,8 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 
 ## 📬 Contact
 
-- ✉️ **Email**: [jaingaurav906@gmail.com](mailto:jaingaurav906@gmail.com)  
-- 🔗 **LinkedIn**: [Connect with me](https://www.linkedin.com/in/this-is-gaurav-jain/)  
-- 🐦 **X**: [Follow me](https://x.com/gauravjain0377)  
+* **Email**: [jaingaurav906@gmail.com](mailto:jaingaurav906@gmail.com)
+* **LinkedIn**: [linkedin.com/in/yourusername](https://linkedin.com/in/yourusername)
 
 ---
 
@@ -152,4 +155,8 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 
 This project is licensed under the **MIT License**.
 
+```
+
 ---
+
+```

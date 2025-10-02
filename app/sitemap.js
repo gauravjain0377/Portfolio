@@ -1,5 +1,10 @@
+import { headers } from 'next/headers'
+
 export default function sitemap() {
-  const baseUrl = 'https://www.gaurav-jain.me'
+  const h = headers();
+  const protocol = h.get('x-forwarded-proto') ?? 'https'
+  const host = h.get('x-forwarded-host') ?? h.get('host') ?? 'localhost:3000'
+  const baseUrl = `${protocol}://${host}`
   
   return [
     {

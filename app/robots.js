@@ -1,4 +1,11 @@
+import { headers } from 'next/headers'
+
 export default function robots() {
+  const h = headers();
+  const protocol = h.get('x-forwarded-proto') ?? 'https'
+  const host = h.get('x-forwarded-host') ?? h.get('host') ?? 'localhost:3000'
+  const base = `${protocol}://${host}`
+
   return {
     rules: [
       {
@@ -7,6 +14,6 @@ export default function robots() {
         disallow: ['/test', '/api/'],
       },
     ],
-    sitemap: 'https://www.gaurav-jain.me/sitemap.xml',
+    sitemap: `${base}/sitemap.xml`,
   }
 } 

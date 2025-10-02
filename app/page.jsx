@@ -13,7 +13,7 @@ export const metadata = {
   openGraph: {
     title: "Gaurav Jain – Full-Stack Developer",
     description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-    url: "https://www.gaurav-jain.me",
+    url: "/",
     siteName: "Gaurav Jain Portfolio",
     images: [
       {

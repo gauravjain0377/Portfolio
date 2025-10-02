@@ -10,7 +10,7 @@ export const metadata = {
   openGraph: {
     title: "Work – Gaurav Jain Portfolio",
     description: "Explore my portfolio of Web3, Blockchain, and full-stack development projects. View case studies, technologies used, and innovative solutions I've built.",
-    url: "https://www.gaurav-jain.me/work",
+    url: "/work",
     siteName: "Gaurav Jain Portfolio",
     images: [
       {
