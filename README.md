@@ -96,7 +96,7 @@ Portfolio/
 Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/gauravjain0377/Portfolio.git
 cd portfolio
 npm install
 ```
@@ -147,6 +147,7 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 ## 📬 Contact
 
 * **Email**: [jaingaurav906@gmail.com](mailto:jaingaurav906@gmail.com)
-* **LinkedIn**: [linkedin.com/in/yourusername](https://linkedin.com/in/yourusername)
+* **LinkedIn**: [Connect With Me](https://www.linkedin.com/in/this-is-gaurav-jain/)
+* **X**: [Follow Me](https://x.com/gauravjain0377)
 
 ---
