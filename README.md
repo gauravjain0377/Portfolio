@@ -1,7 +1,7 @@
 # 🌐 Gaurav Jain — Portfolio
 
 ## 🚀 Live Demo
-- Website: [GauravJain](https://www.gauravjain.tech)
+- Portfolio: View My Portfolio(https://www.gauravjain.tech)
 
 ---
 
@@ -143,7 +143,8 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 ## 📬 Contact
 
 * **Email**: [jaingaurav906@gmail.com](mailto:jaingaurav906@gmail.com)
-* **LinkedIn**: [linkedin.com/in/yourusername](https://linkedin.com/in/yourusername)
+* **LinkedIn**: [LinkedIn](https://www.linkedin.com/in/this-is-gaurav-jain/)
+* **X**: [X](https://x.com/gauravjain0377)
 
 ---
 
@@ -151,8 +152,4 @@ Colors are grounded in `app/globals.css` and used via CSS variables.
 
 This project is licensed under the **MIT License**.
 
-```
-
 ---
-
-```
