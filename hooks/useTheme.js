@@ -8,10 +8,11 @@ export const ThemeProvider = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check for saved theme preference or default to 'light'
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Force light theme on initial load for all devices and domains
+    const forcedTheme = 'light';
+    localStorage.setItem('theme', forcedTheme);
+    setTheme(forcedTheme);
+    document.documentElement.setAttribute('data-theme', forcedTheme);
     setMounted(true);
   }, []);
 
