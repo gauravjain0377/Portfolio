@@ -22,7 +22,7 @@ const index = () => {
       src: "HackZen.png",
       color: "#8C8C8C",
       githubUrl: "https://github.com/Nitinjainn/STPI-Project.git",
-      liveUrl: "https://hackzen.vercel.app/",
+      liveUrl: "https://devora-dev.vercel.app/",
     },
     {
       title: "Simon Game",

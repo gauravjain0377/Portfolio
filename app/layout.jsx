@@ -1,22 +1,37 @@
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: "no",
+  viewportFit: "cover",
+};
+
 export async function generateMetadata() {
-  const h = headers();
-  const protocol = h.get('x-forwarded-proto') ?? 'https';
-  const host = h.get('x-forwarded-host') ?? h.get('host') ?? 'localhost:3000';
+  const headersList = await headers();
+  const protocol = (headersList.get("x-forwarded-proto") ?? "https").split(",")[0].trim();
+  const rawHost =
+    headersList.get("x-forwarded-host") ??
+    headersList.get("host") ??
+    "localhost:3000";
+  const host = rawHost.split(",")[0].trim();
   const baseUrl = `${protocol}://${host}`;
 
   return {
     title: {
       default: "Gaurav Jain – Full-Stack Developer",
-      template: "%s – Gaurav Jain Portfolio"
+      template: "%s – Gaurav Jain Portfolio",
     },
-    description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
-    keywords: "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
+    description:
+      "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+    keywords:
+      "MERN, Next.js, React, Full-Stack Developer, Portfolio, Gaurav Jain, Software Engineer, Web Development, JavaScript, TypeScript",
     authors: [{ name: "Gaurav Jain" }],
     creator: "Gaurav Jain",
     publisher: "Gaurav Jain",
@@ -28,10 +43,9 @@ export async function generateMetadata() {
     alternates: {
       canonical: "/",
     },
-    viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover",
     icons: {
-      icon: '/favicon.svg',
-      apple: '/favicon.svg',
+      icon: "/favicon.svg",
+      apple: "/favicon.svg",
     },
     metadataBase: new URL(baseUrl),
     openGraph: {
@@ -40,7 +54,8 @@ export async function generateMetadata() {
       url: baseUrl,
       siteName: "Gaurav Jain Portfolio",
       title: "Gaurav Jain - Full-Stack Developer",
-      description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+      description:
+        "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
       images: [
         {
           url: "/images/og-image.png?v=1",
@@ -53,7 +68,8 @@ export async function generateMetadata() {
     twitter: {
       card: "summary_large_image",
       title: "Gaurav Jain – Full-Stack Developer",
-      description: "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
+      description:
+        "Full-stack developer specializing in MERN stack, and Next.js. View my portfolio of innovative projects and cutting-edge web applications.",
       images: ["/images/og-image.png?v=1"],
       creator: "@gauravjain0377",
     },
@@ -63,9 +79,9 @@ export async function generateMetadata() {
       googleBot: {
         index: true,
         follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
     verification: {
@@ -91,6 +107,8 @@ const heroFont = Outfit({
 });
 
 export default function RootLayout({ children }) {
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
   return (
     <html lang="en" data-theme="light">
       <head>
@@ -107,6 +125,22 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body className={`${displayFont.variable} ${heroFont.variable}`}>
+        {gaMeasurementId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-config" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaMeasurementId}');
+              `}
+            </Script>
+          </>
+        )}
         <ClientLayout>
           {children}
         </ClientLayout>
