@@ -44,12 +44,8 @@ export async function generateMetadata() {
       canonical: "/",
     },
     icons: {
-      icon: [
-        { url: "/images/gauravj.png", sizes: "32x32", type: "image/png" },
-        { url: "/images/gauravj.png", sizes: "48x48", type: "image/png" },
-        { url: "/images/gauravj.png", sizes: "192x192", type: "image/png" },
-      ],
-      apple: [{ url: "/images/gauravj.png", sizes: "180x180", type: "image/png" }],
+      icon: "/favicon.svg",
+      apple: "/favicon.svg",
     },
     metadataBase: new URL(baseUrl),
     openGraph: {
@@ -125,9 +121,8 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/gauravj.png" />
-        <link rel="icon" sizes="32x32" type="image/png" href="/images/gauravj.png" />
-        <link rel="shortcut icon" type="image/png" href="/images/gauravj.png" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body className={`${displayFont.variable} ${heroFont.variable}`}>
         {gaMeasurementId && (
