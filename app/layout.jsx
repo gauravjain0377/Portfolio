@@ -112,6 +112,7 @@ const heroFont = Outfit({
 
 export default function RootLayout({ children }) {
   const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gtmContainerId = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID;
 
   return (
     <html lang="en" data-theme="light">
@@ -128,8 +129,29 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/images/gauravj.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/gauravj.png" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        {gtmContainerId && (
+          <Script id="gtm-head" strategy="afterInteractive">
+            {`
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${gtmContainerId}');
+            `}
+          </Script>
+        )}
       </head>
       <body className={`${displayFont.variable} ${heroFont.variable}`}>
+        {gtmContainerId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmContainerId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         {gaMeasurementId && (
           <>
             <Script
