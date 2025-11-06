@@ -221,14 +221,21 @@ const Hero = () => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className={Style.heroImage}
-              unoptimized={false}
+              quality={90}
+              loading="eager"
               onError={(e) => {
-                console.error('Failed to load hero image');
-                // Fallback: try to reload or show placeholder
-                e.target.style.display = 'none';
+                console.error('Failed to load hero image on gauravjain.tech');
+                // Don't hide, show placeholder or retry
+                const img = e.target;
+                if (img && img.src) {
+                  // Retry loading with a different approach
+                  setTimeout(() => {
+                    img.src = img.src.split('?')[0] + '?t=' + Date.now();
+                  }, 100);
+                }
               }}
               onLoad={() => {
-                console.log('Hero image loaded successfully');
+                console.log('Hero image loaded successfully on gauravjain.tech');
               }}
             />
             <div className={Style.imageBorder} />

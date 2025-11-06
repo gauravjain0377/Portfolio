@@ -25,6 +25,13 @@ const index = () => {
       liveUrl: "https://devora-dev.vercel.app/",
     },
     {
+      title: "SvaraGPT",
+      src: "SvaraGPT.png",
+      color: "#455ce9",
+      githubUrl: "https://github.com/gauravjain0377/SvaraGPT.git",
+      liveUrl: "https://svaragpt.vercel.app/",
+    },
+    {
       title: "Simon Game",
       src: "SG.png",
       color: "#EFE8D3",

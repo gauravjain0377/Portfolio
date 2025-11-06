@@ -141,22 +141,26 @@ const Header = () => {
   return (
     <>
       <div ref={headerRef} className={`${style.header} ${isDarkPage ? style.workHeader : ''} ${isHeaderHidden ? style.hidden : ''}`}>
-        <Megnatic>
-          <div className={style.logo} onClick={() => navigateWithPreloader("/")}>
-            <p className={style.copyright}>©</p>
-            <div className={style.name}>
-              <p className={style.codeby}>Code by</p>
-              <p className={style.gaurav}>Gaurav</p>
-              <p className={style.jain}>Jain</p>
+        {/* Logo Section - Left Side */}
+        <div className={style.logoWrapper}>
+          <Megnatic>
+            <div className={style.logo} onClick={() => navigateWithPreloader("/")}>
+              <span className={style.copyright}>©</span>
+              <div className={style.logoText}>
+                <span className={style.codeby}>Code by</span>
+                <span className={style.gaurav}>Gaurav</span>
+                <span className={style.jain}>Jain</span>
+              </div>
             </div>
-          </div>
-        </Megnatic>
+          </Megnatic>
+        </div>
 
+        {/* Navigation Container - Center/Right */}
         <div className={style.navContainer}>
           {/* Menu button - only show on mobile */}
           {isMobile && (
             <Megnatic>
-              <div className={`${style.menuName}`} onClick={toggleMenu}>
+              <div className={style.menuName} onClick={toggleMenu}>
                 <p>Menu</p>
               </div>
             </Megnatic>
@@ -164,7 +168,7 @@ const Header = () => {
           
           {/* Desktop navigation - render only on non-mobile */}
           {!isMobile && (
-            <div className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
+            <nav className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
               {(isWorkPage || isAboutPage || isContactPage) && (
                 <Megnatic>
                   <div className={style.el} onClick={() => navigateWithPreloader("/")}>
@@ -198,7 +202,7 @@ const Header = () => {
                   </p>
                 </div>
               </Megnatic>
-            </div>
+            </nav>
           )}
         </div>
 
@@ -207,8 +211,6 @@ const Header = () => {
           <Buttonx
             onClick={toggleMenu}
             className={style.button}
-            // Remove backgroundColor prop to prevent interference with accent color hover
-            // backgroundColor={theme === 'dark' ? '#ffffff' : '#000000'}
           >
             <div
               className={`${style.burger} ${

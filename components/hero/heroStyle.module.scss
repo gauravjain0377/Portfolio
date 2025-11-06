@@ -1,16 +1,41 @@
-/* Modern Hero Section - Complete Redesign */
+/* Modern Hero Section - Complete Redesign with Optimized Spacing */
 
 .heroSection {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  /* Use calc to account for header height and ensure proper viewport coverage */
+  min-height: calc(100vh - clamp(60px, 8vw, 80px));
+  max-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background-color: var(--bg-primary);
-  padding: clamp(80px, 10vw, 120px) clamp(20px, 5vw, 80px);
+  /* Optimized padding - responsive and balanced */
+  padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 60px) clamp(40px, 6vw, 80px);
   isolation: isolate;
+  box-sizing: border-box;
+  
+  /* Mobile-first: Ensure content fits without excessive gaps */
+  @media (max-width: 768px) {
+    min-height: calc(100vh - clamp(50px, 7vw, 70px));
+    max-height: none;
+    padding: clamp(50px, 7vw, 80px) clamp(16px, 4vw, 24px) clamp(30px, 5vw, 50px);
+    /* Allow slight overflow hint for next section */
+    padding-bottom: clamp(20px, 4vw, 40px);
+  }
+  
+  /* Tablet optimizations */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    min-height: calc(100vh - clamp(70px, 9vw, 90px));
+    padding: clamp(70px, 9vw, 90px) clamp(20px, 5vw, 50px) clamp(50px, 7vw, 70px);
+  }
+  
+  /* Desktop optimizations */
+  @media (min-width: 1025px) {
+    min-height: calc(100vh - clamp(80px, 10vw, 100px));
+    padding: clamp(80px, 10vw, 120px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 100px);
+  }
 }
 
 /* Animated Background Shapes */
@@ -97,7 +122,7 @@
   pointer-events: none;
 }
 
-/* Main Content Container */
+/* Main Content Container - Optimized for all screen sizes */
 .contentContainer {
   position: relative;
   z-index: 2;
@@ -105,21 +130,36 @@
   max-width: 1400px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 8vw, 80px);
+  gap: clamp(30px, 6vw, 70px);
   align-items: center;
+  margin: 0 auto;
   
+  /* Mobile: Stack vertically with optimized spacing */
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
-    gap: clamp(40px, 6vw, 60px);
+    gap: clamp(30px, 5vw, 50px);
     text-align: center;
+    /* Reduce gap on mobile to prevent excessive spacing */
+    row-gap: clamp(25px, 4vw, 40px);
+  }
+  
+  /* Small mobile: Further reduce gaps */
+  @media (max-width: 480px) {
+    gap: clamp(20px, 4vw, 35px);
+    row-gap: clamp(20px, 3.5vw, 30px);
+  }
+  
+  /* Tablet: Balanced spacing */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    gap: clamp(35px, 7vw, 60px);
   }
 }
 
-/* Text Content */
+/* Text Content - Optimized spacing */
 .textContent {
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 2vw, 24px);
+  gap: clamp(12px, 1.8vw, 20px);
   position: relative;
   z-index: 5;
   -webkit-font-smoothing: antialiased;
@@ -131,6 +171,11 @@
   @media (max-width: 968px) {
     align-items: center;
     order: 2;
+    gap: clamp(10px, 1.5vw, 18px);
+  }
+  
+  @media (max-width: 480px) {
+    gap: clamp(8px, 1.2vw, 14px);
   }
 }
 
@@ -232,14 +277,19 @@
   }
 }
 
-/* CTA Container */
+/* CTA Container - Optimized margins */
 .ctaContainer {
-  margin-top: clamp(24px, 3vw, 40px);
+  margin-top: clamp(16px, 2.5vw, 32px);
   
   @media (max-width: 968px) {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: clamp(14px, 2vw, 24px);
+  }
+  
+  @media (max-width: 480px) {
+    margin-top: clamp(12px, 1.8vw, 20px);
   }
 }
 
@@ -300,24 +350,68 @@
   flex-shrink: 0;
 }
 
-/* Image Wrapper */
+/* Image Wrapper - Optimized sizing */
 .imageWrapper {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(270px, 50vw, 380px);
+  overflow: visible;
   
   @media (max-width: 968px) {
     order: 1;
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    /* Reduce image size on mobile to prevent excessive height */
+    max-height: clamp(300px, 50vh, 400px);
+    min-height: clamp(250px, 45vh, 350px);
+  }
+  
+  @media (max-width: 480px) {
+    max-height: clamp(250px, 45vh, 350px);
+    min-height: clamp(200px, 40vh, 300px);
+  }
+  
+  /* Ensure image wrapper is visible on all domains */
+  @media (min-width: 1200px) {
+    min-height: clamp(340px, 50vw, 620px);
   }
 }
 
 .imageContainer {
   position: relative;
-  width: clamp(280px, 40vw, 500px);
-  height: clamp(380px, 55vw, 650px);
+  width: clamp(250px, 35vw, 480px);
+  height: clamp(340px, 50vw, 620px);
   z-index: 2;
+  flex-shrink: 0;
+  /* Ensure container has proper dimensions for Next.js Image fill */
+  min-width: clamp(250px, 35vw, 480px);
+  min-height: clamp(340px, 50vw, 620px);
+  
+  /* Mobile optimizations */
+  @media (max-width: 968px) {
+    width: clamp(220px, 50vw, 350px);
+    height: clamp(300px, 60vw, 450px);
+    min-width: clamp(220px, 50vw, 350px);
+    min-height: clamp(300px, 60vw, 450px);
+  }
+  
+  @media (max-width: 480px) {
+    width: clamp(200px, 70vw, 280px);
+    height: clamp(270px, 80vw, 380px);
+    min-width: clamp(200px, 70vw, 280px);
+    min-height: clamp(270px, 80vw, 380px);
+  }
+  
+  /* Tablet optimizations */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    width: clamp(280px, 40vw, 400px);
+    height: clamp(380px, 55vw, 520px);
+    min-width: clamp(280px, 40vw, 400px);
+    min-height: clamp(380px, 55vw, 520px);
+  }
 }
 
 .imageGlow {
@@ -347,20 +441,27 @@
 }
 
 .heroImage {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
   object-position: center 15%;
   border-radius: 24px;
   z-index: 1;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-  display: block;
+  display: block !important;
   background-color: var(--bg-secondary);
   
-  // Ensure image is visible
-  opacity: 1;
-  visibility: visible;
+  // Ensure image is visible on all domains
+  opacity: 1 !important;
+  visibility: visible !important;
+  
+  // Force image to load and display
+  image-rendering: auto;
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
 }
 
 .imageBorder {

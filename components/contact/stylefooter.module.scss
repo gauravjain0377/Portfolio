@@ -1,7 +1,7 @@
 @media (max-width: 1020px) {
   .buttonContainer {
     left: calc(100% - 300px) !important;
-    top: calc(100% - 75px) !important;
+    top: calc(100% - 90px) !important;
   }
   .button {
     width: 140px !important;
@@ -10,9 +10,11 @@
   .title {
     margin-left: 60px !important;
     margin-right: 60px !important;
+    padding-bottom: clamp(40px, 8vw, 80px) !important;
+    margin-bottom: clamp(30px, 6vw, 60px) !important;
   }
   .nav {
-    margin-top: 100px !important;
+    margin-top: clamp(80px, 12vw, 120px) !important;
     margin-left: 100px !important;
     margin-right: 100px !important;
     flex-direction: column !important;
@@ -28,12 +30,14 @@
   .body {
     padding-top: 100px;
     
-    .title {
-      margin-left: 40px !important;
-      margin-right: 40px !important;
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 30px !important;
+      .title {
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+        padding-bottom: clamp(50px, 8vw, 80px) !important;
+        margin-bottom: clamp(30px, 5vw, 50px) !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 30px !important;
       
       span {
         flex-direction: column !important;
@@ -53,7 +57,7 @@
     }
     
     .nav {
-      margin-top: 110px !important;
+      margin-top: clamp(70px, 11vw, 100px) !important;
       margin-left: 60px !important;
       margin-right: 60px !important;
       flex-direction: column !important;
@@ -99,6 +103,8 @@
     .title {
       margin-left: 25px !important;
       margin-right: 25px !important;
+      padding-bottom: clamp(45px, 7.5vw, 75px) !important;
+      margin-bottom: clamp(28px, 4.8vw, 48px) !important;
       flex-direction: column !important;
       align-items: flex-start !important;
       gap: 25px !important;
@@ -127,7 +133,7 @@
     }
     
     .nav {
-      margin-top: 100px !important;
+      margin-top: clamp(70px, 10vw, 95px) !important;
       margin-left: 40px !important;
       margin-right: 40px !important;
       flex-direction: column !important;
@@ -160,6 +166,8 @@
     .title {
       margin-left: 30px !important;
       margin-right: 30px !important;
+      padding-bottom: clamp(40px, 7vw, 70px) !important;
+      margin-bottom: clamp(25px, 4.5vw, 45px) !important;
       flex-direction: column !important;
       align-items: flex-start !important;
       gap: 20px !important;
@@ -188,7 +196,7 @@
     }
     
     .nav {
-      margin-top: 90px !important;
+      margin-top: clamp(65px, 9vw, 85px) !important;
       margin-left: 30px !important;
       margin-right: 30px !important;
       gap: 12px !important;
@@ -218,7 +226,8 @@
     padding-top: 50px !important;
     
     .title {
-      padding-bottom: 30px !important;
+      padding-bottom: clamp(35px, 6vw, 60px) !important;
+      margin-bottom: clamp(20px, 4vw, 40px) !important;
       margin-left: 20px !important;
       margin-right: 20px !important;
       flex-direction: column !important;
@@ -257,7 +266,7 @@
     
     .nav {
       gap: 15px;
-      margin-top: 80px !important;
+      margin-top: clamp(60px, 8vw, 75px) !important;
       margin-left: 20px !important;
       margin-right: 20px !important;
     }
@@ -290,7 +299,8 @@
     padding-top: 40px !important;
     
     .title {
-      padding-bottom: 25px !important;
+      padding-bottom: clamp(30px, 5.5vw, 55px) !important;
+      margin-bottom: clamp(18px, 3.5vw, 35px) !important;
       margin-left: 10px !important;
       margin-right: 10px !important;
       flex-direction: column !important;
@@ -322,7 +332,7 @@
     
     .nav {
       gap: 12px;
-      margin-top: 70px !important;
+      margin-top: clamp(55px, 7.5vw, 70px) !important;
       margin-left: 15px !important;
       margin-right: 15px !important;
     }
@@ -371,14 +381,29 @@
 
     .title {
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: clamp(15px, 3vw, 30px);
+      /* Increased padding-bottom to accommodate the button and prevent overlap */
+      padding-bottom: clamp(100px, 15vw, 200px);
       margin-left: clamp(20px, 12vw, 160px);
       margin-right: clamp(20px, 12vw, 160px);
       position: relative;
+      margin-bottom: clamp(20px, 4vw, 40px);
+      
+      @media (max-width: 1020px) {
+        /* When button is static, reduce padding but keep spacing */
+        padding-bottom: clamp(40px, 8vw, 80px);
+        margin-bottom: clamp(30px, 6vw, 60px);
+      }
       
       @media (max-width: 768px) {
         margin-left: 0;
         margin-right: 0;
+        padding-bottom: clamp(30px, 6vw, 60px);
+        margin-bottom: clamp(25px, 5vw, 50px);
+      }
+      
+      @media (max-width: 480px) {
+        padding-bottom: clamp(25px, 5vw, 50px);
+        margin-bottom: clamp(20px, 4vw, 40px);
       }
       
       span {
@@ -424,18 +449,25 @@
       .buttonContainer {
         position: absolute;
         left: calc(100% - 400px);
-        top: calc(100% - 75px);
+        /* Adjusted top position to ensure button stays within title bounds */
+        top: calc(100% - 90px);
         
         @media (max-width: 1020px) {
           position: static;
-          margin-top: 20px;
+          margin-top: clamp(25px, 4vw, 40px);
           align-self: flex-start;
+          margin-bottom: 0;
         }
         
         @media (max-width: 768px) {
           position: static;
-          margin-top: 15px;
+          margin-top: clamp(20px, 3.5vw, 35px);
           align-self: flex-start;
+          margin-bottom: 0;
+        }
+        
+        @media (max-width: 480px) {
+          margin-top: clamp(18px, 3vw, 30px);
         }
       }
       .button {
@@ -468,7 +500,8 @@
     .nav {
       display: flex;
       gap: clamp(12px, 2.5vw, 20px);
-      margin-top: clamp(40px, 10vw, 100px);
+      /* Generous margin-top to ensure button never touches email fields */
+      margin-top: clamp(80px, 14vw, 150px);
       margin-left: clamp(20px, 15vw, 200px);
       margin-right: clamp(20px, 15vw, 200px);
       align-items: center;
@@ -481,12 +514,27 @@
         justify-content: center;
       }
       
+      @media (max-width: 1020px) {
+        /* When button is static, reduce margin but keep safe spacing */
+        margin-top: clamp(60px, 10vw, 100px);
+      }
+      
       @media (max-width: 768px) {
         flex-direction: column;
         gap: 15px;
         margin-left: 0;
         margin-right: 0;
         align-items: center;
+        /* Ensure spacing on mobile too */
+        margin-top: clamp(50px, 9vw, 80px);
+      }
+      
+      @media (max-width: 480px) {
+        margin-top: clamp(45px, 8vw, 70px);
+      }
+      
+      @media (max-width: 390px) {
+        margin-top: clamp(40px, 7vw, 60px);
       }
     }
     .info {

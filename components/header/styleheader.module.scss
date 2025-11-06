@@ -1,21 +1,24 @@
-/* Mobile-first responsive header design */
+/* ============================================
+   CLEAN RESPONSIVE NAVBAR - MOBILE FIRST
+   ============================================ */
+
 .header {
   position: fixed;
-  color: var(--text-primary);
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(10px, 3vw, 25px);
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(12px, 2.5vw, 20px) clamp(16px, 4vw, 32px);
   box-sizing: border-box;
-  transition: all 0.3s ease;
   background: transparent;
-  padding-bottom: clamp(8px, 1.5vw, 15px);
-  transform: translateY(0);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  min-height: clamp(50px, 10vw, 70px);
+  overflow: visible;
   
   /* Sticky header with backdrop blur when scrolled */
   &.scrolled {
@@ -23,7 +26,6 @@
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     
-    /* Dark mode scrolled state */
     [data-theme="dark"] & {
       background: rgba(17, 24, 39, 0.9);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -38,273 +40,285 @@
       .menuName p {
         color: var(--text-primary);
       }
-      .MenuEndicator {
-        background-color: var(--text-primary);
-      }
     }
     
-    .nav {
-      .el {
-        p {
-          color: var(--text-primary);
-        }
-        .endicator {
-          background-color: var(--text-primary);
-        }
-      }
-    }
-  }
-
-  .navContainer {
-    display: flex;
-    align-items: center;
-    gap: clamp(15px, 4vw, 40px);
-    
-    .menuName {
-      display: none; /* Hidden by default, shown only on mobile via JS */
-      cursor: pointer;
-      position: relative;
-      z-index: 1001;
-      transition: all 0.3s ease;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      
-      /* Dark mode styling */
-      [data-theme="dark"] & {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
-      
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-        transform: translateY(-1px);
-        
-        [data-theme="dark"] & {
-          background: rgba(255, 255, 255, 0.15);
-        }
-      }
-      
+    .nav .el {
       p {
-        font-size: clamp(14px, 3.5vw, 18px);
         color: var(--text-primary);
-        transition: color 0.3s ease;
-        margin: 0;
-        font-weight: 500;
       }
-      
-      .MenuEndicator {
-        width: clamp(4px, 1vw, 6px);
-        height: clamp(4px, 1vw, 6px);
-        border-radius: 50%;
-        background-color: var(--text-primary);
-        position: absolute;
-        top: 40%;
-        left: -30%;
-        transition: background-color 0.3s ease;
-      }
-    }
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    height: 100%;
-    align-self: center;
-
-    .copyright {
-      font-size: clamp(16px, 4vw, 20px);
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-      line-height: 1;
-      margin-right: 6px;
-    }
-    
-    p {
-      margin: 0;
-      transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-      position: relative;
-      color: var(--text-primary);
-      line-height: 1;
-    }
-
-    .name {
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      white-space: nowrap;
-      position: relative;
-      transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-      
-      @media (max-width: 480px) {
-        flex-direction: row;
-        align-items: center;
-        white-space: nowrap;
-        gap: 4px;
-      }
-      
-      p {
-        font-size: clamp(14px, 3.5vw, 18px);
-        position: relative;
-        transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-        color: var(--text-primary);
-        line-height: 1;
-      }
-      
-      .codeby {
-        padding-left: 0.3rem;
-        
-        @media (max-width: 480px) {
-          padding-left: 0.2rem;
-          font-size: clamp(10px, 2.5vw, 13px);
-        }
-      }
-      
-      .gaurav, .jain {
-        @media (max-width: 480px) {
-          font-size: clamp(12px, 3vw, 16px);
-          position: relative;
-          left: 0;
-        }
-      }
-      
-      .jain {
-        @media (max-width: 480px) {
-          position: relative;
-          left: 0;
-        }
-      }
-      
-      .gaurav {
-        padding-left: 0.3rem;
-      }
-      
-      .jain {
-        position: absolute;
-        left: clamp(60px, 15vw, 130px);
-        padding-left: 0.3rem;
-      }
-      
-      // Fix for 820x1180 and similar tablet screens
-      @media (min-width: 768px) and (max-width: 1024px) {
-        .codeby {
-          font-size: clamp(12px, 2vw, 16px);
-        }
-        .gaurav, .jain {
-          font-size: clamp(14px, 2.5vw, 18px);
-        }
-        .jain {
-          left: clamp(70px, 18vw, 140px);
-        }
-      }
-      
-      // Specific fix for 820px width screens
-      @media (min-width: 800px) and (max-width: 840px) {
-        .codeby {
-          font-size: 14px;
-          padding-left: 0.2rem;
-        }
-        .gaurav {
-          font-size: 16px;
-          padding-left: 0.2rem;
-        }
-        .jain {
-          font-size: 16px;
-          left: 90px;
-          padding-left: 0.2rem;
-        }
-      }
-    }
-    
-    // Disable hover effects on touch devices
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        .copyright {
-          transform: rotate(360deg);
-        }
-        .name {
-          padding-left: 30px;
-        }
-        .codeby {
-          transform: translateX(-150%);
-        }
-        .gaurav {
-          transform: translateX(-100px);
-        }
-        .jain {
-          transform: translateX(-70px);
-        }
-      }
-    }
-    
-    // For touch devices, show full name on tap/click
-    @media (hover: none) and (pointer: coarse) {
-      &:active {
-        .name {
-          .codeby {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          .gaurav {
-            transform: translateX(0);
-          }
-          .jain {
-            position: relative;
-            left: 0;
-            transform: translateX(0);
-          }
-        }
-      }
-    }
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: clamp(10px, 2.5vw, 20px);
-    
-    /* Hide navigation on mobile */
-    &.hidden {
-      display: none;
-    }
-    
-    .el {
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding: clamp(8px, 2vw, 15px);
-      cursor: pointer;
-      
-      p {
-        font-size: clamp(14px, 3.5vw, 18px);
-        color: var(--text-primary);
-        transition: color 0.3s ease;
-        line-height: 1;
-        margin: 0;
-      }
-      
-      &:hover {
-        .endicator {
-          transform: scale(1);
-        }
-      }
-      
       .endicator {
-        width: clamp(4px, 1vw, 6px);
-        height: clamp(4px, 1vw, 6px);
-        border-radius: 50%;
         background-color: var(--text-primary);
-        position: absolute;
-        top: 80%;
-        left: 50%;
-        transform: scale(0) translateX(-50%);
-        transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1), background-color 0.3s ease;
+      }
+    }
+  }
+  
+  &.hidden {
+    .nav {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  }
+}
+
+/* ============================================
+   LOGO SECTION - LEFT SIDE
+   ============================================ */
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 50%;
+  margin-right: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1vw, 8px);
+  cursor: pointer;
+  min-width: 0;
+  flex-shrink: 1;
+  padding: clamp(4px, 1vw, 8px) 0;
+  transition: all 0.3s ease;
+  
+  .copyright {
+    font-size: clamp(14px, 3.2vw, 18px);
+    color: var(--text-primary);
+    line-height: 1;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: clamp(2px, 0.5vw, 4px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .logoText {
+    display: flex;
+    align-items: center;
+    gap: clamp(2px, 0.5vw, 4px);
+    min-width: 0;
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    
+    span {
+      font-size: clamp(11px, 2.5vw, 15px);
+      color: var(--text-primary);
+      line-height: 1;
+      flex-shrink: 0;
+      display: inline-block;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .codeby {
+      font-weight: 400;
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  margin 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  padding 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  visibility 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .gaurav {
+      font-size: clamp(12px, 2.8vw, 16px);
+      font-weight: 600;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .jain {
+      font-size: clamp(12px, 2.8vw, 16px);
+      font-weight: 600;
+      opacity: 0;
+      max-width: 0;
+      width: 0;
+      margin: 0;
+      padding: 0;
+      visibility: hidden;
+      overflow: hidden;
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  max-width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  margin 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  padding 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  visibility 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+  
+  /* Hover effects ONLY for large screens (desktop/laptop) - min-width: 1025px */
+  @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
+    &:hover {
+      .copyright {
+        transform: rotate(360deg);
+      }
+      
+      .logoText {
+        gap: clamp(2px, 0.5vw, 4px);
+        
+        .codeby {
+          opacity: 0;
+          transform: translateX(-100%);
+          width: 0;
+          margin: 0;
+          padding: 0;
+          visibility: hidden;
+        }
+        
+        .gaurav {
+          transform: translateX(0);
+        }
+        
+        .jain {
+          opacity: 1;
+          max-width: 100px;
+          width: auto;
+          margin-left: clamp(2px, 0.5vw, 4px);
+          padding: 0;
+          visibility: visible;
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+  
+  /* No hover effects on mobile/tablet - just show "Code by Gaurav" */
+  @media (max-width: 1024px) {
+    .logoText {
+      .jain {
+        display: none !important;
+      }
+    }
+    
+    /* Remove any hover/active effects on touch devices */
+    &:hover,
+    &:active {
+      .copyright {
+        transform: none;
+      }
+      
+      .logoText {
+        .codeby,
+        .gaurav {
+          transform: none;
+          opacity: 1;
+          visibility: visible;
+        }
       }
     }
   }
 }
+
+/* ============================================
+   NAVIGATION CONTAINER - CENTER/RIGHT
+   ============================================ */
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(12px, 3vw, 24px);
+  flex-shrink: 0;
+  min-width: 0;
+  margin-left: auto;
+  
+  .menuName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-height: 44px;
+    
+    [data-theme="dark"] & {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+      
+      [data-theme="dark"] & {
+        background: rgba(255, 255, 255, 0.15);
+      }
+    }
+    
+    p {
+      font-size: clamp(14px, 3.2vw, 18px);
+      color: var(--text-primary);
+      margin: 0;
+      font-weight: 500;
+      line-height: 1;
+    }
+  }
+}
+
+/* ============================================
+   DESKTOP NAVIGATION
+   ============================================ */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 20px);
+  flex-shrink: 0;
+  
+  .el {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: clamp(8px, 2vw, 12px) clamp(10px, 2.5vw, 15px);
+    cursor: pointer;
+    min-height: 44px;
+    transition: all 0.3s ease;
+    
+    p {
+      font-size: clamp(14px, 3vw, 18px);
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+    
+    &:hover {
+      .endicator {
+        transform: scale(1) translateX(-50%);
+      }
+    }
+    
+    .endicator {
+      width: clamp(4px, 1vw, 6px);
+      height: clamp(4px, 1vw, 6px);
+      border-radius: 50%;
+      background-color: var(--text-primary);
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: scale(0) translateX(-50%);
+      transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1), background-color 0.3s ease;
+    }
+  }
+}
+
+/* ============================================
+   BURGER BUTTON - RIGHT SIDE
+   ============================================ */
 
 .headerButtonContainer {
   position: fixed;
@@ -319,9 +333,9 @@
   .button {
     position: relative;
     right: 0;
-    margin: clamp(6px, 1.5vw, 12px);
-    height: clamp(32px, 8vw, 48px);
-    width: clamp(32px, 8vw, 48px);
+    margin: clamp(8px, 2vw, 15px);
+    height: clamp(36px, 9vw, 48px);
+    width: clamp(36px, 9vw, 48px);
     border-radius: 50%;
     background-color: var(--bg-secondary);
     border: 2px solid var(--border-color);
@@ -332,21 +346,13 @@
     z-index: 1002;
     transition: all 0.3s ease;
     pointer-events: auto;
+    min-height: 44px;
+    min-width: 44px;
     
-    /* Remove conflicting hover styles - let Buttonx component handle hover */
-    /* &:hover {
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
-      transform: scale(1.05);
-    } */
-    
-    /* Ensure Buttonx component's hover state is not overridden */
     &:hover {
-      /* Let Buttonx component handle all hover styles */
       transform: none;
     }
     
-    /* Override any inline styles that might interfere with hover */
     &[style*="background-color"]:hover {
       background-color: var(--accent-color) !important;
       border-color: var(--accent-color) !important;
@@ -390,87 +396,288 @@
       transform: rotate(45deg);
     }
   }
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Mobile: Hide desktop nav, show menu button */
+@media (max-width: 768px) {
+  .header {
+    padding: clamp(10px, 2.5vw, 16px) clamp(12px, 3vw, 20px);
+  }
   
-  /* When header is hidden, hide logo */
-  &.hidden {
-    .logo {
-      opacity: 0.3;
-      transition: opacity 0.3s ease;
-    }
-    
-    /* Keep burger button visible when scrolled */
-    .headerButtonContainer {
-      opacity: 1;
-      visibility: visible;
+  .nav {
+    display: none !important;
+  }
+  
+  .shownav {
+    display: flex !important;
+  }
+  
+  .menuName {
+    display: flex !important;
+  }
+  
+  .headerButtonContainer {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+  }
+  
+  .logoWrapper {
+    max-width: 60%;
+  }
+  
+  .logo {
+    .logoText {
+      .codeby {
+        font-size: clamp(10px, 2.2vw, 13px);
+      }
+      
+      .gaurav,
+      .jain {
+        font-size: clamp(11px, 2.5vw, 15px);
+      }
     }
   }
 }
 
-/* Small mobile devices (320px - 375px) */
-@media (min-width: 320px) and (max-width: 375px) {
+/* Tablet: Show desktop nav */
+@media (min-width: 769px) {
+  .nav {
+    display: flex !important;
+  }
+  
+  .menuName {
+    display: none !important;
+  }
+  
+  .headerButtonContainer {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .header.hidden .headerButtonContainer {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Small mobile devices (320px - 480px) */
+@media (max-width: 480px) {
   .header {
-    padding: 8px 6px;
+    padding: clamp(8px, 2vw, 12px) clamp(10px, 2.5vw, 16px);
+    min-height: 48px;
+  }
+  
+  .logoWrapper {
+    max-width: 65%;
+  }
+  
+  .logo {
+    gap: 3px;
     
-    .navContainer {
-      gap: 10px;
-      
-      .menuName p {
-        font-size: 14px;
-      }
+    .copyright {
+      font-size: clamp(12px, 2.8vw, 16px);
+      margin-right: 2px;
     }
     
-    .logo {
-      .copyright {
-        font-size: 16px;
+    .logoText {
+      gap: 2px;
+      
+      .codeby {
+        font-size: clamp(9px, 2vw, 12px);
       }
       
-      .name {
-        p {
-          font-size: 14px;
-        }
-        
-        .jain {
-          left: 60px;
-        }
+      .gaurav,
+      .jain {
+        font-size: clamp(10px, 2.3vw, 14px);
+      }
+    }
+  }
+  
+  .navContainer {
+    gap: clamp(8px, 2vw, 12px);
+    
+    .menuName {
+      padding: 6px 10px;
+      min-height: 40px;
+      
+      p {
+        font-size: clamp(12px, 2.8vw, 16px);
       }
     }
   }
   
   .headerButtonContainer {
     .button {
-      height: 32px;
-      width: 32px;
-      margin: 4px;
+      height: clamp(32px, 8vw, 36px);
+      width: clamp(32px, 8vw, 36px);
+      margin: clamp(6px, 1.5vw, 8px);
+      min-height: 40px;
+      min-width: 40px;
     }
   }
 }
 
-/* Medium mobile devices (376px - 480px) */
-@media (min-width: 376px) and (max-width: 480px) {
+/* Medium mobile devices (481px - 600px) */
+@media (min-width: 481px) and (max-width: 600px) {
   .header {
-    padding: 10px 8px;
-    
-    .navContainer {
-      gap: 15px;
+    padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 18px);
+  }
+  
+  .logoWrapper {
+    max-width: 60%;
+  }
+  
+  .logo {
+    .logoText {
+      .codeby {
+        font-size: clamp(11px, 2.3vw, 14px);
+      }
       
-      .menuName p {
-        font-size: 15px;
+      .gaurav,
+      .jain {
+        font-size: clamp(12px, 2.6vw, 16px);
       }
     }
-    
-    .logo {
-      .copyright {
-        font-size: 17px;
+  }
+}
+
+/* Tablet portrait (601px - 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+  .header {
+    padding: clamp(12px, 3vw, 18px) clamp(14px, 3.5vw, 22px);
+  }
+  
+  .logoWrapper {
+    max-width: 55%;
+  }
+  
+  .navContainer {
+    gap: clamp(15px, 3.5vw, 20px);
+  }
+}
+
+/* Tablet landscape (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    padding: clamp(15px, 3.5vw, 22px) clamp(18px, 4vw, 28px);
+  }
+  
+  .logoWrapper {
+    max-width: 45%;
+  }
+  
+  .nav {
+    gap: clamp(12px, 2.5vw, 18px);
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: clamp(42px, 10vw, 46px);
+      width: clamp(42px, 10vw, 46px);
+      margin: clamp(10px, 2.5vw, 14px);
+    }
+  }
+}
+
+/* Desktop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .header {
+    padding: clamp(18px, 4vw, 25px) clamp(20px, 4.5vw, 32px);
+  }
+  
+  .logoWrapper {
+    max-width: 40%;
+  }
+  
+  .logo {
+    .logoText {
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      
+      .codeby,
+      .gaurav {
+        white-space: nowrap;
       }
       
-      .name {
-        p {
-          font-size: 15px;
-        }
-        
-        .jain {
-          left: 70px;
-        }
+      .jain {
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  .nav {
+    gap: clamp(15px, 3vw, 20px);
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: clamp(46px, 11vw, 52px);
+      width: clamp(46px, 11vw, 52px);
+      margin: clamp(12px, 3vw, 18px);
+    }
+  }
+}
+
+/* Large desktop (1441px+) */
+@media (min-width: 1441px) {
+  .header {
+    padding: clamp(20px, 4.5vw, 28px) clamp(24px, 5vw, 36px);
+  }
+  
+  .logoWrapper {
+    max-width: 35%;
+  }
+  
+  .logo {
+    .logoText {
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      
+      .codeby,
+      .gaurav {
+        white-space: nowrap;
+      }
+      
+      .jain {
+        white-space: nowrap;
+      }
+    }
+  }
+  
+  .nav {
+    gap: clamp(18px, 3.5vw, 24px);
+  }
+  
+  .headerButtonContainer {
+    .button {
+      height: clamp(52px, 12vw, 64px);
+      width: clamp(52px, 12vw, 64px);
+      margin: clamp(15px, 3.5vw, 20px);
+    }
+  }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .header {
+    padding: 10px 15px;
+    min-height: 44px;
+  }
+  
+  .logo {
+    .logoText {
+      .codeby {
+        font-size: clamp(10px, 2vw, 12px);
+      }
+      
+      .gaurav,
+      .jain {
+        font-size: clamp(11px, 2.3vw, 14px);
       }
     }
   }
@@ -484,355 +691,16 @@
   }
 }
 
-/* Large mobile devices (481px - 600px) */
-@media (min-width: 481px) and (max-width: 600px) {
-  .header {
-    padding: 12px 10px;
-    
-    .navContainer {
-      gap: 20px;
-      
-      .menuName p {
-        font-size: 16px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 18px;
-      }
-      
-      .name {
-        p {
-          font-size: 16px;
-        }
-        
-        .jain {
-          left: 80px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 40px;
-      width: 40px;
-      margin: 8px;
-    }
-  }
-}
-
-/* Tablet portrait (601px - 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .header {
-    padding: 15px 12px;
-    
-    .navContainer {
-      gap: 25px;
-      
-      .menuName p {
-        font-size: 17px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 19px;
-      }
-      
-      .name {
-        p {
-          font-size: 17px;
-        }
-        
-        .jain {
-          left: 90px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 44px;
-      width: 44px;
-      margin: 10px;
-    }
-  }
-}
-
-/* Tablet landscape (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .header {
-    padding: 18px 15px;
-    
-    .navContainer {
-      gap: 30px;
-      
-      .menuName p {
-        font-size: 18px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 20px;
-      }
-      
-      .name {
-        p {
-          font-size: 18px;
-        }
-        
-        .jain {
-          left: 100px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 48px;
-      width: 48px;
-      margin: 12px;
-    }
-  }
-}
-
-/* Desktop (1025px - 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .header {
-    padding: 25px;
-    
-    .navContainer {
-      gap: 40px;
-      
-      .menuName p {
-        font-size: 18px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 20px;
-      }
-      
-      .name {
-        p {
-          font-size: 18px;
-        }
-        
-        .jain {
-          left: 130px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 64px;
-      width: 64px;
-      margin: 18px;
-    }
-  }
-}
-
-/* Large desktop (1201px - 1440px) */
-@media (min-width: 1201px) and (max-width: 1440px) {
-  .header {
-    padding: 25px;
-    
-    .navContainer {
-      gap: 40px;
-      
-      .menuName p {
-        font-size: 18px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 20px;
-      }
-      
-      .name {
-        p {
-          font-size: 18px;
-        }
-        
-        .jain {
-          left: 130px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 72px;
-      width: 72px;
-      margin: 20px;
-    }
-  }
-}
-
-/* Ultra-wide desktop (1441px+) */
-@media (min-width: 1441px) {
-  .header {
-    padding: 25px;
-    
-    .navContainer {
-      gap: 40px;
-      
-      .menuName p {
-        font-size: 18px;
-      }
-    }
-    
-    .logo {
-      .copyright {
-        font-size: 20px;
-      }
-      
-      .name {
-        p {
-          font-size: 18px;
-        }
-        
-        .jain {
-          left: 130px;
-        }
-      }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 80px;
-      width: 80px;
-      margin: 25px;
-    }
-  }
-}
-
-/* Mobile navigation - hide desktop nav, show mobile menu */
-@media (max-width: 768px) {
-  .nav {
-    display: none !important;
-  }
-  
-  .shownav {
-    display: flex !important;
-  }
-  
-  .menuName {
-    display: block !important;
-    z-index: 1001;
-  }
-  
-  .headerButtonContainer {
-    z-index: 1002;
-  }
-}
-
-  /* Desktop navigation - show nav by default */
-  @media (min-width: 769px) {
-    .nav {
-      display: flex !important;
-    }
-    
-    .menuName {
-      display: none !important;
-    }
-    
-    /* Burger button should only appear when scrolling on desktop */
-    .headerButtonContainer {
-      opacity: 0;
-      visibility: hidden;
-    }
-    
-    /* Override nav display when header is hidden */
-    .header.hidden .nav {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-      transform: translateY(-10px) !important;
-      transition: none !important;
-    }
-  }
-
-/* Mobile - burger button should only appear when scrolling, but not interfere with menu button */
-@media (max-width: 768px) {
-  .headerButtonContainer {
-    opacity: 0;
-    visibility: hidden;
-    z-index: 999; /* Lower than menu button */
-  }
-  
-  .menuName {
-    z-index: 1001; /* Higher than burger button */
-  }
-}
-
-/* Landscape orientation fixes for mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-  .header {
-    padding: 10px 15px;
-  }
-  
-  .headerButtonContainer {
-    .button {
-      height: 32px;
-      width: 32px;
-      margin: 6px;
-    }
-  }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .header {
-    .nav .el,
-    .logo,
-    .navContainer .menuName {
-      /* Improve touch targets */
-      min-height: 44px;
-      min-width: 44px;
-    }
-    /* Disable hover-based animations on touch to prevent text jumping */
-    .logo:hover {
-      .copyright { transform: none; }
-      .name { padding-left: 0; }
-      .codeby,
-      .gaurav,
-      .jain { transform: none; }
-    }
-  }
-  
-  .headerButtonContainer {
-    .button {
-      /* Ensure adequate touch target size */
-      min-height: 44px;
-      min-width: 44px;
-    }
-  }
-}
-
 /* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .header {
-    /* Improve text rendering on high DPI displays */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-  /* Header spacer to prevent content from hiding behind fixed header */
-  .headerSpacer {
-    height: clamp(60px, 15vw, 80px);
-    width: 100%;
-  }
+/* Header spacer to prevent content from hiding behind fixed header */
+.headerSpacer {
+  height: clamp(60px, 15vw, 80px);
+  width: 100%;
+}
