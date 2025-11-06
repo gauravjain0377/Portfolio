@@ -47,7 +47,7 @@ const WorkPage = () => {
   return (
     <main className={styles.main}>
       <Works />
-      <div style={{ height: '200px' }}></div> {/* Spacer to ensure separation */}
+      <div className={styles.spacer}></div>
       <Contact />
     </main>
   );

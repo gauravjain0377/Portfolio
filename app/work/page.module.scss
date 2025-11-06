@@ -4,4 +4,16 @@
   position: relative;
   background: var(--bg-primary);
   transition: background-color 0.3s ease;
+}
+
+.spacer {
+  height: clamp(40px, 8vw, 200px);
+  
+  @media (max-width: 768px) {
+    height: clamp(30px, 6vw, 100px);
+  }
+  
+  @media (max-width: 480px) {
+    height: clamp(20px, 4vw, 60px);
+  }
 } 

@@ -5,7 +5,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(60px, 12vw, 120px);
+  gap: clamp(40px, 10vw, 120px);
   transition: background-color 0.3s ease;
 
   @media (max-width: 1200px) {
@@ -13,8 +13,13 @@
   }
 
   @media (max-width: 768px) {
-    padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px) clamp(40px, 8vw, 80px);
-    gap: clamp(40px, 8vw, 80px);
+    padding: clamp(30px, 6vw, 50px) clamp(20px, 4vw, 30px) clamp(30px, 6vw, 60px);
+    gap: clamp(30px, 8vw, 60px);
+  }
+  
+  @media (max-width: 480px) {
+    padding: clamp(25px, 5vw, 40px) clamp(15px, 3vw, 25px) clamp(25px, 5vw, 50px);
+    gap: clamp(25px, 6vw, 50px);
   }
 }
 
@@ -255,29 +260,27 @@
 
 .skillsHeader {
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: clamp(40px, 8vw, 100px);
   position: relative;
 
   h2 {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 900;
     color: var(--text-primary);
     background: none;
     -webkit-background-clip: initial;
     -webkit-text-fill-color: initial;
     background-clip: initial;
-    margin: 0 0 24px 0;
+    margin: 0 0 clamp(16px, 3vw, 24px) 0;
     letter-spacing: -0.03em;
     line-height: 1.1;
     transition: all 0.3s ease;
-
-    @media (max-width: 768px) {
-      font-size: 3.5rem;
-    }
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   p {
-    font-size: 1.6rem;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
     color: var(--text-secondary);
     margin: 0;
     font-weight: 400;
@@ -285,9 +288,10 @@
     margin: 0 auto;
     line-height: 1.6;
     transition: color 0.3s ease;
-
+    padding: 0;
+    
     @media (max-width: 768px) {
-      font-size: 1.3rem;
+      padding: 0 clamp(15px, 4vw, 25px);
     }
   }
 }
@@ -857,29 +861,27 @@
 
 .achievementsHeader {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: clamp(40px, 8vw, 80px);
   position: relative;
 
   h2 {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 900;
     color: var(--text-primary);
     background: none;
     -webkit-background-clip: initial;
     -webkit-text-fill-color: initial;
     background-clip: initial;
-    margin: 0 0 24px 0;
+    margin: 0 0 clamp(16px, 3vw, 24px) 0;
     letter-spacing: -0.03em;
     line-height: 1.1;
     transition: all 0.3s ease;
-
-    @media (max-width: 768px) {
-      font-size: 3.5rem;
-    }
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   p {
-    font-size: 1.6rem;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
     color: var(--text-secondary);
     margin: 0;
     font-weight: 400;
@@ -887,9 +889,10 @@
     margin: 0 auto;
     line-height: 1.6;
     transition: color 0.3s ease;
-
+    padding: 0;
+    
     @media (max-width: 768px) {
-      font-size: 1.3rem;
+      padding: 0 clamp(15px, 4vw, 25px);
     }
   }
 }

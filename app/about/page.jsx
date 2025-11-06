@@ -47,7 +47,7 @@ const AboutPage = () => {
   return (
     <main className={styles.main}>
       <About />
-      <div style={{ height: '200px' }}></div> {/* Spacer to ensure separation */}
+      <div className={styles.spacer}></div>
       <Contact />
     </main>
   );

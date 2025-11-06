@@ -309,9 +309,13 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 170px 0 30px 0; /* More gap above, less gap below */
-   /* Grey background like other pages */
-  margin-top: 60px; /* Additional space from main content */
+  padding: clamp(40px, 12vw, 170px) 0 clamp(20px, 3vw, 30px) 0;
+  margin-top: clamp(30px, 6vw, 60px);
+  
+  @media (max-width: 768px) {
+    padding-top: clamp(30px, 8vw, 60px);
+    margin-top: clamp(20px, 4vw, 40px);
+  }
 }
 
 .footerContainer {
@@ -379,46 +383,94 @@
 // Responsive adjustments
 @media (max-width: 768px) {
   .contactPage {
-    padding-top: clamp(40px, 8vw, 60px); /* Consistent with About and Work pages */
+    padding-top: clamp(30px, 6vw, 50px);
+    min-height: auto;
   }
 
   .contactContainer {
-    padding: 40px 20px;
+    padding: clamp(30px, 5vw, 50px) clamp(15px, 3vw, 30px);
   }
 
   .mainContent {
-    gap: 60px;
+    gap: clamp(40px, 8vw, 60px);
+    padding: 0 clamp(15px, 4vw, 30px);
   }
 
   .leftSection {
-    gap: 40px;
+    gap: clamp(30px, 6vw, 50px);
   }
 
   .mainHeading {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.2;
   }
 
   .formGroup {
-    margin-bottom: 30px;
+    margin-bottom: clamp(25px, 4vw, 35px);
+  }
+
+  .formLabel {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    margin-bottom: clamp(10px, 1.5vw, 12px);
   }
 
   .formInput,
   .formTextarea {
-    padding: 14px 16px;
-    font-size: 0.95rem;
+    padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 20px);
+    font-size: clamp(0.9rem, 2vw, 1rem);
   }
 
   .submitButton {
-    padding: 14px 28px;
-    font-size: 1rem;
+    width: clamp(120px, 20vw, 140px);
+    height: clamp(120px, 20vw, 140px);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    margin-top: clamp(30px, 5vw, 40px);
   }
 
   .image {
-    width: 200px;
-    height: 200px;
+    width: clamp(180px, 35vw, 250px);
+    height: clamp(180px, 35vw, 250px);
   }
 
   .rightSection {
-    gap: 40px;
+    gap: clamp(30px, 6vw, 50px);
+  }
+  
+  .detailsContainer {
+    gap: clamp(30px, 6vw, 40px);
+  }
+  
+  .detailsTitle {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    margin-bottom: clamp(12px, 2vw, 16px);
+  }
+  
+  .detailValue {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .contactPage {
+    padding-top: clamp(25px, 5vw, 40px);
+  }
+  
+  .mainContent {
+    gap: clamp(30px, 6vw, 50px);
+    padding: 0 clamp(12px, 3vw, 25px);
+  }
+  
+  .mainHeading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+  
+  .submitButton {
+    width: clamp(110px, 22vw, 130px);
+    height: clamp(110px, 22vw, 130px);
+  }
+  
+  .image {
+    width: clamp(150px, 40vw, 200px);
+    height: clamp(150px, 40vw, 200px);
   }
 } 

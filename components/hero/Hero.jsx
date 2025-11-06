@@ -3,161 +3,287 @@ import Image from "next/image";
 import Link from "next/link";
 import Style from "./heroStyle.module.scss";
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Hero = () => {
-  const firstText = useRef(null);
-  const secondText = useRef(null);
-  const thirdText = useRef(null);
-  const fourthText = useRef(null);
-  const fifthText = useRef(null);
-  const slider = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  let xPercent = 0;
-  let direction = 1;
-  let animationId = null;
+  const [isMounted, setIsMounted] = useState(false);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Subtle parallax effect without fade/blur
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  // Keep opacity at 1 - no fade effect
+  const opacityTransform = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   useEffect(() => {
-    setIsVisible(true);
-    
-    // Check if we're on mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    setIsMounted(true);
+  }, []);
 
-    // Only run animations if elements exist
-    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current || !slider.current) {
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-    animationId = requestAnimationFrame(animtion);
-
-    // scrolling adjusment for the slider
-    const scrollTrigger = gsap.to(slider.current, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        start: 0,
-        end: window.innerHeight,
-        scrub: 0.25,
-        onUpdate: (e) => {
-          direction = e.direction * -1;
-        },
-      },
-      x: "-300px",
-    });
-
-    // Cleanup function
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.2,
+        delayChildren: 0.1
       }
-      if (scrollTrigger && scrollTrigger.scrollTrigger) {
-        scrollTrigger.scrollTrigger.kill();
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
       }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, [isMobile]);
+    }
+  };
 
-  const animtion = () => {
-    // Check if elements exist before animating
-    if (!firstText.current || !secondText.current || !thirdText.current || !fourthText.current || !fifthText.current) {
-      return;
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.9, x: 50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.3
+      }
     }
+  };
 
-    // Reset position when reaching the end to create seamless loop
-    if (xPercent <= -100) {
-      xPercent = 0;
+  const floatingVariants = {
+    animate: {
+      y: [0, -20, 0],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
     }
-    if (xPercent > 0) {
-      xPercent = -100;
-    }
-    
-    // Set all text elements to the same position for seamless loop
-    gsap.set(firstText.current, { xPercent: xPercent });
-    gsap.set(secondText.current, { xPercent: xPercent });
-    gsap.set(thirdText.current, { xPercent: xPercent });
-    gsap.set(fourthText.current, { xPercent: xPercent });
-    gsap.set(fifthText.current, { xPercent: xPercent });
-    
-    xPercent += 0.15 * direction; // Increased speed from 0.1 to 0.15
-    animationId = requestAnimationFrame(animtion);
   };
 
   return (
-    <motion.main 
-      className={Style.mainHero}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
-      transition={{ duration: 1.2, ease: "easeOut" }}
+    <motion.section
+      ref={containerRef}
+      className={Style.heroSection}
+      initial="hidden"
+      animate={isMounted ? "visible" : "hidden"}
+      variants={containerVariants}
     >
-      {/* Background Image Container */}
-      <motion.div
-        className={Style.imageContainer}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 1.5, delay: 0.3 }}
-      >
-        <Image 
-          src="/images/Gaurav_Hero.png" 
-          alt="Gaurav Jain - Software Engineer" 
-          priority 
-          width={200}
-          height={300}
-          sizes="100vw"
-          className={Style.heroImage}
+      {/* Animated Background Shapes */}
+      <div className={Style.backgroundShapes}>
+        <motion.div
+          className={Style.shape1}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         />
-      </motion.div>
-      
-      {/* Content Overlay */}
-      <div className={Style.contentOverlay}>
-        {/* Software Engineer Text */}
-        <motion.div 
-          data-scroll 
-          data-scroll-speed={0.1} 
-          className={Style.description}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+        <motion.div
+          className={Style.shape2}
+          animate={{
+            x: [0, -80, 0],
+            y: [0, -60, 0],
+            scale: [1, 0.9, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className={Style.shape3}
+          animate={{
+            x: [0, 60, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className={Style.gradientOverlay} />
+
+      {/* Main Content Container */}
+      <div className={Style.contentContainer}>
+        {/* Left Side - Text Content */}
+        <motion.div
+          className={Style.textContent}
+          variants={itemVariants}
         >
-          <p>Software Engineer</p>
-          <div className={Style.ctaRow}>
+          {/* Greeting */}
+          <motion.div
+            className={Style.greeting}
+            variants={itemVariants}
+          >
+            <span className={Style.greetingText}>Hello, I'm</span>
+          </motion.div>
+
+          {/* Name */}
+          <motion.h1
+            className={Style.name}
+            variants={itemVariants}
+          >
+            <span className={Style.nameFirst}>Gaurav</span>
+            <span className={Style.nameLast}>Jain</span>
+          </motion.h1>
+
+          {/* Tagline */}
+          <motion.p
+            className={Style.tagline}
+            variants={itemVariants}
+          >
+            Software Engineer
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            className={Style.description}
+            variants={itemVariants}
+          >
+            Crafting digital experiences with code, creativity, and passion.
+            Building the future, one line at a time.
+          </motion.p>
+
+          {/* CTA Button */}
+          <motion.div
+            className={Style.ctaContainer}
+            variants={itemVariants}
+          >
             <Link
               href="https://drive.google.com/drive/folders/1jIlbyyBJrInaqRJocRYvEdubgNcZYn42?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open resume in a new tab"
-              className={Style.resumeBtn}
+              className={Style.resumeButton}
             >
-              Resume
+              <span>View Resume</span>
+              <motion.svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className={Style.buttonIcon}
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <path
+                  d="M7.5 15L12.5 10L7.5 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </motion.svg>
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Scrolling Text Container */}
-        <motion.div 
-          className={Style.slideContainer}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+        {/* Right Side - Image */}
+        <motion.div
+          className={Style.imageWrapper}
+          variants={imageVariants}
+          style={{ y: yTransform }}
         >
-          <div ref={slider} className={Style.slider}>
-            <p ref={firstText}>Gaurav Jain -</p>
-            <p ref={secondText}>Gaurav Jain -</p>
-            <p ref={thirdText}>Gaurav Jain -</p>
-            <p ref={fourthText}>Gaurav Jain -</p>
-            <p ref={fifthText}>Gaurav Jain -</p>
+          <motion.div
+            className={Style.imageContainer}
+            variants={floatingVariants}
+            animate="animate"
+          >
+            <div className={Style.imageGlow} />
+            <Image
+              src="/images/Gaurav_Hero.png"
+              alt="Gaurav Jain - Software Engineer"
+              priority
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+              className={Style.heroImage}
+            />
+            <div className={Style.imageBorder} />
+          </motion.div>
+
+          {/* Decorative Elements around Image */}
+          <div className={Style.decorativeElements}>
+            <motion.div
+              className={Style.decorativeDot1}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              className={Style.decorativeDot2}
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.4, 0.7, 0.4],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+            />
+            <motion.div
+              className={Style.decorativeDot3}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+            />
           </div>
         </motion.div>
       </div>
-    </motion.main>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className={Style.scrollIndicator}
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <div className={Style.scrollLine} />
+      </motion.div>
+    </motion.section>
   );
 };
 
