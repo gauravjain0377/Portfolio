@@ -221,6 +221,15 @@ const Hero = () => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className={Style.heroImage}
+              unoptimized={false}
+              onError={(e) => {
+                console.error('Failed to load hero image');
+                // Fallback: try to reload or show placeholder
+                e.target.style.display = 'none';
+              }}
+              onLoad={() => {
+                console.log('Hero image loaded successfully');
+              }}
             />
             <div className={Style.imageBorder} />
           </motion.div>

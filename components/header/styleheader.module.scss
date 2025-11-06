@@ -139,9 +139,10 @@
       transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
       
       @media (max-width: 480px) {
-        flex-direction: column;
-        align-items: flex-start;
-        white-space: normal;
+        flex-direction: row;
+        align-items: center;
+        white-space: nowrap;
+        gap: 4px;
       }
       
       p {
@@ -157,13 +158,22 @@
         
         @media (max-width: 480px) {
           padding-left: 0.2rem;
-          font-size: clamp(10px, 2.5vw, 14px);
+          font-size: clamp(10px, 2.5vw, 13px);
         }
       }
       
       .gaurav, .jain {
         @media (max-width: 480px) {
           font-size: clamp(12px, 3vw, 16px);
+          position: relative;
+          left: 0;
+        }
+      }
+      
+      .jain {
+        @media (max-width: 480px) {
+          position: relative;
+          left: 0;
         }
       }
       
@@ -176,23 +186,76 @@
         left: clamp(60px, 15vw, 130px);
         padding-left: 0.3rem;
       }
+      
+      // Fix for 820x1180 and similar tablet screens
+      @media (min-width: 768px) and (max-width: 1024px) {
+        .codeby {
+          font-size: clamp(12px, 2vw, 16px);
+        }
+        .gaurav, .jain {
+          font-size: clamp(14px, 2.5vw, 18px);
+        }
+        .jain {
+          left: clamp(70px, 18vw, 140px);
+        }
+      }
+      
+      // Specific fix for 820px width screens
+      @media (min-width: 800px) and (max-width: 840px) {
+        .codeby {
+          font-size: 14px;
+          padding-left: 0.2rem;
+        }
+        .gaurav {
+          font-size: 16px;
+          padding-left: 0.2rem;
+        }
+        .jain {
+          font-size: 16px;
+          left: 90px;
+          padding-left: 0.2rem;
+        }
+      }
     }
     
-    &:hover {
-      .copyright {
-        transform: rotate(360deg);
+    // Disable hover effects on touch devices
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        .copyright {
+          transform: rotate(360deg);
+        }
+        .name {
+          padding-left: 30px;
+        }
+        .codeby {
+          transform: translateX(-150%);
+        }
+        .gaurav {
+          transform: translateX(-100px);
+        }
+        .jain {
+          transform: translateX(-70px);
+        }
       }
-      .name {
-        padding-left: 30px;
-      }
-      .codeby {
-        transform: translateX(-150%);
-      }
-      .gaurav {
-        transform: translateX(-100px);
-      }
-      .jain {
-        transform: translateX(-70px);
+    }
+    
+    // For touch devices, show full name on tap/click
+    @media (hover: none) and (pointer: coarse) {
+      &:active {
+        .name {
+          .codeby {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          .gaurav {
+            transform: translateX(0);
+          }
+          .jain {
+            position: relative;
+            left: 0;
+            transform: translateX(0);
+          }
+        }
       }
     }
   }

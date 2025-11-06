@@ -355,6 +355,12 @@
   border-radius: 24px;
   z-index: 1;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  display: block;
+  background-color: var(--bg-secondary);
+  
+  // Ensure image is visible
+  opacity: 1;
+  visibility: visible;
 }
 
 .imageBorder {

@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [],
+    unoptimized: false,
+    domains: [],
+    // Allow images from all domains
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       config.cache = false;

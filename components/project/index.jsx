@@ -14,7 +14,7 @@ const index = () => {
       src: "Stox.png",
       color: "#000000",
       githubUrl: "https://github.com/gauravjain0377/Stox.git",
-      liveUrl: "https://stox.vercel.app",
+      liveUrl: "https://stocksathi.vercel.app/",
 
     },
     {
