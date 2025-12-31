@@ -57,7 +57,7 @@ export default function Contact() {
                     <div>
                         <span>
                             <h3>Version</h3>
-                            <p>2025 © Edition</p>
+                            <p>2026 © Edition</p>
                         </span>
                     </div>
                     <div>
