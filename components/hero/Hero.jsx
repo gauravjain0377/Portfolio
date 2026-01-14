@@ -173,7 +173,7 @@ const Hero = () => {
             variants={itemVariants}
           >
             <Link
-              href="https://drive.google.com/drive/folders/1jIlbyyBJrInaqRJocRYvEdubgNcZYn42?usp=sharing"
+              href="https://drive.google.com/file/d/1-dkikCv-v2R8LMl6QIt6o0LLCJtfyV09/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open resume in a new tab"
