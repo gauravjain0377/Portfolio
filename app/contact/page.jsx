@@ -346,7 +346,7 @@ const Contact = () => {
         <div className={styles.footerContainer}>
           <div className={styles.footerSection}>
             <h4 className={styles.footerTitle}>VERSION</h4>
-            <p className={styles.footerText}>2025 © Edition</p>
+            <p className={styles.footerText}>2026 © Edition</p>
           </div>
           
           <div className={styles.footerSection}>
