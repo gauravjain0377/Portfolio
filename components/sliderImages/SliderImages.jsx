@@ -7,38 +7,38 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const SliderImages = () => {
   const slider1 = [
     {
-      color: "#e3e5e7",
-      src: "BS.png",
+      color: "#d6d7dc",
+      src: "VHG.png",
     },
     {
       color: "#d6d7dc",
       src: "Stox.png",
     },
     {
-      color: "#e3e3e3",
+      color: "#d6d7dc",
       src: "HackZen.png",
     },
     {
-      color: "#21242b",
-      src: "SG.png",
+      color: "#d6d7dc",
+      src: "understanding.png",
     },
   ];
 
   const slider2 = [
     {
-      color: "#d4e3ec",
+      color: "#d6d7dc",
       src: "StoxPricing.png",
     },
     {
-      color: "#e5e0e1",
-      src: "VHG.png",
+      color: "#d6d7dc",
+      src: "inboxpilotai.png",
     },
     {
-      color: "#d7d4cf",
+      color: "#d6d7dc",
       src: "StoxDashboard.png",
     },
     {
-      color: "#e1dad6",
+      color: "#d6d7dc",
       src: "Hackzenhackathon.png",
     },
   ];

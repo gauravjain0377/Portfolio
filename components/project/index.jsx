@@ -10,12 +10,18 @@ import Button from "../../common/roundedbutton";
 const index = () => {
   const projects = [
     {
+      title: "InboxPilot AI",
+      src: "inboxpilotai.png",
+      color: "#000000",
+      githubUrl: "https://github.com/gauravjain0377/InboxPilot-AI.git",
+      liveUrl: "https://inboxpilot-ai.vercel.app/",
+    },
+    {
       title: "StockSathi",
       src: "Stox.png",
       color: "#000000",
       githubUrl: "https://github.com/gauravjain0377/Stox.git",
       liveUrl: "https://stocksathi.vercel.app/",
-
     },
     {
       title: "HackZen",
@@ -25,33 +31,28 @@ const index = () => {
       liveUrl: "https://devora-dev.vercel.app/",
     },
     {
+      title: "Understanding",
+      src: "understanding.png",
+      color: "#706D63",
+      githubUrl: "https://github.com/gauravjain0377/Understanding.git",
+      liveUrl: "https://understandingconcepts.vercel.app/",
+    },
+    
+    {
+      title: "CodeType Arena",
+      src: "codetypearena.png",
+      color: "#EFE8D3",
+      githubUrl: "https://github.com/gauravjain0377/CodeType-Arena.git",
+      liveUrl: "https://codetype-arena.vercel.app/",
+    },
+    {
       title: "SvaraGPT",
       src: "SvaraGPT.png",
       color: "#455ce9",
       githubUrl: "https://github.com/gauravjain0377/SvaraGPT.git",
       liveUrl: "https://svaragpt.vercel.app/",
     },
-    {
-      title: "Simon Game",
-      src: "SG.png",
-      color: "#EFE8D3",
-      githubUrl: "https://github.com/gauravjain0377/Simon-Game.git",
-      liveUrl: "https://simonplay.vercel.app/",
-    },
-    {
-      title: "Virtual Herbal Garden",
-      src: "VHG.png",
-      color: "#706D63",
-      githubUrl: "https://github.com/Shaurya01836/AyurHerb.git",
-      liveUrl: "https://herb-sphere.vercel.app/",
-    },
-    {
-      title: "BookStore",
-      src: "BS.png",
-      color: "#706D63",
-      githubUrl: "https://github.com/gauravjain0377/BookStore.git",
-      liveUrl: "https://books-company.vercel.app/",
-    },
+    
   ];
 
   const scaleAnimation = {
