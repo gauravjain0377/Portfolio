@@ -12,6 +12,10 @@
     flex-wrap: wrap;
     gap: 15px;
 
+    &:hover {
+        background-color: var(--bg-secondary);
+    }
+
     &::before {
         content: '';
         position: absolute;
@@ -25,12 +29,16 @@
 
     .hoverArea {
         flex: 1;
-        cursor: pointer;
+        cursor: default;
         height: 100%;
         display: flex;
         align-items: center;
         margin-right: clamp(20px, 8vw, 120px);
         min-width: 0;
+        padding: 0;
+        border: 0;
+        text-align: left;
+        background: transparent;
         
         @media (max-width: 768px) {
             margin-right: 0;
@@ -76,16 +84,16 @@
         }
     }
 
-    .githubLink {
+    .detailsButton {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         color: var(--text-primary);
         text-decoration: none;
         font-weight: 300;
         padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
-        border-radius: 6px;
+        border-radius: 999px;
         background-color: var(--bg-tertiary);
         border: 1px solid var(--border-color);
         pointer-events: auto;
@@ -93,27 +101,14 @@
         white-space: nowrap;
         width: 100%;
         min-height: 44px;
+        cursor: pointer;
         
-        svg {
-            width: clamp(16px, 2vw, 18px);
-            height: clamp(16px, 2vw, 18px);
-            fill: var(--text-primary);
-            flex-shrink: 0;
-        }
-        
-        span {
-            font-size: clamp(12px, 1.8vw, 14px);
-        }
+        font-size: clamp(12px, 1.8vw, 14px);
         
         &:hover {
             background-color: var(--accent-color);
             color: white;
-            text-decoration: none;
             border-color: var(--accent-color);
-            
-            svg {
-                fill: white;
-            }
         }
     }
 
