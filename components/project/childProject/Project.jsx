@@ -13,10 +13,7 @@ const Project = ({ title, manageModal, index, onOpenDetails, isTouchDevice }) =>
   };
 
   return (
-    <div
-      className={Style.project}
-      onMouseLeave={closePreview}
-    >
+    <div className={Style.project}>
       <div
         className={Style.hoverArea}
         onMouseEnter={openPreview}

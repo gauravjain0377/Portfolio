@@ -100,18 +100,20 @@ const index = () => {
   ];
 
   const scaleAnimation = {
-    initial: { scale: 0, x: "-50%", y: "-50%" },
+    initial: { scale: 0, x: "-50%", y: "-50%", opacity: 0 },
     enter: {
       scale: 1,
       x: "-50%",
       y: "-50%",
-      transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
+      opacity: 1,
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
     },
     closed: {
       scale: 0,
       x: "-50%",
       y: "-50%",
-      transition: { duration: 0.4, ease: [0.32, 0, 0.67, 0] },
+      opacity: 0,
+      transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
     },
   };
   const [modal, setModal] = useState({ active: false, index: 0 });
@@ -142,32 +144,32 @@ const index = () => {
   useEffect(() => {
     if (!modalContainer.current || !cursor.current || !cursorLabel.current)
       return;
-    //Move Container
+    //Move Container – smooth follow
     xMoveContainer.current = gsap.quickTo(modalContainer.current, "left", {
-      duration: 0.8,
-      ease: "power3",
+      duration: 0.72,
+      ease: "power2.out",
     });
     yMoveContainer.current = gsap.quickTo(modalContainer.current, "top", {
-      duration: 0.8,
-      ease: "power3",
+      duration: 0.72,
+      ease: "power2.out",
     });
-    //Move cursor
+    //Move cursor – snappy but smooth
     xMoveCursor.current = gsap.quickTo(cursor.current, "left", {
-      duration: 0.5,
-      ease: "power3",
+      duration: 0.4,
+      ease: "power2.out",
     });
     yMoveCursor.current = gsap.quickTo(cursor.current, "top", {
-      duration: 0.5,
-      ease: "power3",
+      duration: 0.4,
+      ease: "power2.out",
     });
     //Move cursor label
     xMoveCursorLabel.current = gsap.quickTo(cursorLabel.current, "left", {
-      duration: 0.45,
-      ease: "power3",
+      duration: 0.38,
+      ease: "power2.out",
     });
     yMoveCursorLabel.current = gsap.quickTo(cursorLabel.current, "top", {
-      duration: 0.45,
-      ease: "power3",
+      duration: 0.38,
+      ease: "power2.out",
     });
 
   }, []);
