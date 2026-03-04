@@ -50,7 +50,7 @@ export const usePageTransition = () => {
         setShowPageNamePreloader(false);
         setIsLoading(false);
         setShouldBlockContent(false);
-      }, 800); // Reduced from 1200ms to 800ms for faster transitions
+      }, 380);
       
       // Update previous path
       previousPathRef.current = pathname;

@@ -2,7 +2,7 @@
 import styles from './stylefooter.module.scss';
 import Image from 'next/image';
 import RoundedButton from '../../common/roundedbutton';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useScroll, motion, useTransform, useSpring } from 'framer-motion';
 import Magnetic from '../../common/magnetic';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,22 @@ import { useRouter } from 'next/navigation';
 export default function Contact() {
     const container = useRef(null);
     const router = useRouter();
+    const [currentTime, setCurrentTime] = useState('');
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+            const hours = istTime.getUTCHours();
+            const minutes = istTime.getUTCMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            setCurrentTime(`${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm} IST`);
+        };
+        updateTime();
+        const interval = setInterval(updateTime, 60000);
+        return () => clearInterval(interval);
+    }, []);
     const { scrollYProgress } = useScroll({
         target: container,
         offset: ["start end", "end end"]
@@ -49,41 +65,46 @@ export default function Contact() {
                         <RoundedButton>
                             <p>gjain0229@gmail.com</p>
                         </RoundedButton>
-                        <RoundedButton>
-                            <p>+91 8949956653</p>
-                        </RoundedButton>
                 </div>
                 <div className={styles.info}>
-                    <div>
+                    <div className={styles.infoLeft}>
                         <span>
                             <h3>Version</h3>
                             <p>2026 © Edition</p>
                         </span>
+                        {currentTime && (
+                            <span>
+                                <h3>Local Time</h3>
+                                <p>{currentTime}</p>
+                            </span>
+                        )}
                     </div>
-                    <div>
+                    <div className={styles.infoRight}>
                         <span>
-                            <h3>socials</h3>
-                            <Magnetic>
-                                <a href="https://www.linkedin.com/in/this-is-gaurav-jain/" target="_blank" rel="noopener noreferrer">
-                                    <p>LinkedIn</p>
-                                </a>
-                            </Magnetic>
+                            <h3>Socials</h3>
+                            <div className={styles.socialRow}>
+                                <Magnetic>
+                                    <a href="https://www.linkedin.com/in/this-is-gaurav-jain/" target="_blank" rel="noopener noreferrer">
+                                        <p>LinkedIn</p>
+                                    </a>
+                                </Magnetic>
+                                <Magnetic>
+                                    <a href="https://github.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
+                                        <p>Github</p>
+                                    </a>
+                                </Magnetic>
+                                <Magnetic>
+                                    <a href="https://x.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
+                                        <p>X</p>
+                                    </a>
+                                </Magnetic>
+                                <Magnetic>
+                                    <a href="https://www.instagram.com/gauravjain0377/" target="_blank" rel="noopener noreferrer">
+                                        <p>Instagram</p>
+                                    </a>
+                                </Magnetic>
+                            </div>
                         </span>
-                        <Magnetic>
-                            <a href="https://github.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
-                                <p>Github</p>
-                            </a>
-                        </Magnetic>
-                        <Magnetic>
-                            <a href="https://x.com/gauravjain0377" target="_blank" rel="noopener noreferrer">
-                                <p>X</p>
-                            </a>
-                        </Magnetic>
-                        <Magnetic>
-                            <a href="https://www.instagram.com/gauravjain0377/" target="_blank" rel="noopener noreferrer">
-                                <p>Instagram</p>
-                            </a>
-                        </Magnetic>
                     </div>
                 </div>
             </div>

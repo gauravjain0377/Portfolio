@@ -88,6 +88,28 @@ const workExperience = [
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
+      {/* Hero Section */}
+      <motion.div 
+        className={styles.worksHero}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+      >
+        <span className={styles.heroBadge}>Experience</span>
+        <h1>Work Experience</h1>
+        <p>My professional journey, internships, and contributions to real-world projects</p>
+        <div className={styles.heroStats}>
+          <div className={styles.heroStat}>
+            <span className={styles.heroStatNum}>{workExperience.length}</span>
+            <span className={styles.heroStatLabel}>Roles</span>
+          </div>
+          <div className={styles.heroStat}>
+            <span className={styles.heroStatNum}>2+</span>
+            <span className={styles.heroStatLabel}>Years</span>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Header Section */}
       <motion.div 
         className={styles.worksHeader}
@@ -95,8 +117,8 @@ const workExperience = [
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
       >
-        <h1>Work Experience</h1>
-        <p>My professional journey and contributions</p>
+        <h2>Timeline</h2>
+        <p>Explore each role for details</p>
       </motion.div>
 
       {/* Visual Separator */}

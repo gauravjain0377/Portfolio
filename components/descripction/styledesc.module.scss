@@ -40,36 +40,36 @@
 
 @media (max-width: 768px) {
   .dec {
-    margin-top: 40px !important;
-    padding-left: 60px !important;
-    padding-right: 60px !important;
+    margin-top: clamp(32px, 6vw, 48px) !important;
+    padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 32px) clamp(36px, 6vw, 56px) !important;
   }
   .body {
-    gap: 15px !important;
-    grid-template-columns: 1fr; /* stack on mobile */
-    row-gap: 16px !important;
+    gap: 16px !important;
+    grid-template-columns: 1fr;
+    row-gap: 18px !important;
 
     > div {
-      justify-self: start; /* place button below text, left aligned */
+      justify-self: start;
       align-self: start;
     }
 
     p {
       &:nth-of-type(1) {
-        font-size: 20px !important;
+        font-size: clamp(18px, 4vw, 22px) !important;
+        line-height: 1.45;
       }
       &:nth-of-type(2) {
-        width: 90%;
-        font-size: 16px;
+        width: 95%;
+        font-size: clamp(14px, 2.5vw, 16px);
       }
     }
   }
   .button {
-    width: 110px !important;
-    height: 110px !important;
+    width: clamp(100px, 22vw, 130px) !important;
+    height: clamp(100px, 22vw, 130px) !important;
     
     p {
-      font-size: 16px !important;
+      font-size: 15px !important;
     }
   }
 }
@@ -105,29 +105,35 @@
 
 @media (max-width: 480px) {
   .dec {
-    margin-top: 25px !important;
-    padding-left: 25px !important;
-    padding-right: 25px !important;
+    margin-top: clamp(20px, 5vw, 32px) !important;
+    padding: clamp(20px, 5vw, 28px) clamp(16px, 4vw, 24px) clamp(28px, 6vw, 40px) !important;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    margin-left: clamp(12px, 3vw, 20px) !important;
+    margin-right: clamp(12px, 3vw, 20px) !important;
+    border: 1px solid var(--border-color);
   }
   .body {
-    gap: 10px !important;
+    gap: 12px !important;
 
     p {
       &:nth-of-type(1) {
-        font-size: 16px !important;
+        font-size: 17px !important;
+        line-height: 1.5;
       }
       &:nth-of-type(2) {
         width: 100%;
-        font-size: 13px;
+        font-size: 14px;
       }
     }
   }
   .button {
-    width: 90px !important;
-    height: 90px !important;
+    width: 140px !important;
+    height: 48px !important;
+    border-radius: 24px !important;
     
     p {
-      font-size: 14px !important;
+      font-size: 15px !important;
     }
   }
 }

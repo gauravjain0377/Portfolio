@@ -197,6 +197,7 @@ const index = () => {
   
   return (
     <motion.main
+      id="projects"
       className={styles.projects}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
@@ -323,33 +324,40 @@ const index = () => {
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button */}
               <button
                 type="button"
                 className={styles.closeDetails}
                 onClick={() => setActiveProjectIndex(null)}
                 aria-label="Close project details"
               >
-                Close
+                ×
               </button>
 
+              {/* Full-bleed cover image with title overlay */}
               <div
                 className={styles.detailsImageWrap}
                 style={{ backgroundColor: projects[activeProjectIndex].color }}
               >
                 <Image
                   src={`/images/${projects[activeProjectIndex].src}`}
-                  width={520}
-                  height={320}
                   alt={`${projects[activeProjectIndex].title} preview`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  style={{ objectFit: "contain", objectPosition: "center center" }}
                 />
+                <p className={styles.detailsImageTitle}>
+                  {projects[activeProjectIndex].title}
+                </p>
               </div>
 
+              {/* Content */}
               <div className={styles.detailsContent}>
                 <h3>{projects[activeProjectIndex].title}</h3>
                 <p>{projects[activeProjectIndex].description}</p>
 
                 <div className={styles.stackSection}>
-                  <h4>Tech Stack</h4>
+                  <div className={styles.sectionHeading}><h4>Tech Stack</h4></div>
                   <div className={styles.stackTags}>
                     {projects[activeProjectIndex].techStack.map((item) => (
                       <span key={item}>{item}</span>
@@ -358,7 +366,7 @@ const index = () => {
                 </div>
 
                 <div className={styles.highlightsSection}>
-                  <h4>Project Highlights</h4>
+                  <div className={styles.sectionHeading}><h4>Highlights</h4></div>
                   <ul>
                     {projects[activeProjectIndex].highlights.map((item) => (
                       <li key={item}>{item}</li>
@@ -378,7 +386,7 @@ const index = () => {
                     rel="noopener noreferrer"
                     className={styles.primaryAction}
                   >
-                    Live Project
+                    Live Project ↗
                   </a>
                   <a
                     href={projects[activeProjectIndex].githubUrl}

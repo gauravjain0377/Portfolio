@@ -72,7 +72,19 @@ const About = () => {
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Hero Section */}
+      {/* Page Hero */}
+      <motion.div 
+        className={styles.pageHero}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
+      >
+        <span className={styles.heroLabel}>About Me</span>
+        <h1>Fueling the web with logic, design, and purpose.</h1>
+        <p>Full-stack developer • B.Tech IT • Building modern web experiences</p>
+      </motion.div>
+
+      {/* Main Content Section */}
       <motion.div 
         className={styles.content}
         style={{ y }}
@@ -84,13 +96,13 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className={styles.heading}>
-            <motion.h1
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Fueling the web with logic, design, and purpose.
-            </motion.h1>
+              My Story
+            </motion.h2>
             <motion.div 
               className={styles.globeButton}
               whileHover={{ scale: 1.1, rotate: 360 }}

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import ContactFooter from "@/components/contact/Contact";
 import styles from "./page.module.scss";
 
 const Contact = () => {
@@ -100,6 +99,18 @@ const Contact = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
+      {/* Hero Section */}
+      <motion.div 
+        className={styles.contactHero}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        <span className={styles.heroTag}>Get in Touch</span>
+        <h1>Let's build something great together</h1>
+        <p>Have a project in mind? Drop a message and I'll get back within 24 hours.</p>
+      </motion.div>
+
       {/* Main Content */}
       <div className={styles.mainContent}>
         <motion.div 
@@ -108,14 +119,14 @@ const Contact = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className={styles.mainHeading}
           >
-            Let's start a project together
-          </motion.h1>
+            Start your project
+          </motion.h2>
           
           <motion.div 
             className={styles.contactForm}

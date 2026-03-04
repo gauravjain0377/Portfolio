@@ -1,10 +1,55 @@
 .contactPage {
   width: 100%;
-  min-height: 120vh; /* Increased height to make page bigger */
+  min-height: 100vh;
   position: relative;
   background: var(--bg-primary);
   transition: background-color 0.3s ease;
-  padding-top: clamp(40px, 8vw, 60px); /* Aligned with About and Work pages */
+  padding-top: clamp(24px, 4vw, 40px);
+}
+
+/* Contact Hero */
+.contactHero {
+  text-align: center;
+  padding: clamp(32px, 6vw, 56px) clamp(20px, 5vw, 48px);
+  margin: 0 clamp(20px, 5vw, 80px) clamp(32px, 6vw, 56px);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+
+  .heroTag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(69, 92, 233, 0.12);
+    color: var(--accent-color);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    margin-bottom: clamp(14px, 2vw, 20px);
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 clamp(10px, 1.5vw, 16px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: clamp(16px, 4vw, 32px);
+    margin-right: clamp(16px, 4vw, 32px);
+    margin-bottom: clamp(24px, 5vw, 40px);
+  }
 }
 
 .contactContainer {
@@ -56,16 +101,16 @@
 }
 
 .mainHeading {
-  font-size: 4rem;
-  font-weight: 900;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.1;
-  margin: 0;
-  letter-spacing: -0.03em;
+  line-height: 1.3;
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  letter-spacing: -0.02em;
   transition: color 0.3s ease;
 
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
   }
 }
 

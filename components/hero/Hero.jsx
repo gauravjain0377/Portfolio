@@ -2,302 +2,142 @@
 import Image from "next/image";
 import Link from "next/link";
 import Style from "./heroStyle.module.scss";
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+const TECH_TAGS = ["React", "Next.js", "Node.js", "AI", "Gen AI"];
 
 const Hero = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
 
-  // Subtle parallax effect without fade/blur
-  const yTransform = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  // Keep opacity at 1 - no fade effect
-  const opacityTransform = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  useEffect(() => { setIsMounted(true); }, []);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Animation variants
-  const containerVariants = {
+  const containerVar = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
+      transition: { staggerChildren: 0.08, delayChildren: 0.03 },
+    },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+  const itemVar = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
-    }
+      opacity: 1, y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9, x: 50 },
+  const imageVar = {
+    hidden: { opacity: 0, scale: 0.96 },
     visible: {
-      opacity: 1,
-      scale: 1,
-      x: 0,
-      transition: {
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.3
-      }
-    }
-  };
-
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+      opacity: 1, scale: 1,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 },
+    },
   };
 
   return (
     <motion.section
-      ref={containerRef}
       className={Style.heroSection}
       initial="hidden"
       animate={isMounted ? "visible" : "hidden"}
-      variants={containerVariants}
+      variants={containerVar}
     >
-      {/* Animated Background Shapes */}
-      <div className={Style.backgroundShapes}>
-        <motion.div
-          className={Style.shape1}
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className={Style.shape2}
-          animate={{
-            x: [0, -80, 0],
-            y: [0, -60, 0],
-            scale: [1, 0.9, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className={Style.shape3}
-          animate={{
-            x: [0, 60, 0],
-            y: [0, -40, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
+      {/* Top bar */}
+      <motion.div className={Style.topBar} variants={itemVar}>
+        <div className={Style.statusBadge}>
+          <span className={Style.statusDot} />
+          Available for work
+        </div>
+        <div className={Style.topBarRight}>
+          <span className={Style.topPill}>MERN Stack</span>
+          <span className={Style.yearLabel}>© 2026</span>
+        </div>
+      </motion.div>
 
-      {/* Gradient Overlay */}
-      <div className={Style.gradientOverlay} />
-
-      {/* Main Content Container */}
-      <div className={Style.contentContainer}>
-        {/* Left Side - Text Content */}
-        <motion.div
-          className={Style.textContent}
-          variants={itemVariants}
-        >
-          {/* Greeting */}
-          <motion.div
-            className={Style.greeting}
-            variants={itemVariants}
-          >
-            <span className={Style.greetingText}>Hello, I'm</span>
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1
-            className={Style.name}
-            variants={itemVariants}
-          >
-            <span className={Style.nameFirst}>Gaurav</span>
-            <span className={Style.nameLast}>Jain</span>
+      {/* Bento grid layout */}
+      <div className={Style.bentoGrid}>
+        {/* ── Left column: text ── */}
+        <div className={Style.bentoText}>
+          <motion.h1 className={Style.heroName} variants={itemVar}>
+            <span className={Style.nameRow1}>Gaurav</span>
+            <span className={Style.nameRow2}>Jain</span>
           </motion.h1>
 
-          {/* Tagline */}
-          <motion.p
-            className={Style.tagline}
-            variants={itemVariants}
-          >
-            Software Engineer
+          <motion.div className={Style.roleRow} variants={itemVar}>
+            <span className={Style.roleLine} />
+            <span className={Style.roleText}>Full–Stack Developer</span>
+          </motion.div>
+
+          <motion.p className={Style.heroDesc} variants={itemVar}>
+            Building modern web experiences that bridge design and
+            engineering — React, Next.js, AI integrations.
           </motion.p>
 
-          {/* Description */}
-          <motion.p
-            className={Style.description}
-            variants={itemVariants}
-          >
-            Crafting digital experiences with code, creativity, and passion.
-            Building the future, one line at a time.
-          </motion.p>
+          <motion.div className={Style.statsRow} variants={itemVar}>
+            <div className={Style.statCard}>
+              <span className={Style.statNum}>6+</span>
+              <span className={Style.statLabel}>Projects</span>
+            </div>
+            <span className={Style.statDivider} />
+            <div className={Style.statCard}>
+              <span className={Style.statNum}>∞</span>
+              <span className={Style.statLabel}>Commits</span>
+            </div>
+          </motion.div>
 
-          {/* CTA Button */}
-          <motion.div
-            className={Style.ctaContainer}
-            variants={itemVariants}
-          >
+          <motion.div className={Style.ctaRow} variants={itemVar}>
             <Link
               href="https://drive.google.com/file/d/1-gWVeqZ3QND-XvHS_2yLqmSVS1vZySO_/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Open resume in a new tab"
-              className={Style.resumeButton}
+              className={Style.resumeBtn}
             >
-              <span>View Resume</span>
-              <motion.svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={Style.buttonIcon}
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <path
-                  d="M7.5 15L12.5 10L7.5 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </motion.svg>
+              View Resume
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor"
+                  strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
+            <a href="#projects" className={Style.seeWorkBtn}>
+              See Projects
+            </a>
           </motion.div>
-        </motion.div>
+        </div>
 
-        {/* Right Side - Image */}
-        <motion.div
-          className={Style.imageWrapper}
-          variants={imageVariants}
-          style={{ y: yTransform }}
-        >
-          <motion.div
-            className={Style.imageContainer}
-            variants={floatingVariants}
-            animate="animate"
-          >
-            <div className={Style.imageGlow} />
+        {/* ── Right column: image ── */}
+        <motion.div className={Style.bentoImage} variants={imageVar}>
+          <div className={Style.imageGlow} aria-hidden="true" />
+          <div className={Style.imageFrame}>
             <Image
               src="/images/Gaurav_Hero.png"
-              alt="Gaurav Jain - Software Engineer"
-              priority
+              alt="Gaurav Jain — Full-Stack Developer"
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className={Style.heroImage}
+              priority
               quality={90}
-              loading="eager"
-              onError={(e) => {
-                console.error('Failed to load hero image on gauravjain.tech');
-                // Don't hide, show placeholder or retry
-                const img = e.target;
-                if (img && img.src) {
-                  // Retry loading with a different approach
-                  setTimeout(() => {
-                    img.src = img.src.split('?')[0] + '?t=' + Date.now();
-                  }, 100);
-                }
-              }}
-              onLoad={() => {
-                console.log('Hero image loaded successfully on gauravjain.tech');
-              }}
+              sizes="(max-width: 768px) 72vw, 38vw"
+              className={Style.heroImage}
             />
-            <div className={Style.imageBorder} />
-          </motion.div>
-
-          {/* Decorative Elements around Image */}
-          <div className={Style.decorativeElements}>
-            <motion.div
-              className={Style.decorativeDot1}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div
-              className={Style.decorativeDot2}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5
-              }}
-            />
-            <motion.div
-              className={Style.decorativeDot3}
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-            />
+            <div className={Style.imageOverlay} aria-hidden="true" />
+            <span className={Style.bracketTL} aria-hidden="true" />
+            <span className={Style.bracketBR} aria-hidden="true" />
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className={Style.scrollIndicator}
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <div className={Style.scrollLine} />
+      {/* Tech tags — inline row, never clipped on mobile */}
+      <motion.div className={Style.techStrip} variants={itemVar}>
+        {TECH_TAGS.map((label, i) => (
+          <motion.span
+            key={label}
+            className={Style.techPill}
+            initial={{ opacity: 0 }}
+            animate={isMounted ? { opacity: 1 } : {}}
+            transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
+          >
+            {label}
+          </motion.span>
+        ))}
       </motion.div>
     </motion.section>
   );
