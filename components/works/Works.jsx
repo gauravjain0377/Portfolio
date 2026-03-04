@@ -1,10 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Works.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Works = () => {
   const [expandedItem, setExpandedItem] = useState(null);
+  const expandedCardRef = useRef(null);
+
+  // On mobile: scroll expanded card into view so details are visible
+  useEffect(() => {
+    if (!expandedItem || !expandedCardRef.current) return;
+    const isSmall = typeof window !== "undefined" && window.innerWidth < 768;
+    if (isSmall) {
+      const timer = setTimeout(() => {
+        expandedCardRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, [expandedItem]);
 
 const workExperience = [
   {
@@ -130,22 +143,24 @@ const workExperience = [
       />
 
       <motion.div 
-        className={styles.timeline}
+        className={styles.timelineSection}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
       >
-        <motion.div 
-          className={styles.timelineLine}
-          initial={{ scaleX: 0, transformOrigin: "left" }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
-        ></motion.div>
-        
-        {workExperience.map((work, index) => (
-          <motion.div
-            key={work.id}
-            className={styles.workCard}
+        <div className={styles.timeline}>
+          <motion.div 
+            className={styles.timelineLine}
+            initial={{ scaleX: 0, transformOrigin: "left" }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.0, delay: 0.6, ease: "easeOut" }}
+          ></motion.div>
+          
+          {workExperience.map((work, index) => (
+            <motion.div
+              key={work.id}
+              ref={expandedItem === work.id ? expandedCardRef : null}
+              className={styles.workCard}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -336,6 +351,7 @@ const workExperience = [
             </div>
           </motion.div>
         ))}
+        </div>
       </motion.div>
     </motion.div>
   );
