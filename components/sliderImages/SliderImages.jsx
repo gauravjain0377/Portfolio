@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const ALL_IMAGES = [
-  { src: "VHG.png",            label: "VHG"           },
+  { src: "portfolio_projects.png",            label: "Projects"           },
   { src: "Stox.png",           label: "StockSathi"    },
   { src: "HackZen.png",        label: "HackZen"       },
   { src: "understanding.png",  label: "Understanding" },

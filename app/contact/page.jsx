@@ -294,11 +294,7 @@ const Contact = () => {
                       gjain0229@gmail.com
                     </a>
                   </div>
-                  <div className={styles.detailItem}>
-                    <a href="tel:+91XXXXXXXXXX" className={styles.detailValue}>
-                      +91 8949956653
-                    </a>
-                  </div>
+                  
                 </div>
               </div>
 
@@ -311,9 +307,7 @@ const Contact = () => {
                   <div className={styles.detailItem}>
                     <span className={styles.detailValue}>Software Engineer</span>
                   </div>
-                  <div className={styles.detailItem}>
-                    <span className={styles.detailValue}>Location: Jaipur, India</span>
-                  </div>
+                 
                 </div>
               </div>
 
