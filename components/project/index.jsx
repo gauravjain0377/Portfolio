@@ -265,8 +265,11 @@ const index = () => {
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 92vw, 44vw"
-                      style={{ objectFit: "contain" }}
+                      style={{ objectFit: "cover" }}
                     />
+                  </div>
+                  <div className={styles.modalOverlay}>
+                    <span className={styles.modalProjectName}>{project.title}</span>
                   </div>
                 </div>
               );
@@ -297,7 +300,7 @@ const index = () => {
               if (!active || !projects[index]) e.preventDefault();
             }}
           >
-            View
+            ↗
           </a>
         </motion.div>
         </>
