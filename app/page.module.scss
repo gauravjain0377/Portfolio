@@ -5,3 +5,34 @@
   background: var(--bg-primary);
   transition: background-color 0.3s ease;
 }
+
+/* Mobile: add breathing room between sections */
+@media (max-width: 768px) {
+  .main {
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
+  }
+  .main > *:not(:last-child) {
+    margin-bottom: clamp(36px, 7vw, 52px);
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding-left: clamp(20px, 5vw, 28px);
+    padding-right: clamp(20px, 5vw, 28px);
+  }
+  .main > *:not(:last-child) {
+    margin-bottom: clamp(48px, 10vw, 64px);
+  }
+}
+
+@media (max-width: 390px) {
+  .main {
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
+  }
+  .main > *:not(:last-child) {
+    margin-bottom: clamp(40px, 9vw, 56px);
+  }
+}

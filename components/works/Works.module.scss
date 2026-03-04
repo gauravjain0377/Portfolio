@@ -122,6 +122,11 @@
     letter-spacing: -0.02em;
   }
 
+  .heroStatText {
+    font-size: clamp(18px, 3vw, 26px);
+    letter-spacing: 0.02em;
+  }
+
   .heroStatLabel {
     font-size: 12px;
     font-weight: 600;

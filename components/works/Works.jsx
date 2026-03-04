@@ -101,11 +101,11 @@ const workExperience = [
         <div className={styles.heroStats}>
           <div className={styles.heroStat}>
             <span className={styles.heroStatNum}>{workExperience.length}</span>
-            <span className={styles.heroStatLabel}>Roles</span>
+            <span className={styles.heroStatLabel}>Internships</span>
           </div>
           <div className={styles.heroStat}>
-            <span className={styles.heroStatNum}>2+</span>
-            <span className={styles.heroStatLabel}>Years</span>
+            <span className={`${styles.heroStatNum} ${styles.heroStatText}`}>MERN</span>
+            <span className={styles.heroStatLabel}>Stack</span>
           </div>
         </div>
       </motion.div>
@@ -224,53 +224,38 @@ const workExperience = [
                 </button>
               </div>
 
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 {expandedItem === work.id && (
                   <motion.div
                     className={styles.expandedContent}
                     initial={{ 
                       opacity: 0, 
-                      height: 0, 
-                      scale: 0.98,
+                      height: 0,
                       marginTop: 0,
                       paddingTop: 0
                     }}
                     animate={{ 
                       opacity: 1, 
-                      height: "auto", 
-                      scale: 1,
-                      marginTop: "clamp(16px, 4vw, 24px)",
-                      paddingTop: "clamp(16px, 4vw, 24px)"
+                      height: "auto",
+                      marginTop: 24,
+                      paddingTop: 24
                     }}
                     exit={{ 
                       opacity: 0, 
-                      height: 0, 
-                      scale: 0.98,
+                      height: 0,
                       marginTop: 0,
                       paddingTop: 0
                     }}
                     transition={{ 
-                      duration: 0.25,
-                      ease: [0.25, 0.46, 0.45, 0.94],
+                      duration: 0.4,
+                      ease: [0.32, 0.72, 0, 1],
                       opacity: { 
-                        duration: 0.2,
+                        duration: 0.3,
                         ease: "easeOut"
                       },
                       height: { 
-                        duration: 0.25, 
-                        ease: [0.25, 0.46, 0.45, 0.94] 
-                      },
-                      scale: { 
-                        duration: 0.2, 
-                        ease: [0.25, 0.46, 0.45, 0.94] 
-                      },
-                      marginTop: {
-                        duration: 0.25,
-                        ease: [0.25, 0.46, 0.45, 0.94]
-                      },
-                      paddingTop: {
-                        duration: 0.25,
-                        ease: [0.25, 0.46, 0.45, 0.94]
+                        duration: 0.4, 
+                        ease: [0.32, 0.72, 0, 1] 
                       }
                     }}
                     style={{ overflow: "hidden" }}
