@@ -176,9 +176,9 @@
   .detailsOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(8, 8, 10, 0.65);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(8, 8, 10, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 30;
     display: flex;
     align-items: center;
@@ -188,48 +188,61 @@
 
   /* ── Details modal ── */
   .detailsModal {
-    width: min(1060px, 100%);
-    max-height: min(90vh, 860px);
+    width: min(1100px, 100%);
+    max-height: min(90vh, 900px);
     background: var(--card-bg);
-    border-radius: 22px;
+    border-radius: 24px;
     overflow: hidden;
     position: relative;
     box-shadow:
-      0 40px 100px -16px rgba(0, 0, 0, 0.32),
-      0 0 0 1px rgba(255, 255, 255, 0.06);
+      0 48px 120px -20px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 24px 48px -12px rgba(0, 0, 0, 0.15);
     display: grid;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 420px 1fr;
   }
 
-  /* Close button — top right */
-  .closeDetails {
+  /* New close button — outside modal, fixed to overlay top-right */
+  .modalCloseBtn {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 36px;
-    height: 36px;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.6);
     color: #fff;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    z-index: 10;
-    transition: background 0.18s ease, transform 0.18s ease;
+    z-index: 50;
+    transition: background 0.2s ease, transform 0.2s ease;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.7);
-      transform: scale(1.08);
+      background: rgba(0, 0, 0, 0.85);
+      transform: scale(1.05);
     }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .modalCloseIcon {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+    user-select: none;
   }
 
   /* ── Image panel — full screenshot visible ── */
   .detailsImageWrap {
     position: relative;
+    z-index: 0;
     overflow: hidden;
     min-height: 420px;
     display: flex;
@@ -275,6 +288,8 @@
 
   /* ── Content panel ── */
   .detailsContent {
+    position: relative;
+    z-index: 0;
     padding: clamp(28px, 3.5vw, 48px) clamp(20px, 3vw, 40px) clamp(20px, 2.5vw, 32px);
     overflow-y: auto;
     max-height: min(90vh, 860px);
@@ -289,7 +304,7 @@
     }
 
     h3 {
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       font-size: clamp(22px, 3vw, 34px);
       color: var(--text-primary);
       line-height: 1.15;
@@ -297,8 +312,17 @@
       font-weight: 700;
     }
 
-    > p {
-      margin: 0;
+    .detailsSummary {
+      margin: 0 0 10px;
+      font-size: clamp(13px, 1.5vw, 14px);
+      font-weight: 500;
+      color: var(--accent-color);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .detailsDescription {
+      margin: 0 0 4px;
       color: var(--text-secondary);
       line-height: 1.68;
       font-size: clamp(13.5px, 1.6vw, 15.5px);
@@ -310,7 +334,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 22px 0 10px;
+    margin: 24px 0 12px;
 
     &::before {
       content: "";
@@ -332,7 +356,10 @@
     }
   }
 
-  .stackSection,
+  .stackSection {
+    margin-top: 0;
+  }
+
   .highlightsSection {
     margin-top: 0;
   }
@@ -340,17 +367,30 @@
   .stackTags {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 8px;
 
     span {
+      display: inline-block;
       border-radius: 8px;
       border: 1px solid var(--border-color);
       background: var(--bg-secondary);
-      padding: 5px 12px;
+      padding: 6px 14px;
       font-size: 12px;
       font-weight: 500;
       color: var(--text-primary);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
+      cursor: default;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.22s ease,
+                  border-color 0.2s ease,
+                  background 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 16px rgba(69, 92, 233, 0.2);
+        border-color: rgba(69, 92, 233, 0.4);
+        background: rgba(69, 92, 233, 0.08);
+      }
     }
   }
 
@@ -360,51 +400,35 @@
       padding: 0;
       list-style: none;
       display: grid;
-      gap: 7px;
+      gap: 10px;
     }
 
     li {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       font-size: clamp(13px, 1.4vw, 14.5px);
       color: var(--text-secondary);
-      line-height: 1.55;
+      line-height: 1.6;
 
       &::before {
         content: "→";
         color: var(--accent-color);
         flex-shrink: 0;
         font-size: 12px;
+        font-weight: 600;
         margin-top: 2px;
       }
     }
   }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
-
-    span {
-      border-radius: 999px;
-      border: 1px solid rgba(69, 92, 233, 0.28);
-      background: rgba(69, 92, 233, 0.06);
-      padding: 5px 12px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--accent-color);
-      letter-spacing: 0.02em;
-    }
-  }
-
   .modalActions {
-    margin-top: 20px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .primaryAction {
@@ -451,6 +475,20 @@
   }
 }
 
+/* Tablet: stack modal earlier for better readability */
+@media (max-width: 900px) {
+  .projects {
+    .detailsModal {
+      grid-template-columns: 1fr;
+      max-width: min(560px, 100%);
+    }
+
+    .detailsImageWrap {
+      min-height: 300px;
+    }
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .projects {
@@ -481,35 +519,43 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      border-radius: 20px 20px 0 0;
-      max-height: 92vh;
+      max-width: 100%;
+      border-radius: 24px 24px 0 0;
+      max-height: 94vh;
       overflow: hidden;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+      padding-bottom: env(safe-area-inset-bottom, 0);
     }
 
     .detailsImageWrap {
-      min-height: 280px;
-      max-height: 340px;
+      min-height: 260px;
+      max-height: 320px;
       flex-shrink: 0;
       padding: 20px 16px 16px;
     }
 
     .detailsContent {
-      padding: 20px 18px 28px;
+      padding: 24px 20px 32px;
       max-height: unset;
       overflow-y: auto;
       flex: 1;
+      -webkit-overflow-scrolling: touch;
 
-      h3 { font-size: clamp(20px, 5vw, 28px); margin-bottom: 6px; }
+      h3 { font-size: clamp(20px, 5vw, 28px); margin-bottom: 4px; }
+      .detailsSummary { margin-bottom: 8px; }
     }
 
     .modalActions {
       flex-direction: row;
       flex-wrap: wrap;
+      margin-top: 24px;
+      padding-top: 18px;
     }
 
     .primaryAction,
     .secondaryAction {
       flex: 1;
+      min-width: 140px;
       text-align: center;
       justify-content: center;
     }
@@ -539,11 +585,13 @@
     }
 
     .detailsContent {
-      padding: 18px 16px 24px;
+      padding: 20px 16px 28px;
+      padding-bottom: calc(28px + env(safe-area-inset-bottom, 0));
     }
 
     .modalActions {
       flex-direction: column;
+      gap: 10px;
       
       .primaryAction,
       .secondaryAction {

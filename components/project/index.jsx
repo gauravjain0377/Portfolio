@@ -13,13 +13,16 @@ const index = () => {
       color: "#000000",
       githubUrl: "https://github.com/gauravjain0377/InboxPilot-AI.git",
       liveUrl: "https://inboxpilot-ai.vercel.app/",
+      summary: "AI-powered Gmail assistant for smart categorization, summarization, and automated replies.",
       description:
-        "InboxPilot AI is an AI-driven email productivity platform built to reduce manual drafting time and improve communication quality. It helps users generate contextual replies, rewrite message tone, and prioritize high-impact conversations so inbox management becomes faster and more strategic.",
-      techStack: ["Next.js", "React", "OpenAI API", "Node.js", "Tailwind CSS"],
+        "It provide an intelligent dashboard that categorizes emails, summarizes lengthy threads, and generates context-aware replies with tone options. Uses Google Gemini API for AI processing and OAuth 2.0 for secure token management.",
+      techStack: ["React", "Next.js", "Node.js", "Express", "MongoDB", "Google Gemini"],
       highlights: [
-        "Context-aware drafting and rewriting",
-        "Priority-focused inbox workflow",
-        "Clean responsive product experience",
+        "Deep Gmail integration: read, compose, reply, archive from dashboard",
+        "One-click AI summarization for email threads in under 3 seconds",
+        "Smart AI replies with tone selection (formal, friendly, short)",
+        "Automated priority categorization (Work, Finance, Meeting, Promotions)",
+        "Analytics dashboard for inbox metrics and category breakdowns",
       ],
     },
     {
@@ -28,28 +31,34 @@ const index = () => {
       color: "#000000",
       githubUrl: "https://github.com/gauravjain0377/Stox.git",
       liveUrl: "https://stocksathi.vercel.app/",
+      summary: "Real-time stock trading and portfolio management platform with live market data.",
       description:
-        "StockSathi is a stock analysis and tracking application focused on making investment decisions easier through visual data. It provides a streamlined dashboard for following market movement, understanding trends quickly, and monitoring relevant stock insights from one place.",
-      techStack: ["React", "Node.js", "Express", "MongoDB", "Chart.js"],
+        "Full-stack platform integrating real-time market tracking, portfolio analytics, and simulated trading. Uses batch-quote architecture with Yahoo Finance API to prevent rate limits. WebSocket-based live updates with JWT auth and transactional email verification via Brevo.",
+      techStack: ["React", "Node.js", "Express", "MongoDB", "Socket.io", "Tailwind CSS"],
       highlights: [
-        "Interactive stock analytics dashboard",
-        "Simple insights for faster decision-making",
-        "Mobile-friendly market tracking experience",
+        "Real-time market tracking with interactive charts",
+        "Portfolio management with holdings, performance analytics, and history",
+        "Batch API requests with exponential backoff to eliminate 429 errors",
+        "Simulated buy/sell order management system",
+        "Responsive UI optimized for desktop and mobile",
       ],
     },
     {
       title: "HackZen",
       src: "HackZen.png",
       color: "#8C8C8C",
-      githubUrl: "https://github.com/Nitinjainn/STPI-Project.git",
-      liveUrl: "https://devora-dev.vercel.app/",
+      githubUrl: "https://github.com/gauravjain0377/HackZen.git",
+      liveUrl: "https://hackzen.vercel.app/",
+      summary: "Real-time hackathon management platform connecting organizers, judges, and participants.",
       description:
-        "HackZen is a full-stack hackathon management platform created to simplify event operations for organizers, judges, and participants. It centralizes registration, team workflows, project submissions, and score-based judging into one reliable workflow.",
-      techStack: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+        "Centralized platform streamlining the hackathon lifecycle. Role-based dashboards for participants (team formation, project submission), organizers (phase management, review), and judges (scoring). Socket.IO for live chat and notifications; Cloudinary for file storage.",
+      techStack: ["React", "Node.js", "Express", "MongoDB", "Socket.IO", "Cloudinary"],
       highlights: [
-        "Role-based portals for event stakeholders",
-        "Submission and judging lifecycle management",
-        "Real-time updates for smoother event execution",
+        "Role-based portals: Participants, Organizers, Judges, Admins",
+        "Auth: Email/Password, GitHub OAuth, Google OAuth, optional 2FA",
+        "Team formation and rich-text project submission portal",
+        "Real-time chat rooms and notifications via Socket.IO",
+        "Judging panels with custom criteria; automated certificate generation",
       ],
     },
     {
@@ -58,13 +67,16 @@ const index = () => {
       color: "#706D63",
       githubUrl: "https://github.com/gauravjain0377/Understanding.git",
       liveUrl: "https://understandingconcepts.vercel.app/",
+      summary: "Minimal thinking space with interactive visual explanations for technical concepts.",
       description:
-        "Understanding is an educational web platform designed to make technical concepts easier to grasp through structured, beginner-friendly explanations. It focuses on concept clarity first, then supports learning with practical examples and readable UI organization.",
-      techStack: ["React", "Next.js", "JavaScript", "SCSS"],
+        "Calm, distraction-free learning platform with progressive reading and custom interactive SVG diagrams. MDX-based content organized by domain (Pixels & Color, 3D & Graphics). Static-first Next.js App Router for fast load times and strong Lighthouse scores.",
+      techStack: ["Next.js", "TypeScript", "Tailwind CSS", "MDX"],
       highlights: [
-        "Concept-first learning experience",
-        "Clear content hierarchy for readability",
-        "Responsive design for study on any device",
+        "Focus Mode: scroll-tracking spotlight to minimize distractions",
+        "Concept Connections sidebar for related topics",
+        "Interactive SVG diagrams that progressively reveal",
+        "Domain-based content organization",
+        "SSG architecture for near-instant page loads",
       ],
     },
     {
@@ -73,13 +85,16 @@ const index = () => {
       color: "#EFE8D3",
       githubUrl: "https://github.com/gauravjain0377/CodeType-Arena.git",
       liveUrl: "https://codetype-arena.vercel.app/",
+      summary: "Developer-focused typing practice with real code snippets and specialized metrics.",
       description:
-        "CodeType Arena is a gamified typing and coding challenge platform built for developers who want to improve speed and precision. It introduces a competitive practice environment with immediate feedback loops that make skill-building measurable and engaging.",
-      techStack: ["Next.js", "React", "Framer Motion", "JavaScript"],
+        "12 themed arenas for typing real-world code across React, Python, SQL, Bash. Tracks Code WPM, Syntax Accuracy, Bracket Balance, Indent Precision, and Flow State. Includes keyboard-based mini-games (Char Catch, Gravity Flip) and a zen-like continuous practice mode.",
+      techStack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion"],
       highlights: [
-        "Game-like coding and typing practice",
-        "Instant performance feedback loops",
-        "Focused UI built around challenge flow",
+        "12 arenas: Syntax Sprint, Bracket Storm, React Flow, Regex Rodeo, etc.",
+        "Developer metrics: Code WPM, Syntax Accuracy, Bracket Balance, Indent Precision",
+        "Custom metric engine with non-blocking calculations on every keystroke",
+        "Canvas-based mini-games at 60 FPS inside React",
+        "Zero perceived input latency at 120+ WPM",
       ],
     },
     {
@@ -88,13 +103,16 @@ const index = () => {
       color: "#455ce9",
       githubUrl: "https://github.com/gauravjain0377/SvaraGPT.git",
       liveUrl: "https://svaragpt.vercel.app/",
+      summary: "Premium AI chat app with organized threads, projects, and robust authentication.",
       description:
-        "SvaraGPT is a voice-first AI interaction project that prioritizes natural conversational flow. It explores how voice interfaces can make AI usage feel faster, more accessible, and more intuitive compared with traditional text-only interfaces.",
-      techStack: ["Next.js", "React", "Speech APIs", "OpenAI API", "SCSS"],
+        "Polished AI assistant with Projects and Chat Threads for organization. Secure auth: email verification, optional 2FA, session management, device listings, Google OAuth. Mobile-first design with collapsible sidebar and flicker-free dark/light theme switching.",
+      techStack: ["React", "Node.js", "Express", "MongoDB", "Google Gemini API"],
       highlights: [
-        "Voice-centric conversational interaction",
-        "AI-assisted response experience",
-        "Polished UI for cross-device usability",
+        "Real-time AI chat with edit, regenerate, and feedback on messages",
+        "Projects and Chat Threads with full CRUD",
+        "Guest and authenticated flows with rate limits for guests",
+        "Production-ready CORS and secure cookie policies",
+        "Vanilla CSS variables for lightweight, accessible theming",
       ],
     },
   ];
@@ -324,16 +342,6 @@ const index = () => {
               transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
-              <button
-                type="button"
-                className={styles.closeDetails}
-                onClick={() => setActiveProjectIndex(null)}
-                aria-label="Close project details"
-              >
-                ×
-              </button>
-
               {/* Full-bleed cover image with title overlay */}
               <div
                 className={styles.detailsImageWrap}
@@ -354,7 +362,10 @@ const index = () => {
               {/* Content */}
               <div className={styles.detailsContent}>
                 <h3>{projects[activeProjectIndex].title}</h3>
-                <p>{projects[activeProjectIndex].description}</p>
+                {projects[activeProjectIndex].summary && (
+                  <p className={styles.detailsSummary}>{projects[activeProjectIndex].summary}</p>
+                )}
+                <p className={styles.detailsDescription}>{projects[activeProjectIndex].description}</p>
 
                 <div className={styles.stackSection}>
                   <div className={styles.sectionHeading}><h4>Tech Stack</h4></div>
@@ -366,17 +377,12 @@ const index = () => {
                 </div>
 
                 <div className={styles.highlightsSection}>
-                  <div className={styles.sectionHeading}><h4>Highlights</h4></div>
+                  <div className={styles.sectionHeading}><h4>Key Features</h4></div>
                   <ul>
                     {projects[activeProjectIndex].highlights.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                </div>
-
-                <div className={styles.tags}>
-                  <span>Recruiter Ready</span>
-                  <span>Production Deployed</span>
                 </div>
 
                 <div className={styles.modalActions}>
@@ -399,6 +405,19 @@ const index = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* Close button — outside modal, in overlay, always on top and clickable */}
+            <button
+              type="button"
+              className={styles.modalCloseBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveProjectIndex(null);
+              }}
+              aria-label="Close"
+            >
+              <span className={styles.modalCloseIcon} aria-hidden>×</span>
+            </button>
           </motion.div>
         ) : null}
       </AnimatePresence>
