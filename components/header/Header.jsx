@@ -23,7 +23,7 @@ const Header = () => {
   const scrollTriggerRef = useRef(null);
   const { theme } = useTheme();
   const { navigateWithPreloader } = usePageTransition();
-  
+
   // Check if we're on the work, about, contact, or home page
   const isWorkPage = pathname === "/work";
   const isAboutPage = pathname === "/about";
@@ -36,10 +36,10 @@ const Header = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -50,13 +50,13 @@ const Header = () => {
 
     // Reset the burger button to initial state - hidden by default
     gsap.set(targertBurger.current, { opacity: 0, visibility: 'hidden' });
-    
+
     // Create a simple scroll-based approach
     let isMenuVisible = false;
-    
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      
+
       // Show burger button and hide main nav when scrolled down on desktop
       if (scrollY > 30 && !isMobile) {
         if (!isMenuVisible) {
@@ -106,12 +106,12 @@ const Header = () => {
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollBarWidth}px`;
-      
+
     } else {
       // Restore body scroll without changing page position
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      
+
     }
 
     // Cleanup function to restore scroll when component unmounts
@@ -165,7 +165,7 @@ const Header = () => {
               </div>
             </Megnatic>
           )}
-          
+
           {/* Desktop navigation - render only on non-mobile */}
           {!isMobile && (
             <nav className={`${style.nav} ${isMenuOpen ? style.shownav : ""}`}>
@@ -196,6 +196,15 @@ const Header = () => {
                 </div>
               </Megnatic>
               <Megnatic>
+                <div
+                  className={style.el}
+                  onClick={() => window.__openAiChat?.()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <p className={style.aiBtn}>Talk to my AI ✦</p>
+                </div>
+              </Megnatic>
+              <Megnatic>
                 <div className={style.el}>
                   <p>
                     <ThemeToggle />
@@ -213,9 +222,8 @@ const Header = () => {
             className={style.button}
           >
             <div
-              className={`${style.burger} ${
-                isMenuOpen ? style.burgerActive : ""
-              }`}
+              className={`${style.burger} ${isMenuOpen ? style.burgerActive : ""
+                }`}
             ></div>
           </Buttonx>
         </div>

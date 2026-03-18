@@ -4,6 +4,7 @@ import { ThemeProvider } from "../hooks/useTheme";
 import { usePageTransition } from "../hooks/usePageTransition";
 import Preloader from "../components/preloader/Preloader";
 import PageTransition from "../components/transition/PageTransition";
+import AiChat from "../components/aiChat/AiChat";
 import { AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -52,6 +53,9 @@ export default function ClientLayout({ children }) {
             />
           )}
         </AnimatePresence>
+
+        {/* AI Chat — global, always on top */}
+        <AiChat />
       </div>
     </ThemeProvider>
   );
