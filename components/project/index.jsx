@@ -141,7 +141,7 @@ const index = () => {
   const { active, index } = modal;
   const modalContainer = useRef(null);
 
- 
+
   const cursor = useRef(null);
   const cursorLabel = useRef(null);
 
@@ -155,7 +155,7 @@ const index = () => {
   useEffect(() => {
     setIsTouchDevice(
       typeof window !== "undefined" &&
-        ("ontouchstart" in window || navigator.maxTouchPoints > 0)
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0)
     );
   }, []);
 
@@ -212,7 +212,7 @@ const index = () => {
     setModal({ active, index });
   };
 
-  
+
   return (
     <motion.main
       id="projects"
@@ -224,13 +224,13 @@ const index = () => {
         moveItems(e.clientX, e.clientY);
       }}
       onMouseLeave={() => {
-      
+
         if (active) {
           setModal({ active: false, index: 0 });
         }
       }}
     >
-      <motion.div 
+      <motion.div
         className={styles.body}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -256,72 +256,72 @@ const index = () => {
           ))}
         </div>
       </motion.div>
-      
+
       {!isTouchDevice ? (
         <>
-        <motion.div
-          ref={modalContainer}
-          variants={scaleAnimation}
-          initial="initial"
-          animate={active ? "enter" : "closed"}
-          className={styles.modalContainer}
-        >
-          <div
-            style={{ top: index * -100 + "%" }}
-            className={styles.modalSlider}
+          <motion.div
+            ref={modalContainer}
+            variants={scaleAnimation}
+            initial="initial"
+            animate={active ? "enter" : "closed"}
+            className={styles.modalContainer}
           >
-            {projects.map((project, i) => {
-              const { src, color } = project;
-              return (
-                <div
-                  className={styles.modal}
-                  style={{ backgroundColor: color }}
-                  key={`modal_${i}`}
-                >
-                  <div className={styles.modalImageWrap}>
-                    <Image
-                      src={`/images/${src}`}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 92vw, 44vw"
-                      style={{ objectFit: "cover" }}
-                    />
+            <div
+              style={{ top: index * -100 + "%" }}
+              className={styles.modalSlider}
+            >
+              {projects.map((project, i) => {
+                const { src, color } = project;
+                return (
+                  <div
+                    className={styles.modal}
+                    style={{ backgroundColor: color }}
+                    key={`modal_${i}`}
+                  >
+                    <div className={styles.modalImageWrap}>
+                      <Image
+                        src={`/images/${src}`}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 92vw, 44vw"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                    <div className={styles.modalOverlay}>
+                      <span className={styles.modalProjectName}>{project.title}</span>
+                    </div>
                   </div>
-                  <div className={styles.modalOverlay}>
-                    <span className={styles.modalProjectName}>{project.title}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
 
-        <motion.div
-          ref={cursor}
-          className={styles.cursor}
-          variants={scaleAnimation}
-          initial="initial"
-          animate={active ? "enter" : "closed"}
-        ></motion.div>
+          <motion.div
+            ref={cursor}
+            className={styles.cursor}
+            variants={scaleAnimation}
+            initial="initial"
+            animate={active ? "enter" : "closed"}
+          ></motion.div>
 
-        <motion.div
-          ref={cursorLabel}
-          className={styles.cursorLabel}
-          variants={scaleAnimation}
-          initial="initial"
-          animate={active ? "enter" : "closed"}
-        >
-          <a
-            href={active && projects[index] ? projects[index].liveUrl : "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => {
-              if (!active || !projects[index]) e.preventDefault();
-            }}
+          <motion.div
+            ref={cursorLabel}
+            className={styles.cursorLabel}
+            variants={scaleAnimation}
+            initial="initial"
+            animate={active ? "enter" : "closed"}
           >
-            ↗
-          </a>
-        </motion.div>
+            <a
+              href={active && projects[index] ? projects[index].liveUrl : "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                if (!active || !projects[index]) e.preventDefault();
+              }}
+            >
+              ↗
+            </a>
+          </motion.div>
         </>
       ) : null}
 

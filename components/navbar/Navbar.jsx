@@ -120,6 +120,18 @@ const Navbar = ({ toggleMenu }) => {
               </div>
             </div>
 
+            <div className={styles.navigationSection}>
+              <button
+                className={styles.aiNavBtn}
+                onClick={() => {
+                  handleClose();
+                  setTimeout(() => window.__openAiChat?.(), 400);
+                }}
+              >
+                Talk to my AI ✦
+              </button>
+            </div>
+
             <div className={styles.socialsSection}>
               <h3 className={styles.sectionTitle}>SOCIALS</h3>
               <div className={styles.sectionDivider}></div>
