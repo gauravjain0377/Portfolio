@@ -28,9 +28,9 @@
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,7 +187,7 @@
   }
 }
 
-// Animated rotating glow ring
+// Animated rotating glow ring with blue-lavender accent
 .avatarPulse {
   position: absolute;
   inset: -8px;
@@ -201,8 +201,8 @@
     inset: 0;
     border-radius: 50%;
     border: 1.5px solid transparent;
-    border-top-color: rgba(255, 255, 255, 0.25);
-    border-right-color: rgba(255, 255, 255, 0.1);
+    border-top-color: rgba(120, 140, 255, 0.35);
+    border-right-color: rgba(180, 140, 255, 0.15);
   }
 
   &::after {
@@ -211,7 +211,7 @@
     inset: 4px;
     border-radius: 50%;
     border: 1px solid transparent;
-    border-bottom-color: rgba(255, 255, 255, 0.12);
+    border-bottom-color: rgba(140, 120, 255, 0.2);
     animation: avatarGlow 4s linear infinite reverse;
   }
 }
@@ -227,9 +227,10 @@
 
 .introSub {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(150, 160, 220, 0.6);
   margin: 4px 0 0;
   font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .introButtons {
@@ -246,8 +247,8 @@
   padding: 13px 30px;
   border-radius: 50px;
   border: none;
-  background: #ffffff;
-  color: #000000;
+  background: linear-gradient(135deg, #ffffff 0%, #e8eaff 100%);
+  color: #0a0a0a;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -258,19 +259,20 @@
   svg {
     width: 18px;
     height: 18px;
-    stroke: #000000;
+    stroke: #0a0a0a;
   }
 
   &:hover {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 24px rgba(120, 140, 255, 0.15), 0 0 48px rgba(120, 140, 255, 0.06);
     transform: translateY(-1px);
+    background: linear-gradient(135deg, #ffffff 0%, #dde0ff 100%);
   }
 }
 
 .btnSecondary {
   padding: 13px 30px;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(130, 150, 255, 0.18);
   background: transparent;
   color: #ffffff;
   font-size: 14px;
@@ -280,8 +282,8 @@
   font-family: inherit;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(130, 150, 255, 0.35);
+    background: rgba(120, 140, 255, 0.06);
     transform: translateY(-1px);
   }
 }
