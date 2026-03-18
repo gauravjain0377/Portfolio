@@ -5,11 +5,11 @@ import styles from './AiChat.module.scss';
 
 // ─── Suggested quick questions ────────────────────────────────────────────────
 const SUGGESTIONS = [
-  'Tell me about yourself',
-  'What are you working on?',
-  'Show me your best project',
-  'What\'s your tech stack?',
-  'How can I contact you?',
+  'Tell me about Gaurav',
+  'What projects have you built?',
+  'Tell me about InboxPilot AI',
+  'What hackathons have you won?',
+  'How can I hire you?',
 ];
 
 // ─── Simple markdown-ish renderer ────────────────────────────────────────────
@@ -552,7 +552,7 @@ export default function AiChat() {
 
                     {/* Subtitle */}
                     <motion.p className={styles.introSub} variants={fadeUp}>
-                      Trust me I sound like my AI
+                      He codes. I talk. Same brain.
                     </motion.p>
 
                     {/* Buttons */}
@@ -567,7 +567,7 @@ export default function AiChat() {
                           <rect x="9" y="2" width="6" height="11" rx="3" />
                           <path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8" />
                         </svg>
-                        Start the Call
+                        Let's Talk Live
                       </motion.button>
                       <motion.button
                         className={styles.btnSecondary}
