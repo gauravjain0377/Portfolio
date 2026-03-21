@@ -18,11 +18,11 @@ function checkRateLimit(ip) {
 }
 
 // ─── OpenAI Handler ──────────────────────────────────────────────────────────
-async function callOpenAI(messages, userMessage) {
+async function callOpenAI(messages, userMessage, systemPrompt) {
   const OpenAI = (await import('openai')).default;
   const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   const conversation = [
-    { role: 'system', content: GAURAV_KNOWLEDGE_BASE },
+    { role: 'system', content: systemPrompt },
     ...messages.map((m) => ({ role: m.role, content: m.content })),
     { role: 'user', content: userMessage },
   ];
@@ -49,7 +49,7 @@ async function callOpenAI(messages, userMessage) {
 }
 
 // ─── Gemini Handler (REST API – free tier compatible) ────────────────────────
-async function callGemini(messages, userMessage) {
+async function callGemini(messages, userMessage, systemPrompt) {
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
@@ -68,7 +68,7 @@ async function callGemini(messages, userMessage) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents,
-      systemInstruction: { parts: [{ text: GAURAV_KNOWLEDGE_BASE }] },
+      systemInstruction: { parts: [{ text: systemPrompt }] },
       generationConfig: { maxOutputTokens: 350, temperature: 0.75 },
     }),
   });
@@ -95,7 +95,7 @@ async function callGemini(messages, userMessage) {
 }
 
 // ─── Gemini Streaming Handler ────────────────────────────────────────────────
-async function callGeminiStream(messages, userMessage) {
+async function callGeminiStream(messages, userMessage, systemPrompt) {
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
 
@@ -113,7 +113,7 @@ async function callGeminiStream(messages, userMessage) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents,
-      systemInstruction: { parts: [{ text: GAURAV_KNOWLEDGE_BASE }] },
+      systemInstruction: { parts: [{ text: systemPrompt }] },
       generationConfig: { maxOutputTokens: 350, temperature: 0.75 },
     }),
   });
@@ -167,7 +167,10 @@ export async function POST(req) {
       return Response.json({ error: 'Too many requests. Please wait a moment.' }, { status: 429 });
     }
 
-    const { messages = [], userMessage } = await req.json();
+    const { messages = [], userMessage, isVoice } = await req.json();
+
+    const VOICE_PROMPT = `\n\n[VOICE MODE INSTRUCTION: You are talking to the user via a live voice call. Keep your answers EXTREMELY concise, highly conversational, and natural to listen to. DO NOT use special formatting like bolding, bullet points, or lists. Answer in 1 to 2 short sentences maximum. Be warm and professional.]`;
+    const systemPrompt = isVoice ? GAURAV_KNOWLEDGE_BASE + VOICE_PROMPT : GAURAV_KNOWLEDGE_BASE;
     if (!userMessage?.trim()) {
       return Response.json({ error: 'Message is required.' }, { status: 400 });
     }
@@ -192,13 +195,13 @@ export async function POST(req) {
 
     try {
       if (hasOpenAI) {
-        stream = await callOpenAI(messages, userMessage.trim());
+        stream = await callOpenAI(messages, userMessage.trim(), systemPrompt);
       } else {
         // Try streaming first, fall back to non-streaming
         try {
-          stream = await callGeminiStream(messages, userMessage.trim());
+          stream = await callGeminiStream(messages, userMessage.trim(), systemPrompt);
         } catch {
-          stream = await callGemini(messages, userMessage.trim());
+          stream = await callGemini(messages, userMessage.trim(), systemPrompt);
         }
       }
     } catch (primaryErr) {
@@ -206,9 +209,9 @@ export async function POST(req) {
       // Fallback: OpenAI failed → try Gemini
       if (provider === 'openai' && hasGemini) {
         try {
-          stream = await callGeminiStream(messages, userMessage.trim());
+          stream = await callGeminiStream(messages, userMessage.trim(), systemPrompt);
         } catch {
-          stream = await callGemini(messages, userMessage.trim());
+          stream = await callGemini(messages, userMessage.trim(), systemPrompt);
         }
         provider = 'gemini-fallback';
       } else {

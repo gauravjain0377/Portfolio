@@ -92,6 +92,7 @@ export default function AiChat() {
   const recognitionRef = useRef(null);
   const abortRef = useRef(null);
   const callTimerRef = useRef(null);
+  const voiceCallActiveRef = useRef(false);
 
   // ── Scroll to bottom ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -137,6 +138,16 @@ export default function AiChat() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen]);
 
+  // ── Pre-load voices to ensure availability on mobile ────────────────────────
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }, []);
+
   // ── Open/Close ──────────────────────────────────────────────────────────────
   const openModal = useCallback(() => {
     setIsOpen(true);
@@ -146,7 +157,11 @@ export default function AiChat() {
   const closeModal = useCallback(() => {
     setIsOpen(false);
     setIsVoiceCallActive(false);
-    if (recognitionRef.current) recognitionRef.current.stop();
+    voiceCallActiveRef.current = false;
+    if (recognitionRef.current) {
+      try { recognitionRef.current.stop(); } catch(e) {}
+      recognitionRef.current = null;
+    }
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
     setSpeakingMsgId(null);
@@ -200,15 +215,12 @@ export default function AiChat() {
     utterance.volume = 1;
 
     const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(
-      (v) =>
-        v.name.includes('Daniel') ||
-        v.name.includes('Alex') ||
-        v.name.includes('Microsoft David') ||
-        v.name.includes('Microsoft Mark') ||
-        v.name.includes('Google UK English Male') ||
-        v.name.includes('Male')
-    ) || voices.find(v => v.lang.startsWith('en'));
+    const preferred = 
+      voices.find(v => v.name === 'Microsoft David - English (United States)') ||
+      voices.find(v => v.name.includes('Microsoft David')) ||
+      voices.find(v => v.name.includes('David')) ||
+      voices.find(v => v.name.includes('Male') || v.name.includes('Daniel') || v.name.includes('Alex')) ||
+      voices.find(v => v.lang.startsWith('en'));
     if (preferred) utterance.voice = preferred;
 
     utterance.onstart = () => setIsSpeaking(true);
@@ -240,15 +252,12 @@ export default function AiChat() {
     utterance.pitch = 1.0;
 
     const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(
-      (v) =>
-        v.name.includes('Daniel') ||
-        v.name.includes('Alex') ||
-        v.name.includes('Microsoft David') ||
-        v.name.includes('Microsoft Mark') ||
-        v.name.includes('Google UK English Male') ||
-        v.name.includes('Male')
-    ) || voices.find(v => v.lang.startsWith('en'));
+    const preferred = 
+      voices.find(v => v.name === 'Microsoft David - English (United States)') ||
+      voices.find(v => v.name.includes('Microsoft David')) ||
+      voices.find(v => v.name.includes('David')) ||
+      voices.find(v => v.name.includes('Male') || v.name.includes('Daniel') || v.name.includes('Alex')) ||
+      voices.find(v => v.lang.startsWith('en'));
     if (preferred) utterance.voice = preferred;
 
     utterance.onstart = () => { setIsSpeaking(true); setSpeakingMsgId(msgId); };
@@ -259,8 +268,6 @@ export default function AiChat() {
   }, [speakingMsgId]);
 
   // ── Voice Call Mode ─────────────────────────────────────────────────────────
-  // Use a ref to track voice call active state to avoid stale closures
-  const voiceCallActiveRef = useRef(false);
 
   const startVoiceCall = useCallback(() => {
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
@@ -284,6 +291,22 @@ export default function AiChat() {
         .join('');
       setVoiceTranscript(transcript);
 
+      const isCurrentlySpeaking = window.speechSynthesis.speaking;
+      const lowerT = transcript.toLowerCase().trim();
+      const stopWords = ['stop', 'wait', 'hold on', 'shut up', 'pause'];
+      
+      if (stopWords.some(w => lowerT.includes(w))) {
+        window.speechSynthesis.cancel();
+        if (abortRef.current) abortRef.current.abort();
+        setIsSpeaking(false);
+        setTimeout(() => speakText("I'm listening."), 50);
+        setVoiceTranscript("Stopped.");
+        try { recognition.stop(); } catch(err){}
+        return;
+      }
+
+      if (isCurrentlySpeaking) return;
+
       // When user stops speaking, send the final result
       const lastResult = e.results[e.results.length - 1];
       if (lastResult.isFinal && lastResult[0].transcript.trim()) {
@@ -294,10 +317,12 @@ export default function AiChat() {
         (async () => {
           try {
             setIsSpeaking(true);
+            abortRef.current = new AbortController();
             const res = await fetch('/api/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ messages: [], userMessage: userText }),
+              body: JSON.stringify({ messages: [], userMessage: userText, isVoice: true }),
+              signal: abortRef.current.signal,
             });
 
             if (!res.ok) {
