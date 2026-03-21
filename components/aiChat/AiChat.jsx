@@ -202,11 +202,13 @@ export default function AiChat() {
     const voices = window.speechSynthesis.getVoices();
     const preferred = voices.find(
       (v) =>
-        v.name.includes('Google') ||
-        v.name.includes('Samantha') ||
         v.name.includes('Daniel') ||
-        v.lang === 'en-US'
-    );
+        v.name.includes('Alex') ||
+        v.name.includes('Microsoft David') ||
+        v.name.includes('Microsoft Mark') ||
+        v.name.includes('Google UK English Male') ||
+        v.name.includes('Male')
+    ) || voices.find(v => v.lang.startsWith('en'));
     if (preferred) utterance.voice = preferred;
 
     utterance.onstart = () => setIsSpeaking(true);
@@ -239,8 +241,14 @@ export default function AiChat() {
 
     const voices = window.speechSynthesis.getVoices();
     const preferred = voices.find(
-      (v) => v.name.includes('Google') || v.name.includes('Samantha') || v.lang === 'en-US'
-    );
+      (v) =>
+        v.name.includes('Daniel') ||
+        v.name.includes('Alex') ||
+        v.name.includes('Microsoft David') ||
+        v.name.includes('Microsoft Mark') ||
+        v.name.includes('Google UK English Male') ||
+        v.name.includes('Male')
+    ) || voices.find(v => v.lang.startsWith('en'));
     if (preferred) utterance.voice = preferred;
 
     utterance.onstart = () => { setIsSpeaking(true); setSpeakingMsgId(msgId); };
@@ -500,7 +508,12 @@ export default function AiChat() {
                 )}
                 <span className={styles.topBarTitle}>
                   {view === 'intro' && (
-                    <span className={styles.disclaimer}>Powered by AI & built by me. Responses may not be perfectly accurate</span>
+                    <span className={styles.disclaimer}>
+                      <svg className={styles.sparkleIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" />
+                      </svg>
+                      <span className={styles.disclaimerText}>Powered by AI & built by me. Responses may not be perfectly accurate.</span>
+                    </span>
                   )}
                   {view === 'chat' && (
                     <>Chat with Gaurav&apos;s AI</>
