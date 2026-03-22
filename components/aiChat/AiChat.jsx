@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './AiChat.module.scss';
+import AiRightPanel from './AiRightPanel';
 
 // ─── Suggested quick questions ────────────────────────────────────────────────
 const SUGGESTIONS = [
@@ -85,9 +86,13 @@ export default function AiChat() {
   const [speakingMsgId, setSpeakingMsgId] = useState(null);
   const [isVoiceCallActive, setIsVoiceCallActive] = useState(false);
   const [voiceTranscript, setVoiceTranscript] = useState('');
+  const [voiceAiResponse, setVoiceAiResponse] = useState('');
+  const [voiceHistory, setVoiceHistory] = useState([]);
+  const [activeSite, setActiveSite] = useState(null);
   const [callDuration, setCallDuration] = useState(0);
 
   const messagesEndRef = useRef(null);
+  const captionsEndRef = useRef(null);
   const inputRef = useRef(null);
   const recognitionRef = useRef(null);
   const abortRef = useRef(null);
@@ -98,6 +103,11 @@ export default function AiChat() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // ── Auto-scroll Voice Captions ──────────────────────────────────────────────
+  useEffect(() => {
+    captionsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [voiceHistory, voiceTranscript]);
 
   // ── Focus input when chat view opens ────────────────────────────────────────
   useEffect(() => {
@@ -110,10 +120,14 @@ export default function AiChat() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => { document.body.style.overflow = ''; document.body.style.position = ''; document.body.style.width = ''; };
   }, [isOpen]);
 
   // ── Call duration timer ─────────────────────────────────────────────────────
@@ -156,6 +170,7 @@ export default function AiChat() {
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
+    setActiveSite(null);
     setIsVoiceCallActive(false);
     voiceCallActiveRef.current = false;
     if (recognitionRef.current) {
@@ -165,6 +180,8 @@ export default function AiChat() {
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
     setSpeakingMsgId(null);
+    setVoiceAiResponse('');
+    setVoiceHistory([]);
   }, []);
 
   // ── Speech Recognition (Voice Input for chat) ──────────────────────────────
@@ -311,7 +328,8 @@ export default function AiChat() {
       const lastResult = e.results[e.results.length - 1];
       if (lastResult.isFinal && lastResult[0].transcript.trim()) {
         const userText = lastResult[0].transcript.trim();
-        setVoiceTranscript(userText);
+        setVoiceTranscript(''); // Clear live preview
+        setVoiceHistory(prev => [...prev, { id: Date.now(), type: 'user', text: userText }]);
 
         // Send to API and speak back
         (async () => {
@@ -341,7 +359,9 @@ export default function AiChat() {
             }
 
             if (fullText && voiceCallActiveRef.current) {
-              speakText(fullText);
+              const processedResponse = handleAiAction(fullText);
+              setVoiceHistory(prev => [...prev, { id: Date.now()+1, type: 'ai', text: processedResponse }]);
+              speakText(processedResponse);
             }
           } catch (err) {
             if (voiceCallActiveRef.current) {
@@ -376,13 +396,55 @@ export default function AiChat() {
     // Greet with voice after a small delay
     setTimeout(() => {
       if (voiceCallActiveRef.current) {
-        speakText("Hey! I'm Gaurav's AI. Ask me anything about my projects, skills, or how to connect!");
+        const greeting = "Hey! I'm Gaurav's AI. Ask me anything about my projects, skills, or how to connect!";
+        speakText(greeting);
+        setVoiceHistory(prev => [...prev, { id: Date.now(), type: 'ai', text: greeting }]);
       }
     }, 300);
   }, [speakText]);
 
+  // ── AI Action Dispatcher ───────────────────────────────────────────────────
+  const handleAiAction = useCallback((text) => {
+    const actionRegex = /\[ACTION:\s*([^\]]+)\]/i;
+    const match = text.match(actionRegex);
+    if (match) {
+      const actionRaw = match[1].trim();
+      if (actionRaw.startsWith('OPEN_SITE|')) {
+        try {
+          const siteData = JSON.parse(actionRaw.substring(10));
+          const lookupKey = siteData.name.toLowerCase();
+          const imageMap = {
+            'inboxpilot ai': '/images/inboxpilotai.png',
+            'inboxpilot': '/images/inboxpilotai.png',
+            'hackzen': '/images/HackZen.png',
+            'understanding': '/images/understanding.png',
+            'understanding next.js caching': '/images/understanding.png',
+            'codetype arena': '/images/codetypearena.png',
+            'svaragpt': '/images/SvaraGPT.png',
+            'stocksathi': '/images/StoxDashboard.png',
+            'stoxdashboard (stocksathi)': '/images/StoxDashboard.png',
+            'stoxdashboard': '/images/StoxDashboard.png' 
+          };
+          const resolvedImage = imageMap[lookupKey] || '/images/portfolio_projects.png';
+          setActiveSite({ ...siteData, image: resolvedImage });
+        } catch (e) {
+          console.error("Failed to parse site data from LLM", e);
+        }
+      } else if (actionRaw === 'OPEN_SITE_INBOXPILOT') {
+        // Fallback for old cache
+        setActiveSite({ name: 'InboxPilot', url: 'https://inboxpilot-ai.vercel.app/' });
+      }
+      return text.replace(actionRegex, '').trim();
+    }
+    
+    // Automatically switch back to Teleprompter capturing mode if answering general questions
+    setActiveSite(null);
+    return text;
+  }, []);
+
   const endVoiceCall = useCallback(() => {
     setIsVoiceCallActive(false);
+    setActiveSite(null);
     voiceCallActiveRef.current = false;
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (e) { /* ignore */ }
@@ -390,6 +452,7 @@ export default function AiChat() {
     }
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
+    setVoiceAiResponse('');
     setView('intro');
   }, []);
 
@@ -443,8 +506,9 @@ export default function AiChat() {
         );
       }
 
+      const processedText = handleAiAction(fullText);
       setMessages((prev) =>
-        prev.map((m) => (m.id === aiMsgId ? { ...m, streaming: false } : m))
+        prev.map((m) => (m.id === aiMsgId ? { ...m, content: processedText, streaming: false } : m))
       );
     } catch (err) {
       if (err.name === 'AbortError') return;
@@ -504,13 +568,14 @@ export default function AiChat() {
           onClick={closeModal}
         >
           <motion.div
-            className={styles.modal}
+            className={`${styles.modal} ${activeSite || isVoiceCallActive ? styles.expandedModal : ''}`}
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
           >
+            <div className={styles.leftPanel}>
             {/* ── Top Bar ────────────────────────────────────────────── */}
             <div className={styles.topBar}>
               <div className={styles.topBarLeft}>
@@ -518,8 +583,12 @@ export default function AiChat() {
                   <motion.button
                     className={styles.backBtn}
                     onClick={() => {
-                      if (view === 'voice') endVoiceCall();
-                      setView('intro');
+                      if (activeSite) {
+                        setActiveSite(null);
+                      } else {
+                        if (view === 'voice') endVoiceCall();
+                        setView('intro');
+                      }
                     }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -537,7 +606,10 @@ export default function AiChat() {
                       <svg className={styles.sparkleIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 2l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" />
                       </svg>
-                      <span className={styles.disclaimerText}>Powered by AI & built by me. Responses may not be perfectly accurate.</span>
+                      <span className={styles.disclaimerText}>
+                        Powered by AI & built by me.<br />
+                        Responses may not be perfectly accurate.
+                      </span>
                     </span>
                   )}
                   {view === 'chat' && (
@@ -813,10 +885,9 @@ export default function AiChat() {
                   transition={{ duration: 0.3 }}
                 >
                   <div className={styles.voiceContent}>
-                    {/* Visualizer */}
+                    {/* Visualizer and Avatar mapped beautifully onto the Left Panel */}
                     <VoiceVisualizer isActive={isSpeaking || isVoiceCallActive} />
 
-                    {/* Avatar */}
                     <motion.div
                       className={styles.voiceAvatar}
                       animate={isSpeaking ? {
@@ -831,16 +902,6 @@ export default function AiChat() {
                     <p className={styles.voiceStatus}>
                       {isSpeaking ? 'Speaking...' : 'Listening...'}
                     </p>
-
-                    {voiceTranscript && (
-                      <motion.p
-                        className={styles.voiceTranscript}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        &quot;{voiceTranscript}&quot;
-                      </motion.p>
-                    )}
 
                     {/* End call */}
                     <motion.button
@@ -858,6 +919,16 @@ export default function AiChat() {
                 </motion.div>
               )}
             </AnimatePresence>
+            </div>
+
+            <AiRightPanel 
+              activeSite={activeSite} 
+              setActiveSite={setActiveSite}
+              isVoiceCallActive={isVoiceCallActive}
+              voiceHistory={voiceHistory}
+              voiceTranscript={voiceTranscript}
+              captionsEndRef={captionsEndRef}
+            />
           </motion.div>
         </motion.div>
       )}

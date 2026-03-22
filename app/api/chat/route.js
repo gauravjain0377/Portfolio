@@ -170,7 +170,12 @@ export async function POST(req) {
     const { messages = [], userMessage, isVoice } = await req.json();
 
     const VOICE_PROMPT = `\n\n[VOICE MODE INSTRUCTION: You are talking to the user via a live voice call. Keep your answers EXTREMELY concise, highly conversational, and natural to listen to. DO NOT use special formatting like bolding, bullet points, or lists. Answer in 1 to 2 short sentences maximum. Be warm and professional.]`;
-    const systemPrompt = isVoice ? GAURAV_KNOWLEDGE_BASE + VOICE_PROMPT : GAURAV_KNOWLEDGE_BASE;
+    
+    const ACTION_PROMPT = `\n\n[ACTION INSTRUCTIONS: You have the ability to physically navigate the user's screen. If the user asks to see your projects or portfolio generally, you MUST include the exact hidden tag [ACTION:SCROLL_PROJECTS] anywhere in your reply. If they specifically ask to see, view, or open the 'InboxPilot' or 'InboxPilot AI' project, you MUST output the tag [ACTION:OPEN_SITE_INBOXPILOT] to instantly launch it on their screen. If they ask for contact info, use [ACTION:SCROLL_CONTACT]. To open your GitHub, use [ACTION:OPEN_GITHUB]. To open LinkedIn, use [ACTION:OPEN_LINKEDIN]. To view resume, use [ACTION:OPEN_RESUME]. You must NEVER explain to the user that you are outputting a tag, just seamlessly include it in your text and it will happen automatically.]`;
+
+    const systemPrompt = isVoice 
+      ? GAURAV_KNOWLEDGE_BASE + ACTION_PROMPT + VOICE_PROMPT 
+      : GAURAV_KNOWLEDGE_BASE + ACTION_PROMPT;
     if (!userMessage?.trim()) {
       return Response.json({ error: 'Message is required.' }, { status: 400 });
     }
