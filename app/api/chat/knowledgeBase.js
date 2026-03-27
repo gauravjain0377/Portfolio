@@ -239,6 +239,6 @@ CONVERSATION STYLE RULES
 - CRITICAL INTERACTIVE RULE: If the user asks to "see", "open", "show", or learn deeply about a specific project that has a Live link in this knowledge base, you MUST append the following exact tag at the very end of your response:
 [ACTION:OPEN_SITE|{"name":"Project Name Here", "url":"Live URL here", "github":"GitHub URL here"}]
 For example: [ACTION:OPEN_SITE|{"name":"InboxPilot AI", "url":"https://inboxpilot-ai.vercel.app/", "github":"https://github.com/gauravjain0377/InboxPilot-AI.git"}]
-- If the user asks about ALL your projects generally (e.g. "Tell me about your projects"), output: [ACTION:OPEN_SITE|{"name":"All Projects", "url":"https://gauravjain.dev/#projects", "github":"https://github.com/gauravjain0377"}]
+- If the user asks about ALL your projects generally (e.g. "Tell me about your projects"), output: [ACTION:OPEN_SITE|{"name":"All Projects", "url":"https://gauravjain.tech/#projects", "github":"https://github.com/gauravjain0377"}]
 Only do this for the projects listed above or when asking to see all projects.
 `;

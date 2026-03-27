@@ -98,6 +98,7 @@ export default function AiChat() {
   const abortRef = useRef(null);
   const callTimerRef = useRef(null);
   const voiceCallActiveRef = useRef(false);
+  const isSpeakingRef = useRef(false); // tracks AI speaking state for recognition control
 
   // ── Scroll to bottom ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -286,6 +287,13 @@ export default function AiChat() {
 
   // ── Voice Call Mode ─────────────────────────────────────────────────────────
 
+  // Helper: start recognition only when AI is NOT speaking
+  const startRecognitionSafely = useCallback((recognition) => {
+    if (!voiceCallActiveRef.current) return;
+    if (isSpeakingRef.current) return; // Don't listen while AI is speaking
+    try { recognition.start(); } catch (err) { /* already running */ }
+  }, []);
+
   const startVoiceCall = useCallback(() => {
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
       alert('Voice is not supported in your browser. Please try Chrome.');
@@ -294,6 +302,7 @@ export default function AiChat() {
     setView('voice');
     setIsVoiceCallActive(true);
     voiceCallActiveRef.current = true;
+    isSpeakingRef.current = false;
     setVoiceTranscript('');
 
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -303,26 +312,31 @@ export default function AiChat() {
     recognition.lang = 'en-US';
 
     recognition.onresult = (e) => {
+      // ── KEY FIX: Ignore everything when AI is speaking ──
+      if (isSpeakingRef.current) return;
+
       const transcript = Array.from(e.results)
         .map((r) => r[0].transcript)
         .join('');
       setVoiceTranscript(transcript);
 
-      const isCurrentlySpeaking = window.speechSynthesis.speaking;
       const lowerT = transcript.toLowerCase().trim();
       const stopWords = ['stop', 'wait', 'hold on', 'shut up', 'pause'];
       
       if (stopWords.some(w => lowerT.includes(w))) {
         window.speechSynthesis.cancel();
+        isSpeakingRef.current = false;
         if (abortRef.current) abortRef.current.abort();
         setIsSpeaking(false);
-        setTimeout(() => speakText("I'm listening."), 50);
         setVoiceTranscript("Stopped.");
         try { recognition.stop(); } catch(err){}
+        // Restart listening after a brief pause
+        setTimeout(() => {
+          setVoiceTranscript('');
+          startRecognitionSafely(recognition);
+        }, 800);
         return;
       }
-
-      if (isCurrentlySpeaking) return;
 
       // When user stops speaking, send the final result
       const lastResult = e.results[e.results.length - 1];
@@ -334,7 +348,12 @@ export default function AiChat() {
         // Send to API and speak back
         (async () => {
           try {
+            // Mark AI as speaking BEFORE we start — stops recognition from restarting
+            isSpeakingRef.current = true;
             setIsSpeaking(true);
+            // Stop the recognition while AI is speaking to prevent echo
+            try { recognition.stop(); } catch(err){}
+
             abortRef.current = new AbortController();
             const res = await fetch('/api/chat', {
               method: 'POST',
@@ -344,6 +363,8 @@ export default function AiChat() {
             });
 
             if (!res.ok) {
+              isSpeakingRef.current = false;
+              setIsSpeaking(false);
               speakText("Sorry, I couldn't process that. Try again.");
               return;
             }
@@ -361,11 +382,63 @@ export default function AiChat() {
             if (fullText && voiceCallActiveRef.current) {
               const processedResponse = handleAiAction(fullText);
               setVoiceHistory(prev => [...prev, { id: Date.now()+1, type: 'ai', text: processedResponse }]);
-              speakText(processedResponse);
+
+              // Speak the response; restart listening only AFTER AI finishes
+              const cleanText = processedResponse
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/`(.*?)`/g, '$1')
+                .replace(/#{1,6}\s/g, '')
+                .replace(/🚀|⚡|💼|🎨|📬|👋|😄|🌙|☕|🇮🇳/g, '');
+
+              const utterance = new SpeechSynthesisUtterance(cleanText);
+              utterance.rate = 1.05;
+              utterance.pitch = 1.0;
+              utterance.volume = 1;
+
+              const voices = window.speechSynthesis.getVoices();
+              const preferred =
+                voices.find(v => v.name === 'Microsoft David - English (United States)') ||
+                voices.find(v => v.name.includes('Microsoft David')) ||
+                voices.find(v => v.name.includes('David')) ||
+                voices.find(v => v.name.includes('Male') || v.name.includes('Daniel') || v.name.includes('Alex')) ||
+                voices.find(v => v.lang.startsWith('en'));
+              if (preferred) utterance.voice = preferred;
+
+              utterance.onstart = () => {
+                isSpeakingRef.current = true;
+                setIsSpeaking(true);
+              };
+              utterance.onend = () => {
+                // Give a short buffer so mic doesn't catch speaker reverb
+                setTimeout(() => {
+                  isSpeakingRef.current = false;
+                  setIsSpeaking(false);
+                  // Only restart listening after AI truly finishes speaking
+                  if (voiceCallActiveRef.current) {
+                    startRecognitionSafely(recognition);
+                  }
+                }, 600);
+              };
+              utterance.onerror = () => {
+                isSpeakingRef.current = false;
+                setIsSpeaking(false);
+                if (voiceCallActiveRef.current) startRecognitionSafely(recognition);
+              };
+
+              window.speechSynthesis.cancel();
+              window.speechSynthesis.speak(utterance);
+            } else {
+              isSpeakingRef.current = false;
+              setIsSpeaking(false);
+              startRecognitionSafely(recognition);
             }
           } catch (err) {
+            isSpeakingRef.current = false;
+            setIsSpeaking(false);
             if (voiceCallActiveRef.current) {
               speakText("Sorry, something went wrong. Try again.");
+              startRecognitionSafely(recognition);
             }
           }
         })();
@@ -374,20 +447,18 @@ export default function AiChat() {
 
     recognition.onerror = (e) => {
       if (e.error === 'no-speech' || e.error === 'aborted') {
+        // Only restart if we're not in the middle of AI speaking
         setTimeout(() => {
-          if (voiceCallActiveRef.current && recognitionRef.current) {
-            try { recognitionRef.current.start(); } catch (err) { /* ignore */ }
-          }
+          startRecognitionSafely(recognition);
         }, 500);
       }
     };
 
     recognition.onend = () => {
+      // Only restart when AI is not speaking
       setTimeout(() => {
-        if (voiceCallActiveRef.current && recognitionRef.current) {
-          try { recognitionRef.current.start(); } catch (err) { /* ignore */ }
-        }
-      }, 500);
+        startRecognitionSafely(recognition);
+      }, 300);
     };
 
     recognition.start();
@@ -397,11 +468,39 @@ export default function AiChat() {
     setTimeout(() => {
       if (voiceCallActiveRef.current) {
         const greeting = "Hey! I'm Gaurav's AI. Ask me anything about my projects, skills, or how to connect!";
-        speakText(greeting);
+        isSpeakingRef.current = true;
+        setIsSpeaking(true);
+        // Stop recognition during greeting too
+        try { recognition.stop(); } catch(err){}
+
+        const utterance = new SpeechSynthesisUtterance(greeting);
+        utterance.rate = 1.05;
+        utterance.pitch = 1.0;
+        utterance.volume = 1;
+        const voices = window.speechSynthesis.getVoices();
+        const preferred =
+          voices.find(v => v.name === 'Microsoft David - English (United States)') ||
+          voices.find(v => v.name.includes('Microsoft David')) ||
+          voices.find(v => v.name.includes('David')) ||
+          voices.find(v => v.lang.startsWith('en'));
+        if (preferred) utterance.voice = preferred;
+        utterance.onend = () => {
+          setTimeout(() => {
+            isSpeakingRef.current = false;
+            setIsSpeaking(false);
+            if (voiceCallActiveRef.current) startRecognitionSafely(recognition);
+          }, 600);
+        };
+        utterance.onerror = () => {
+          isSpeakingRef.current = false;
+          setIsSpeaking(false);
+          if (voiceCallActiveRef.current) startRecognitionSafely(recognition);
+        };
+        window.speechSynthesis.speak(utterance);
         setVoiceHistory(prev => [...prev, { id: Date.now(), type: 'ai', text: greeting }]);
       }
     }, 300);
-  }, [speakText]);
+  }, [speakText, startRecognitionSafely]);
 
   // ── AI Action Dispatcher ───────────────────────────────────────────────────
   const handleAiAction = useCallback((text) => {
@@ -421,9 +520,9 @@ export default function AiChat() {
             'understanding next.js caching': '/images/understanding.png',
             'codetype arena': '/images/codetypearena.png',
             'svaragpt': '/images/SvaraGPT.png',
-            'stocksathi': '/images/StoxDashboard.png',
-            'stoxdashboard (stocksathi)': '/images/StoxDashboard.png',
-            'stoxdashboard': '/images/StoxDashboard.png' 
+            'stocksathi': '/images/Stox.png',
+            'stox (stocksathi)': '/images/Stox.png',
+            'stox': '/images/Stox.png' 
           };
           const resolvedImage = imageMap[lookupKey] || '/images/portfolio_projects.png';
           setActiveSite({ ...siteData, image: resolvedImage });
@@ -446,6 +545,7 @@ export default function AiChat() {
     setIsVoiceCallActive(false);
     setActiveSite(null);
     voiceCallActiveRef.current = false;
+    isSpeakingRef.current = false;
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (e) { /* ignore */ }
       recognitionRef.current = null;
