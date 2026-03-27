@@ -90,6 +90,7 @@ export default function AiChat() {
   const [voiceHistory, setVoiceHistory] = useState([]);
   const [activeSite, setActiveSite] = useState(null);
   const [callDuration, setCallDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
 
   const messagesEndRef = useRef(null);
   const captionsEndRef = useRef(null);
@@ -99,6 +100,7 @@ export default function AiChat() {
   const callTimerRef = useRef(null);
   const voiceCallActiveRef = useRef(false);
   const isSpeakingRef = useRef(false); // tracks AI speaking state for recognition control
+  const isMutedRef = useRef(false); // tracks mute state synchronously
 
   // ── Scroll to bottom ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -287,12 +289,42 @@ export default function AiChat() {
 
   // ── Voice Call Mode ─────────────────────────────────────────────────────────
 
-  // Helper: start recognition only when AI is NOT speaking
+  // Helper: start recognition only when AI is NOT muted
   const startRecognitionSafely = useCallback((recognition) => {
     if (!voiceCallActiveRef.current) return;
-    if (isSpeakingRef.current) return; // Don't listen while AI is speaking
+    if (isMutedRef.current) return; // Don't restart while muted
     try { recognition.start(); } catch (err) { /* already running */ }
   }, []);
+
+  // Mute: stop AI speech + stop mic (call stays alive)
+  const muteVoiceCall = useCallback((recognition) => {
+    isMutedRef.current = true;
+    setIsMuted(true);
+    window.speechSynthesis?.pause();
+    isSpeakingRef.current = false;
+    setIsSpeaking(false);
+    // Don't abort the fetch so the AI response still processes and queues
+    try { recognition?.stop(); } catch(e){}
+  }, []);
+
+  // Unmute: resume listening and paused speech
+  const unmuteVoiceCall = useCallback((recognition) => {
+    isMutedRef.current = false;
+    setIsMuted(false);
+    
+    window.speechSynthesis?.resume();
+
+    // Check shortly after resuming: if there is active speech, show speaking state.
+    // If not, just start the mic safely.
+    setTimeout(() => {
+      if (window.speechSynthesis?.speaking) {
+        isSpeakingRef.current = true;
+        setIsSpeaking(true);
+      } else {
+        startRecognitionSafely(recognition);
+      }
+    }, 50);
+  }, [startRecognitionSafely]);
 
   const startVoiceCall = useCallback(() => {
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
@@ -303,6 +335,8 @@ export default function AiChat() {
     setIsVoiceCallActive(true);
     voiceCallActiveRef.current = true;
     isSpeakingRef.current = false;
+    isMutedRef.current = false;
+    setIsMuted(false);
     setVoiceTranscript('');
 
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -312,17 +346,17 @@ export default function AiChat() {
     recognition.lang = 'en-US';
 
     recognition.onresult = (e) => {
-      // ── KEY FIX: Ignore everything when AI is speaking ──
-      if (isSpeakingRef.current) return;
+      // Do nothing if explicitly muted
+      if (isMutedRef.current) return;
 
       const transcript = Array.from(e.results)
         .map((r) => r[0].transcript)
         .join('');
-      setVoiceTranscript(transcript);
-
+      
       const lowerT = transcript.toLowerCase().trim();
       const stopWords = ['stop', 'wait', 'hold on', 'shut up', 'pause'];
       
+      // Allow user to interrupt the AI mid-sentence
       if (stopWords.some(w => lowerT.includes(w))) {
         window.speechSynthesis.cancel();
         isSpeakingRef.current = false;
@@ -330,13 +364,40 @@ export default function AiChat() {
         setIsSpeaking(false);
         setVoiceTranscript("Stopped.");
         try { recognition.stop(); } catch(err){}
-        // Restart listening after a brief pause
-        setTimeout(() => {
-          setVoiceTranscript('');
-          startRecognitionSafely(recognition);
-        }, 800);
+
+        // Wait briefly, say we're ready, then restart listening
+        isSpeakingRef.current = true;
+        setIsSpeaking(true);
+        const speech = new SpeechSynthesisUtterance("I'm listening.");
+        speech.rate = 1.05;
+        const voices = window.speechSynthesis.getVoices();
+        const preferred =
+          voices.find(v => v.name === 'Microsoft David - English (United States)') ||
+          voices.find(v => v.name.includes('Microsoft David')) ||
+          voices.find(v => v.name.includes('David')) ||
+          voices.find(v => v.lang.startsWith('en'));
+        if (preferred) speech.voice = preferred;
+        
+        speech.onend = () => {
+          setTimeout(() => {
+            isSpeakingRef.current = false;
+            setIsSpeaking(false);
+            setVoiceTranscript('');
+            startRecognitionSafely(recognition);
+          }, 300);
+        };
+        speech.onerror = speech.onend;
+        window.speechSynthesis.speak(speech);
         return;
       }
+
+      // If AI is actively speaking (or just finished within the buffer), 
+      // ignore any non-stop words to prevent echo loop.
+      if (isSpeakingRef.current) {
+        return;
+      }
+
+      setVoiceTranscript(transcript);
 
       // When user stops speaking, send the final result
       const lastResult = e.results[e.results.length - 1];
@@ -348,11 +409,9 @@ export default function AiChat() {
         // Send to API and speak back
         (async () => {
           try {
-            // Mark AI as speaking BEFORE we start — stops recognition from restarting
+            // Mark AI as speaking BEFORE we start
             isSpeakingRef.current = true;
             setIsSpeaking(true);
-            // Stop the recognition while AI is speaking to prevent echo
-            try { recognition.stop(); } catch(err){}
 
             abortRef.current = new AbortController();
             const res = await fetch('/api/chat', {
@@ -414,11 +473,10 @@ export default function AiChat() {
                 setTimeout(() => {
                   isSpeakingRef.current = false;
                   setIsSpeaking(false);
-                  // Only restart listening after AI truly finishes speaking
                   if (voiceCallActiveRef.current) {
                     startRecognitionSafely(recognition);
                   }
-                }, 600);
+                }, 800);
               };
               utterance.onerror = () => {
                 isSpeakingRef.current = false;
@@ -426,8 +484,14 @@ export default function AiChat() {
                 if (voiceCallActiveRef.current) startRecognitionSafely(recognition);
               };
 
-              window.speechSynthesis.cancel();
+              // Clear only if not muted. If muted, we just want to push to queue and ensure it pauses.
+              if (!isMutedRef.current && window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+              }
               window.speechSynthesis.speak(utterance);
+              if (isMutedRef.current && window.speechSynthesis) {
+                window.speechSynthesis.pause(); 
+              }
             } else {
               isSpeakingRef.current = false;
               setIsSpeaking(false);
@@ -470,8 +534,6 @@ export default function AiChat() {
         const greeting = "Hey! I'm Gaurav's AI. Ask me anything about my projects, skills, or how to connect!";
         isSpeakingRef.current = true;
         setIsSpeaking(true);
-        // Stop recognition during greeting too
-        try { recognition.stop(); } catch(err){}
 
         const utterance = new SpeechSynthesisUtterance(greeting);
         utterance.rate = 1.05;
@@ -535,7 +597,7 @@ export default function AiChat() {
       }
       return text.replace(actionRegex, '').trim();
     }
-    
+
     // Automatically switch back to Teleprompter capturing mode if answering general questions
     setActiveSite(null);
     return text;
@@ -546,6 +608,8 @@ export default function AiChat() {
     setActiveSite(null);
     voiceCallActiveRef.current = false;
     isSpeakingRef.current = false;
+    isMutedRef.current = false;
+    setIsMuted(false);
     if (recognitionRef.current) {
       try { recognitionRef.current.stop(); } catch (e) { /* ignore */ }
       recognitionRef.current = null;
@@ -1000,21 +1064,57 @@ export default function AiChat() {
 
                     <h3 className={styles.voiceName}>Gaurav&apos;s AI</h3>
                     <p className={styles.voiceStatus}>
-                      {isSpeaking ? 'Speaking...' : 'Listening...'}
+                      {isMuted ? 'Muted — tap mic to resume' : isSpeaking ? 'Speaking...' : 'Listening...'}
                     </p>
 
-                    {/* End call */}
-                    <motion.button
-                      className={styles.endCallBtn}
-                      onClick={endVoiceCall}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
-                      </svg>
-                      End Call
-                    </motion.button>
+                    {/* Call controls row */}
+                    <div className={styles.callControls}>
+                      {/* Mute / Unmute */}
+                      <motion.button
+                        className={`${styles.muteBtn} ${isMuted ? styles.muteBtnActive : ''}`}
+                        onClick={() => {
+                          if (isMuted) {
+                            unmuteVoiceCall(recognitionRef.current);
+                          } else {
+                            muteVoiceCall(recognitionRef.current);
+                          }
+                        }}
+                        whileHover={{ scale: 1.07 }}
+                        whileTap={{ scale: 0.93 }}
+                        title={isMuted ? 'Unmute' : 'Mute'}
+                      >
+                        {isMuted ? (
+                          /* mic-off icon */
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="1" y1="1" x2="23" y2="23"/>
+                            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/>
+                            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/>
+                            <line x1="12" y1="19" x2="12" y2="23"/>
+                            <line x1="8" y1="23" x2="16" y2="23"/>
+                          </svg>
+                        ) : (
+                          /* mic icon */
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="9" y="2" width="6" height="11" rx="3"/>
+                            <path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/>
+                          </svg>
+                        )}
+                        {isMuted ? 'Unmute' : 'Mute'}
+                      </motion.button>
+
+                      {/* End call */}
+                      <motion.button
+                        className={styles.endCallBtn}
+                        onClick={endVoiceCall}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+                        </svg>
+                        End Call
+                      </motion.button>
+                    </div>
                   </div>
                 </motion.div>
               )}

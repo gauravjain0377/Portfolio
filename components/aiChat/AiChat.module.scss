@@ -755,11 +755,56 @@
   margin: 0;
 }
 
+// ─── Call Controls Row (Mute + End Call) ─────────────────────────────────────
+.callControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.muteBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: inherit;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+
+  &.muteBtnActive {
+    border-color: rgba(250, 180, 50, 0.55);
+    background: rgba(250, 180, 50, 0.12);
+    color: #fbbf24;
+
+    &:hover {
+      background: rgba(250, 180, 50, 0.2);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+    }
+  }
+}
+
 .endCallBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 40px;
   padding: 12px 32px;
   border-radius: 50px;
   border: none;

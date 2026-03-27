@@ -58,14 +58,14 @@ export default function AiRightPanel({
               </div>
               <div className={styles.browserBody}>
                  <div className={styles.autoScrollWrapper}>
-                    {activeSite.name.toLowerCase().includes('all proj') ? (
+                    {activeSite.name.toLowerCase().includes('all proj') || activeSite.name === 'All Projects' ? (
                       <div className={styles.projectsCollage}>
                         {[
                           { title: 'InboxPilot AI', img: '/images/inboxpilotai.png', url: 'https://inboxpilot-ai.vercel.app/' },
                           { title: 'HackZen', img: '/images/HackZen.png', url: 'https://hackzen.vercel.app/' },
                           { title: 'CodeType Arena', img: '/images/codetypearena.png', url: 'https://github.com/gauravjain0377/codetypearena' },
                           { title: 'SvaraGPT', img: '/images/SvaraGPT.png', url: 'https://svaragpt.vercel.app/' },
-                          { title: 'StockSathi', img: '/images/StoxDashboard.png', url: 'https://github.com/gauravjain0377/StockSathi' },
+                          { title: 'StockSathi', img: '/images/Stox.png', url: 'https://github.com/gauravjain0377/StockSathi' },
                           { title: 'Understanding Caching', img: '/images/understanding.png', url: 'https://github.com/gauravjain0377/Understanding-Next.js' }
                         ].map((p, i) => (
                           <a key={i} href={p.url} target="_blank" rel="noopener noreferrer" className={styles.collageItem}>
